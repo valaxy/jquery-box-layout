@@ -1,0 +1,40 @@
+@charset "utf-8";
+@import "../../src/style/style";
+
+.linear[data-orient=hor] {
+	> div {
+		border-right: 1px solid red;
+	}
+	:last-child {
+		border-right: none;
+	}
+}
+
+.linear[data-orient=ver] {
+	> div {
+		border-bottom: 1px solid red;
+	}
+	:last-child {
+		border-bottom: none;
+	}
+}
+
+.box {
+	h1 {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		margin-top: auto;
+		margin-bottom: auto;
+		height: 30px;
+		left: 0;
+		right: 0;
+		text-align: center;
+		line-height: 30px;
+	}
+
+}
+
+body {
+	font-size: 30px;
+}

@@ -11,14 +11,13 @@ define(function (require, exports) {
 		}, options);
 		this._type = options.type;
 		this._parent = options.parent;
-		this.$dom = options.$dom.addClass('box').css({ // 必须加, 因为有可能多次改动
+		this.$dom = options.$dom.css({ // 必须加, 因为有可能多次改动
 			left: 0,
 			right: 0,
 			top: 0,
 			bottom: 0,
 			width: 'auto',
-			height: 'auto',
-			border: 'none'
+			height: 'auto'
 		}).show(); // @todo 历史遗留问题 $dom 而不是 _$dom
 	}
 
@@ -26,23 +25,23 @@ define(function (require, exports) {
 		if (this._parent) {
 			var css = { };
 			var isHor = this._parent._isHor ? 1 : 0;
-			utility.invoke(this._type, {
-				0: function () {
+			switch (this._type) {
+				case 0:
 					css[MARGIN1_KEY[isHor]] = options.margin1 + 'px';
 					css[SIZE_KEY[isHor]] = options.size + 'px';
 					css[MARGIN2_KEY[isHor]] = 'auto';
-				},
-				1: function () {
+					break;
+				case 1:
 					css[MARGIN1_KEY[isHor]] = options.margin1 + 'px';
 					css[SIZE_KEY[isHor]] = 'auto';
 					css[MARGIN2_KEY[isHor]] = options.margin2 + 'px';
-				},
-				2: function () {
+					break;
+				case 2:
 					css[MARGIN1_KEY[isHor]] = 'auto';
 					css[SIZE_KEY[isHor]] = options.size + 'px';
 					css[MARGIN2_KEY[isHor]] = options.margin2 + 'px';
-				}
-			});
+					break;
+			}
 			this.$dom.css(css);
 		}
 	}

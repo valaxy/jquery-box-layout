@@ -1,0 +1,34 @@
+.linear, .box {
+  position: absolute;
+  border: none;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto; }
+
+.linear[data-orient=hor] > div, [data-orient=hor].box > div {
+  border-right: 1px solid red; }
+.linear[data-orient=hor] :last-child, [data-orient=hor].box :last-child {
+  border-right: none; }
+
+.linear[data-orient=ver] > div, [data-orient=ver].box > div {
+  border-bottom: 1px solid red; }
+.linear[data-orient=ver] :last-child, [data-orient=ver].box :last-child {
+  border-bottom: none; }
+
+.box h1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 30px; }
+
+body {
+  font-size: 30px; }

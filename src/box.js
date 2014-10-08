@@ -3,6 +3,7 @@ define(function (require, exports) {
 
 	var Box = function (options) {
 		options.$dom = $(options.domSelector).detach();
+		options.$dom.addClass('box');
 		BaseView.call(this, options);
 	};
 

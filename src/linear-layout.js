@@ -7,7 +7,7 @@ define(function (require, exports) {
 
 
 	function setDefault(options) {
-		options = _.extend({
+		options = $.extend({
 			isHor: true
 		}, options);
 
@@ -15,6 +15,7 @@ define(function (require, exports) {
 		this._autoIndex = -1; // auto box的索引
 		this._isHor = options.isHor; // 是否是水平布局, 否则是垂直布局
 		this.$dom.attr('data-orient', this._isHor ? 'hor' : 'ver');
+		this.$dom.addClass('linear');
 		return options;
 	}
 
@@ -119,8 +120,8 @@ define(function (require, exports) {
 		var margin1 = initType0Boxes.call(this, options.boxes);
 		initType1Box.call(this, margin1, options.boxes);
 		initType2Boxes.call(this, options.boxes);
-		addResizable.call(this, options.isHor);
-		addBorder.call(this, options.isHor);
+		//addResizable.call(this, options.isHor);
+//		addBorder.call(this, options.isHor);
 
 		return this;
 	};
