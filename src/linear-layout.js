@@ -1,9 +1,9 @@
 define(function (require, exports) {
 	var BaseView = require('./base-view');
 	var BoxView = require('./box');
-	var BoxWatcher = require('./boxWatcher');
+	var BoxWatcher = require('./box-watcher');
 
-	var grammar = require('../../utility/grammar');
+	var grammar = require('./grammar');
 
 
 	function setDefault(options) {
