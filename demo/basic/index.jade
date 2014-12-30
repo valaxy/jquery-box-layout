@@ -2,7 +2,7 @@ doctype html
 html
     head
         meta(charset="utf-8")
-        title hello world
+        title Hello box-layout
         link(rel="stylesheet" href="index.css")
     body
         div.everything
@@ -15,9 +15,9 @@ html
             div.box3
                 h1 D
 
-        script(src="https://code.jquery.com/jquery-2.1.1.min.js")
-        script(src="https://rawgit.com/seajs/seajs/master/dist/sea.js")
+        script(src="../../bower_components/jquery/dist/jquery.min.js")
+        script(src="../../bower_components/seajs/dist/sea.js")
         script.
-            seajs.use(['./index'], function (index){
+            seajs.use(['./index'], function (index) {
                 index.init();
-            });
+            })
