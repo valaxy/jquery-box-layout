@@ -1,13 +1,12 @@
-define(function (require, exports) {
-	var BaseView = require('./base-view');
+define(function (require) {
+	var BaseView = require('./base-view')
 
-	var Box = function (options) {
-		options.$dom = $(options.domSelector).detach();
-		options.$dom.addClass('box');
-		BaseView.call(this, options);
-	};
+	var Box = function (type, parent, options) {
+		var $dom = $(options.domSelector).detach().addClass('box')
+		this._init(type, parent, $dom)
+	}
 
-	Box.prototype = new BaseView;
+	Box.prototype = new BaseView
 
-	return Box;
-});
+	return Box
+})

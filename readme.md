@@ -55,4 +55,4 @@ var $dom = boxLayout.init({
 $('.everything').append($dom)
 ```
 
-Third, check the dom use css to beautify page
+Third, check the dom use css to beautify page.

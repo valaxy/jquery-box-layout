@@ -4,38 +4,39 @@ define(function (require, exports) {
 
 	exports.init = function () {
 
-var $dom = boxLayout.init({
-	_schema: 'linear',
-	isHor: false,
-	boxes: [{
-		_schema: 'box',
-		size: 100,
-		domSelector: '.box0'
-	}, {
-		_schema: 'linear',
-		isHor: true,
-		size: 'auto',
-		boxes: [{
+		var $dom = boxLayout.init({
 			_schema: 'linear',
+			size: 'auto',
 			isHor: false,
-			size: 300,
 			boxes: [{
 				_schema: 'box',
-				size: 200,
-				domSelector: '.box1'
+				size: 100,
+				domSelector: '.box0'
 			}, {
-				_schema: 'box',
+				_schema: 'linear',
+				isHor: true,
 				size: 'auto',
-				domSelector: '.box2'
+				boxes: [{
+					_schema: 'linear',
+					isHor: false,
+					size: 300,
+					boxes: [{
+						_schema: 'box',
+						size: 200,
+						domSelector: '.box1'
+					}, {
+						_schema: 'box',
+						size: 'auto',
+						domSelector: '.box2'
+					}]
+				}, {
+					_schema: 'box',
+					size: 'auto',
+					domSelector: '.box3'
+				}]
 			}]
-		}, {
-			_schema: 'box',
-			size: 'auto',
-			domSelector: '.box3'
-		}]
-	}]
-})
+		})
 
-$('.everything').append($dom)
+		$('.everything').append($dom)
 	}
 })
