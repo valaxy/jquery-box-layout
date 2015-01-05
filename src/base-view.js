@@ -63,14 +63,15 @@ define(function () {
 	BaseView.prototype._setSize = function (options) {
 		var css = {}
 		var isHor = this._parent._isHor ? 1 : 0
+		var unit = this._parent._isPer ? '%' : 'px'
 		if (options.margin1) {
-			css[MARGIN1_KEY[isHor]] = options.margin1 + 'px'
+			css[MARGIN1_KEY[isHor]] = options.margin1 + unit
 		}
 		if (options.size) {
-			css[SIZE_KEY[isHor]] = options.size + 'px'
+			css[SIZE_KEY[isHor]] = options.size + unit
 		}
 		if (options.margin2) {
-			css[MARGIN2_KEY[isHor]] = options.margin2 + 'px'
+			css[MARGIN2_KEY[isHor]] = options.margin2 + unit
 		}
 		this.$dom.css(css)
 	}

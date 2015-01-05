@@ -3,31 +3,27 @@ define(function (require) {
 	var BoxView = require('./box')
 	var BoxWatcher = require('./box-watcher')
 
-	var grammar = require('./grammar')
+
 	var iterate = require('../bower_components/candy.js/src/iterate')
 
 
 	function setDefault(options) {
-		this._boxes = []; // 子类box
-		this._autoBoxIndex = -1; // auto box的索引
-		this._isHor = options.isHor; // 是否是水平布局, 否则是垂直布局
-		this.$dom.attr('data-orient', this._isHor ? 'hor' : 'ver');
-		this.$dom.addClass('linear');
+		this._boxes = [] // 子类box
+		this._autoBoxIndex = -1 // auto box的索引
+		this._isHor = options.isHor // 是否是水平布局, 否则是垂直布局
+		this._isPer = options.isPer
+		this.$dom.attr('data-orient', this._isHor ? 'hor' : 'ver')
+		this.$dom.addClass('linear')
 	}
 
 	function createView(boxConfig, parent, type) {
 		if (boxConfig._schema == 'box') {
-			return new BoxView(type, parent, {
-				domSelector: boxConfig.domSelector
-			})
+			return new BoxView(type, parent, boxConfig)
 		} else { // linerlayout
-			return new LinearLayout(type, parent, {
-				isHor: boxConfig.isHor,
-				boxes: boxConfig.boxes
-			})
+			return new LinearLayout(type, parent, boxConfig)
 		}
 	}
-	
+
 	function initType0(configBoxes) {
 		var margin1 = 0 // margin-left or margin-top
 		iterate.array({

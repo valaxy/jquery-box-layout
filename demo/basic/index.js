@@ -8,6 +8,7 @@ define(function (require, exports) {
 			_schema: 'linear',
 			size: 'auto',
 			isHor: false,
+			isPer: false,
 			boxes: [{
 				_schema: 'box',
 				size: 100,
@@ -16,13 +17,15 @@ define(function (require, exports) {
 				_schema: 'linear',
 				isHor: true,
 				size: 'auto',
+				isPer: false,
 				boxes: [{
 					_schema: 'linear',
 					isHor: false,
 					size: 300,
+					isPer: true,
 					boxes: [{
 						_schema: 'box',
-						size: 200,
+						size: 50,
 						domSelector: '.box1'
 					}, {
 						_schema: 'box',
