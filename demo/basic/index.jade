@@ -18,6 +18,9 @@ html
         script(src="../../bower_components/jquery/dist/jquery.min.js")
         script(src="../../bower_components/seajs/dist/sea.js")
         script.
+            seajs.config({
+                base: '../../'
+            })
             seajs.use(['./index'], function (index) {
                 index.init();
             })

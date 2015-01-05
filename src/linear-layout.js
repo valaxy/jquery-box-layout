@@ -4,7 +4,7 @@ define(function (require) {
 	var BoxWatcher = require('./box-watcher')
 
 
-	var iterate = require('../bower_components/candy.js/src/iterate')
+	var iterate = require('bower_components/candy.js/src/iterate')
 
 
 	function setDefault(options) {
