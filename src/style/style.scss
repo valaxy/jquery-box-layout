@@ -2,7 +2,7 @@
 
 // each linear layout has a `.linear`
 .linear {
-	position: absolute;
+	position: absolute !important; // @todo relative bug see jquery-ui-resizeable
 	border: none;
 	left: 0;
 	top: 0;
