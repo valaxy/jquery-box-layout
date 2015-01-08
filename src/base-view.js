@@ -76,6 +76,20 @@ define(function () {
 		this.$dom.css(css)
 	}
 
+
+	/**
+	 * - 0: size is fixed, but auto box is after current box
+	 * - 1: size is auto
+	 * - 2: size is fixed, but auto box is before current box
+	 */
+	BaseView.prototype.type = function () {
+		return this._type
+	}
+
+	BaseView.prototype.dom = function () {
+		return this.$dom
+	}
+
 	return BaseView
 })
 

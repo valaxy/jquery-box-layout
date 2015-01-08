@@ -3,9 +3,18 @@ define(function (require) {
 	var BoxView = require('./box')
 	var BoxWatcher = require('./box-watcher')
 
-
 	var iterate = require('bower_components/candy.js/src/iterate')
 
+
+	function reverse(a) {
+		var count = a.length / 2
+		for (var i = 0; i < count; i++) {
+			var temp = a[i]
+			a[i] = a[a.length - 1 - i]
+			a[a.length - 1 - i] = temp
+		}
+		return a
+	}
 
 	function setDefault(options) {
 		this._boxes = [] // 子类box
@@ -70,11 +79,11 @@ define(function (require) {
 		return margin2
 	}
 
-	function initType2(configBoxes) {
-		var margin2 = 0 // margin-right or margin-bottom
+	function initType2(configBoxes, margin2) {
 		iterate.array({
 			array: configBoxes.slice(this._autoBoxIndex + 1),
 			invoke: function (box) {
+				margin2 -= box.size   // 奇怪的赋值??????????
 				var view = createView(box, this, 2);
 				view._setSize({
 					size: box.size,
@@ -82,9 +91,19 @@ define(function (require) {
 				})
 				this._boxes.push(view);
 				this.$dom.append(view.$dom);
-				margin2 += box.size   // 奇怪的赋值??????????
-			}
+
+			},
+			context: this
 		})
+	}
+
+	function addResizable(isHor) {
+		for (var i = 1; i < this._boxes.length; i++) {
+			new BoxWatcher(isHor ? 'hor' : 'ver',
+				this._boxes[i - 1],
+				this._boxes[i]
+			)
+		}
 	}
 
 
@@ -102,26 +121,16 @@ define(function (require) {
 
 		// create child dom
 		var margin1 = initType0.call(this, options.boxes)
-		initType1.call(this, margin1, options.boxes)
-		initType2.call(this, options.boxes)
+		var margin2 = initType1.call(this, margin1, options.boxes)
+		initType2.call(this, options.boxes, margin2)
+		addResizable.call(this, options.isHor)
 	}
 
 
-	LinearLayout.prototype = new BaseView
+	$.extend(LinearLayout.prototype, BaseView.prototype)
 
 	return LinearLayout
 })
-
-
-//function addResizable(isHor) {
-//	for (var i = 1; i < this._boxes.length; i++) {
-//		new BoxWatcher({
-//			dir: isHor ? 'hor' : 'ver',
-//			first: this._boxes[i - 1].$dom,
-//			second: this._boxes[i].$dom
-//		});
-//	}
-//}
 
 
 //LinearLayout.prototype.getChild = function (index) {

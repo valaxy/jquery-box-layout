@@ -8,27 +8,36 @@
   width: auto;
   height: auto; }
 
-.linear[data-orient=hor] > div, [data-orient=hor].box > div {
-  border-right: 1px solid red; }
-.linear[data-orient=hor] :last-child, [data-orient=hor].box :last-child {
+.linear[data-orient=hor] > .box, [data-orient=hor].box > .box, .linear[data-orient=hor] > .linear, [data-orient=hor].box > .linear, .linear[data-orient=hor] > .box, [data-orient=hor].box > .box {
+  border-right: 1px solid #aaaaaa; }
+.linear[data-orient=hor] .box:last-child, [data-orient=hor].box .box:last-child, .linear[data-orient=hor] .linear:last-child, [data-orient=hor].box .linear:last-child, .linear[data-orient=hor] .box:last-child, [data-orient=hor].box .box:last-child {
   border-right: none; }
 
-.linear[data-orient=ver] > div, [data-orient=ver].box > div {
-  border-bottom: 1px solid red; }
-.linear[data-orient=ver] :last-child, [data-orient=ver].box :last-child {
+.linear[data-orient=ver] > .box, [data-orient=ver].box > .box, .linear[data-orient=ver] .linear, [data-orient=ver].box .linear, .linear[data-orient=ver] .box, [data-orient=ver].box .box {
+  border-bottom: 1px solid #aaaaaa; }
+.linear[data-orient=ver] .box:last-child, [data-orient=ver].box .box:last-child, .linear[data-orient=ver] .linear:last-child, [data-orient=ver].box .linear:last-child, .linear[data-orient=ver] .box:last-child, [data-orient=ver].box .box:last-child {
   border-bottom: none; }
 
-.box h1 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-  height: 30px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  line-height: 30px; }
+.linear, .box {
+  position: absolute !important; }
+
+.box {
+  position: absolute !important; }
+  .box h1 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 30px; }
 
 body {
   font-size: 30px; }
+
+.everything > div {
+  border: 1px solid #aaaaaa;
+  margin: 10px; }

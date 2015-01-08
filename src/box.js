@@ -6,7 +6,7 @@ define(function (require) {
 		this._init(type, parent, $dom)
 	}
 
-	Box.prototype = new BaseView
+	$.extend(Box.prototype, BaseView.prototype)
 
 	return Box
 })

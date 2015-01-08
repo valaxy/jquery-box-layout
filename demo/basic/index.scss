@@ -1,25 +1,32 @@
 @charset "utf-8";
 @import "../../src/style/style";
 
+$COLOR: #aaa;
+
 .linear[data-orient=hor] {
-	> div {
-		border-right: 1px solid red;
+	> .box, > .linear {
+		border-right: 1px solid $COLOR;
 	}
-	:last-child {
+	.box:last-child, .linear:last-child {
 		border-right: none;
 	}
 }
 
 .linear[data-orient=ver] {
-	> div {
-		border-bottom: 1px solid red;
+	> .box, .linear {
+		border-bottom: 1px solid $COLOR;
 	}
-	:last-child {
+	.box:last-child, .linear:last-child {
 		border-bottom: none;
 	}
 }
 
+.linear {
+	position: absolute !important;
+}
+
 .box {
+	position: absolute !important;
 	h1 {
 		position: absolute;
 		top: 0;
@@ -37,4 +44,9 @@
 
 body {
 	font-size: 30px;
+}
+
+.everything > div {
+	border: 1px solid $COLOR;
+	margin: 10px;
 }

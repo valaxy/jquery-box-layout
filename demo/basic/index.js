@@ -34,8 +34,20 @@ define(function (require, exports) {
 					}]
 				}, {
 					_schema: 'box',
-					size: 'auto',
+					size: 200,
 					domSelector: '.box3'
+				}, {
+					_schema: 'box',
+					size: 'auto',
+					domSelector: '.box4'
+				}, {
+					_schema: 'box',
+					size: 100,
+					domSelector: '.box5'
+				}, {
+					_schema: 'box',
+					size: 150,
+					domSelector: '.box6'
 				}]
 			}]
 		})
