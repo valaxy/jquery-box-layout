@@ -16,10 +16,12 @@
   "dependencies": {
     "jquery": "~2.1.3",
     "candy.js": "https://github.com/valaxy/candy.js.git",
-    "jquery-ui": "~1.11.2"
+    "jquery-ui": "~1.11.2",
+    "javascript-state-machine": "~2.3.5"
   },
   "devDependencies": {
     "seajs": "~2.3.0",
-    "qunit": "~1.16.0"
+    "qunit": "~1.16.0",
+    "requirejs": "~2.1.15"
   }
 }
