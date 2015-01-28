@@ -1,6 +1,6 @@
 define(function (require, exports) {
-
-	var LinearLayout = require('./linear-layout')
+	require('jquery-ui')
+	var LinearLayout = require('./view/linear-layout')
 
 	/**
 	 * - at least has a auto
@@ -16,6 +16,13 @@ define(function (require, exports) {
 			margin2: 0
 		}, options)
 		return root.$dom
+	}
+
+	/**
+	 * get the config json
+	 */
+	exports.config = function () {
+
 	}
 
 })

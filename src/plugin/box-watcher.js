@@ -131,15 +131,6 @@ define(function () {
 
 	}
 
-	if (typeof QUnit != 'undefined') {
-		QUnit.module('BoxWatcher')
-
-		QUnit.test('numberfy', function (assert) {
-			assert.equal(numberfy('10px'), 10)
-			assert.equal(numberfy('100%'), 100)
-		})
-	}
-
 	return BoxWatcher;
 })
 

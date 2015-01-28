@@ -1,8 +1,8 @@
 define(function (require) {
 	var BaseView = require('./base-view')
 	var BoxView = require('./box')
-	var BoxWatcher = require('./box-watcher')
-
+	var BoxWatcher = require('./../plugin/box-watcher')
+	var $ = require('jquery')
 	var iterate = require('bower_components/candy.js/src/iterate')
 
 
@@ -128,6 +128,15 @@ define(function (require) {
 
 
 	$.extend(LinearLayout.prototype, BaseView.prototype)
+
+
+	LinearLayout.prototype.toJSON = function () {
+		var json = {
+			_schema: 'linear',
+			isHor: this._isHor,
+			isPer: this._isPer
+		}
+	}
 
 	return LinearLayout
 })

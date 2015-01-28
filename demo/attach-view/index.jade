@@ -5,19 +5,22 @@ html
         title hello world
         link(rel="stylesheet" href="index.css")
     body
-        div.left left
-        div.top top
-        div.right right
-        div.bottom bottom
-
-        script(src="../../bower_components/jquery/dist/jquery.min.js")
-        script(src="../../bower_components/requirejs/require.js")
+        div.left
+        div.top
+        div.right
+        div.bottom
 
         // startup
+        script(src="../../bower_components/requirejs/require.js")
         script.
             require.config({
-                baseUrl: '../../'
+                baseUrl: '../../',
+                paths: {
+                    jquery: 'bower_components/jquery/dist/jquery.min'
+                }
             })
-            require(['demo/attach-view/index'], function (index) {
+            require([
+                'demo/attach-view/index'
+            ], function (index) {
                 index.init()
             })

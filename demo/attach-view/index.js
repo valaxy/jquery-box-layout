@@ -1,5 +1,5 @@
 define(function (require, exports) {
-	var AttachView = require('../../src/view/attach-view')
+	var AttachView = require('src/view/attach-view')
 
 	exports.init = function () {
 		new AttachView({

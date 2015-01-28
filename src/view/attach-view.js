@@ -1,5 +1,6 @@
-define(function (require, exports) {
+define(function (require) {
 	var StateMachine = require('bower_components/javascript-state-machine/state-machine.min')
+	var $ = require('jquery')
 
 	var HANDLER_SIZE = '20px'
 	var DOM_SIZE = '200px'
