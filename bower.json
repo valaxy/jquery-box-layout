@@ -1,6 +1,6 @@
 {
-	"name": "jquery-box-layout",
-	"version": "0.0.1",
+	"name": "jquery-flex-layout",
+	"version": "0.0.2",
 	"homepage": "https://github.com/valaxy/jquery-box-layout",
 	"authors": [
 		"valaxy <valaxy.tian@gmail.com>"
