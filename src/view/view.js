@@ -3,6 +3,8 @@ define(function (require) {
 
 	var View = function (options) {
 		this._$dom = $(options.selector)
+
+		// make css API
 		this._$dom.addClass('view')
 	}
 

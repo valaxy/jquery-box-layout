@@ -5,31 +5,43 @@ body {
   display: -webkit-box;
   -webkit-box-flex: 1; }
 
-.linear[data-orient=hor] > .box, [data-orient=hor].view > .box, .linear[data-orient=hor] > .linear, [data-orient=hor].view > .linear, .linear[data-orient=hor] > .view, [data-orient=hor].view > .view {
-  border-right: 1px solid #aaaaaa; }
-.linear[data-orient=hor] .box:last-child, [data-orient=hor].view .box:last-child, .linear[data-orient=hor] .linear:last-child, [data-orient=hor].view .linear:last-child, .linear[data-orient=hor] .view:last-child, [data-orient=hor].view .view:last-child {
-  border-right: none; }
+* {
+  padding: 0;
+  margin: 0; }
 
-.linear[data-orient=ver] > .box, [data-orient=ver].view > .box, .linear[data-orient=ver] .linear, [data-orient=ver].view .linear, .linear[data-orient=ver] .view, [data-orient=ver].view .view {
-  border-bottom: 1px solid #aaaaaa; }
-.linear[data-orient=ver] .box:last-child, [data-orient=ver].view .box:last-child, .linear[data-orient=ver] .linear:last-child, [data-orient=ver].view .linear:last-child, .linear[data-orient=ver] .view:last-child, [data-orient=ver].view .view:last-child {
-  border-bottom: none; }
-
-.box h1 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-  height: 30px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  line-height: 30px; }
+html {
+  height: 100%; }
 
 body {
-  font-size: 30px; }
+  font-size: 15px;
+  height: 100%;
+  font-family: Arial; }
 
-.everything > div {
-  border: 1px solid #aaaaaa;
-  margin: 10px; }
+.everything {
+  display: -webkit-box;
+  width: 100%;
+  height: 100%; }
+
+.linear[data-orient=horizontal] > .view, [data-orient=horizontal].view > .view {
+  border-right: 1px solid #aaaaaa; }
+.linear[data-orient=horizontal] .view:last-child, [data-orient=horizontal].view .view:last-child {
+  border-right: none; }
+
+.linear[data-orient=vertical] > .view, [data-orient=vertical].view > .view {
+  border-bottom: 1px solid #aaaaaa; }
+.linear[data-orient=vertical] .view:last-child, [data-orient=vertical].view .view:last-child {
+  border-bottom: none; }
+
+.view {
+  position: relative; }
+  .view h1 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 30px; }

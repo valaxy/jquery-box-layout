@@ -3,48 +3,25 @@
 
 $COLOR: #aaa;
 
-* {
-	padding: 0;
-	margin: 0;
-}
-
-html {
-	height: 100%;
-}
-
-body {
-	font-size: 15px;
-	height: 100%;
-	font-family: Arial;
-}
-
-.everything {
-	display: -webkit-box;
-	width: 100%;
-	height: 100%;
-}
-
-.linear[data-orient=horizontal] {
-	> .view {
+.linear[data-orient=hor] {
+	> .box, > .linear {
 		border-right: 1px solid $COLOR;
 	}
-	.view:last-child {
+	.box:last-child, .linear:last-child {
 		border-right: none;
 	}
 }
 
-.linear[data-orient=vertical] {
-	> .view {
+.linear[data-orient=ver] {
+	> .box, .linear {
 		border-bottom: 1px solid $COLOR;
 	}
-	.view:last-child {
+	.box:last-child, .linear:last-child {
 		border-bottom: none;
 	}
 }
 
-.view {
-	position: relative;
-
+.box {
 	h1 {
 		position: absolute;
 		top: 0;
@@ -58,4 +35,13 @@ body {
 		line-height: 30px;
 	}
 
+}
+
+body {
+	font-size: 30px;
+}
+
+.everything > div {
+	border: 1px solid $COLOR;
+	margin: 10px;
 }

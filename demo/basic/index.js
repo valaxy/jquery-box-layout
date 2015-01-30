@@ -1,53 +1,48 @@
 define(function (require, exports) {
-
-	var boxLayout = require('../../src/box-layout');
+	var treeLayout = require('../../src/view/tree-layout')
 
 	exports.init = function () {
 
-		var $dom = boxLayout.init({
+		var $dom = treeLayout.init({
 			_schema: 'linear',
-			size: 'auto',
-			isHor: false,
-			isPer: false,
-			boxes: [{
-				_schema: 'box',
-				size: 100,
-				domSelector: '.box0'
+			orient: 'vertical',
+			views: [{
+				_schema: 'view',
+				flex: 2,
+				selector: '.box0'
 			}, {
 				_schema: 'linear',
-				isHor: true,
-				size: 'auto',
-				isPer: false,
-				boxes: [{
+				orient: 'horizontal',
+				flex: 8,
+				views: [{
 					_schema: 'linear',
-					isHor: false,
-					size: 300,
-					isPer: true,
-					boxes: [{
-						_schema: 'box',
-						size: 50,
-						domSelector: '.box1'
+					orient: 'vertical',
+					flex: 2,
+					views: [{
+						_schema: 'view',
+						flex: 1,
+						selector: '.box1'
 					}, {
-						_schema: 'box',
-						size: 'auto',
-						domSelector: '.box2'
+						_schema: 'view',
+						flex: 1,
+						selector: '.box2'
 					}]
 				}, {
-					_schema: 'box',
-					size: 200,
-					domSelector: '.box3'
+					_schema: 'view',
+					flex: 5,
+					selector: '.box3'
 				}, {
-					_schema: 'box',
-					size: 'auto',
-					domSelector: '.box4'
+					_schema: 'view',
+					flex: 1,
+					selector: '.box4'
 				}, {
-					_schema: 'box',
-					size: 100,
-					domSelector: '.box5'
+					_schema: 'view',
+					flex: 1,
+					selector: '.box5'
 				}, {
-					_schema: 'box',
-					size: 150,
-					domSelector: '.box6'
+					_schema: 'view',
+					flex: 1,
+					selector: '.box6'
 				}]
 			}]
 		})

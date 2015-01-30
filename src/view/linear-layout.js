@@ -3,9 +3,12 @@ define(function (require) {
 
 	var LinearLayout = function (options) {
 		this._$dom = $('<div></div>')
-		this._$dom.addClass('linear')
 		this._views = []
 		this._$dom.css('-webkit-box-orient', options.orient)
+
+		// make css api
+		this._$dom.addClass('linear').addClass('view')
+		this._$dom.attr('data-orient', options.orient)
 	}
 
 	LinearLayout.prototype.orient = function () {
