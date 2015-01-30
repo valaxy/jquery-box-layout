@@ -1,3 +1,5 @@
+> This is under development, and don't finish
+
 # Introduction
 box-layout is like below, you can easily config a json to create this layout.    
 It is a AMD module

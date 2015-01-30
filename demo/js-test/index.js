@@ -30,6 +30,7 @@ define(function (require, exports) {
 		var b
 		v1._$dom.resizable({
 			handles: 'e',
+			animate: false,
 			start: function () {
 				a = Number($v1.css('flex-grow'))
 				b = Number($v2.css('flex-grow'))
