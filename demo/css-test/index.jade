@@ -2,16 +2,19 @@ doctype html
 html
     head
         meta(charset="utf-8")
-        title DEMO
+        title -web-box test
         link(rel="stylesheet" href="index.css")
     body
         div.everything
-        div.v1 v1
-        div.v2 v2
-
-        script(src="../../bower_components/requirejs/require.js")
+            div.d1
+                h1 1
+            div.d2 2
+            div.d3
+                div.d4 4
+                div.d5 5
 
         // startup
+        script(src="../../bower_components/requirejs/require.js")
         script.
             require.config({
                 baseUrl: '../../',
@@ -20,6 +23,6 @@ html
                     'jquery-ui': 'bower_components/jquery-ui/jquery-ui.min'
                 }
             })
-            require(['demo/box-js/index'], function (index) {
+            require(['demo/css-js-test/index'], function (index) {
                 index.init()
             })

@@ -9,7 +9,7 @@ define(function (require, exports) {
 			})
 		} else { // linear-layout
 			return new LinearLayout({
-				orient: config.orient
+				direction: config.direction
 			})
 		}
 	}
@@ -32,7 +32,6 @@ define(function (require, exports) {
 
 
 	exports.init = function (config) {
-		config.flex = 1 // must be
 		var linear = createView(config)
 		if (config._schema == 'linear') {
 			processLinaerLayout(linear, config)

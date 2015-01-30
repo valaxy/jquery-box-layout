@@ -1,25 +1,22 @@
 @charset "utf-8";
 
-body {
-	display: -webkit-box;
-}
-
 // each linear layout has a `.linear`
 .linear {
-	display: -webkit-box;
-	-webkit-box-flex: 1;
-}
-
-.linear[data-orient=horizontal] {
 
 }
 
-.linear[data-orient=veritical] {
-
-}
-
-// each box has a `.box`
+// each view has a `.box`
 .view {
-	@extend .linear;
+	display: flex;
 }
+
+//.linear[data-orient=horizontal] {
+//
+//}
+//
+//.linear[data-orient=veritical] {
+//
+//}
+//
+//
 

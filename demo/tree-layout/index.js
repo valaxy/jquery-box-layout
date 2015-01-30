@@ -5,18 +5,18 @@ define(function (require, exports) {
 
 		var $dom = treeLayout.init({
 			_schema: 'linear',
-			orient: 'vertical',
+			direction: 'column',
 			views: [{
 				_schema: 'view',
 				flex: 2,
 				selector: '.box0'
 			}, {
 				_schema: 'linear',
-				orient: 'horizontal',
+				direction: 'row',
 				flex: 8,
 				views: [{
 					_schema: 'linear',
-					orient: 'vertical',
+					direction: 'column',
 					flex: 2,
 					views: [{
 						_schema: 'view',
