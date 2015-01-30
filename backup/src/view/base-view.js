@@ -28,9 +28,10 @@ define(function () {
 
 
 	// set some useful value
-	BaseView.prototype._setDefault = function (type, parent, $dom) {
+	BaseView.prototype._setDefault = function (type, parent, $dom, size) {
 		this._type = type
 		this._parent = parent
+		this._size = size
 		this.$dom = $dom.css({ // set default css value
 			left: 0,
 			right: 0,
@@ -39,6 +40,11 @@ define(function () {
 			width: 'auto',
 			height: 'auto'
 		}).show()
+	}
+
+
+	BaseView.prototype.size = function () {
+		return this._size
 	}
 
 

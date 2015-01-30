@@ -1,172 +1,38 @@
 define(function (require) {
-	var BaseView = require('./base-view')
-	var BoxView = require('./box')
-	var BoxWatcher = require('./../plugin/box-watcher')
 	var $ = require('jquery')
-	var iterate = require('bower_components/candy.js/src/iterate')
 
-
-	function reverse(a) {
-		var count = a.length / 2
-		for (var i = 0; i < count; i++) {
-			var temp = a[i]
-			a[i] = a[a.length - 1 - i]
-			a[a.length - 1 - i] = temp
-		}
-		return a
+	var LinearLayout = function (options) {
+		this._$dom = $('<div></div>')
+		this._$dom.addClass('linear')
+		this._views = []
+		this._$dom.css('-webkit-box-orient', options.orient)
 	}
 
-	function setDefault(options) {
-		this._boxes = [] // 子类box
-		this._autoBoxIndex = -1 // auto box的索引
-		this._isHor = options.isHor // 是否是水平布局, 否则是垂直布局
-		this._isPer = options.isPer
-		this.$dom.attr('data-orient', this._isHor ? 'hor' : 'ver')
-		this.$dom.addClass('linear')
+	LinearLayout.prototype.orient = function () {
+		return this._$dom.css('-webkit-box-orient')
 	}
 
-	function createView(boxConfig, parent, type) {
-		if (boxConfig._schema == 'box') {
-			return new BoxView(type, parent, boxConfig)
-		} else { // linerlayout
-			return new LinearLayout(type, parent, boxConfig)
-		}
-	}
-
-	function initType0(configBoxes) {
-		var margin1 = 0 // margin-left or margin-top
-		iterate.array({
-			array: configBoxes,
-			context: this,
-			invoke: function (boxConfig) {
-				if (boxConfig.size != 'auto') {
-					var view = createView(boxConfig, this, 0)
-					view._setSize({
-						margin1: margin1,
-						size: boxConfig.size
-					})
-					this._boxes.push(view)
-					this.$dom.append(view.$dom)
-					margin1 += boxConfig.size
-				} else {
-					return false // break
-				}
-			},
-			break: function (boxConfig, i) {
-				this._autoBoxIndex = i
-			}
+	LinearLayout.prototype.appendView = function (view, config) {
+		view._$dom.css({
+			'-webkit-box-flex': config.flex + ''
 		})
-		return margin1
+		this._$dom.append(view._$dom)
+		this._views.push(view)
 	}
 
+	LinearLayout.prototype.updateView = function (view, config) {
 
-	function initType1(margin1, configBoxes) {
-		var margin2 = 0
-		iterate.array({
-			array: configBoxes.slice(this._autoBoxIndex + 1),
-			invoke: function (box) {
-				margin2 += box.size;
-			}
-		})
-
-		var view = createView(configBoxes[this._autoBoxIndex], this, 1);
-		view._setSize({
-			margin1: margin1,
-			margin2: margin2
-		});
-		this._boxes.push(view);
-		this.$dom.append(view.$dom);
-		return margin2
 	}
 
-	function initType2(configBoxes, margin2) {
-		iterate.array({
-			array: configBoxes.slice(this._autoBoxIndex + 1),
-			invoke: function (box) {
-				margin2 -= box.size   // 奇怪的赋值??????????
-				var view = createView(box, this, 2);
-				view._setSize({
-					size: box.size,
-					margin2: margin2
-				})
-				this._boxes.push(view);
-				this.$dom.append(view.$dom);
+	LinearLayout.prototype.removeViewAt = function (i) {
+		this._boxes[i].$dom.remove()
+		this._boxes.splice(i, 1)
 
-			},
-			context: this
-		})
 	}
 
-	function addResizable(isHor) {
-		for (var i = 1; i < this._boxes.length; i++) {
-			new BoxWatcher(isHor ? 'hor' : 'ver',
-				this._boxes[i - 1],
-				this._boxes[i]
-			)
-		}
-	}
+	LinearLayout.prototype._check = function () {
 
-
-	/**
-	 *
-	 * @param options
-	 *      - isHor: <Boolean> default is true
-	 *      - boxes: <Array> child configs
-	 *      - size: 'auto' or Number
-	 */
-	var LinearLayout = function (type, parent, options) {
-		var $dom = $('<div></div>')
-		this._init(type, parent, $dom)
-		setDefault.call(this, options)
-
-		// create child dom
-		var margin1 = initType0.call(this, options.boxes)
-		var margin2 = initType1.call(this, margin1, options.boxes)
-		initType2.call(this, options.boxes, margin2)
-		addResizable.call(this, options.isHor)
-	}
-
-
-	$.extend(LinearLayout.prototype, BaseView.prototype)
-
-
-	LinearLayout.prototype.toJSON = function () {
-		var json = {
-			_schema: 'linear',
-			isHor: this._isHor,
-			isPer: this._isPer
-		}
 	}
 
 	return LinearLayout
 })
-
-
-//LinearLayout.prototype.getChild = function (index) {
-//	return this._boxes[index];
-//};
-
-
-//LinearLayout.prototype.setChildSize = function (childIndex, size) {
-//	var child = this.getChild(childIndex);
-//	var oldSize = child._size();
-//	child._setSize({
-//		isHor: this._isHor,
-//		size: size
-//	});
-//	if (childIndex < this._autoBoxIndex) {
-//		for (var i = childIndex + 1; i <= this._autoBoxIndex; i++) {
-//			this._boxes[i]._setSize({
-//				isHor: this._isHor,
-//				margin1: this._boxes[i]._margin1() + size - oldSize
-//			});
-//		}
-//	} else {
-//		for (var i = childIndex - 1; i >= this._autoBoxIndex; i--) {
-//			this._boxes[i]._setSize({
-//				isHor: this._isHor,
-//				margin2: this._boxes[i]._margin2() + size - oldSize
-//			});
-//		}
-//	}
-//};

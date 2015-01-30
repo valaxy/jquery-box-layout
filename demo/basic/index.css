@@ -1,21 +1,18 @@
-.linear, .box {
-  position: absolute !important;
-  border: none;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: auto;
-  height: auto; }
+body {
+  display: -webkit-box; }
 
-.linear[data-orient=hor] > .box, [data-orient=hor].box > .box, .linear[data-orient=hor] > .linear, [data-orient=hor].box > .linear, .linear[data-orient=hor] > .box, [data-orient=hor].box > .box {
+.linear, .view {
+  display: -webkit-box;
+  -webkit-box-flex: 1; }
+
+.linear[data-orient=hor] > .box, [data-orient=hor].view > .box, .linear[data-orient=hor] > .linear, [data-orient=hor].view > .linear, .linear[data-orient=hor] > .view, [data-orient=hor].view > .view {
   border-right: 1px solid #aaaaaa; }
-.linear[data-orient=hor] .box:last-child, [data-orient=hor].box .box:last-child, .linear[data-orient=hor] .linear:last-child, [data-orient=hor].box .linear:last-child, .linear[data-orient=hor] .box:last-child, [data-orient=hor].box .box:last-child {
+.linear[data-orient=hor] .box:last-child, [data-orient=hor].view .box:last-child, .linear[data-orient=hor] .linear:last-child, [data-orient=hor].view .linear:last-child, .linear[data-orient=hor] .view:last-child, [data-orient=hor].view .view:last-child {
   border-right: none; }
 
-.linear[data-orient=ver] > .box, [data-orient=ver].box > .box, .linear[data-orient=ver] .linear, [data-orient=ver].box .linear, .linear[data-orient=ver] .box, [data-orient=ver].box .box {
+.linear[data-orient=ver] > .box, [data-orient=ver].view > .box, .linear[data-orient=ver] .linear, [data-orient=ver].view .linear, .linear[data-orient=ver] .view, [data-orient=ver].view .view {
   border-bottom: 1px solid #aaaaaa; }
-.linear[data-orient=ver] .box:last-child, [data-orient=ver].box .box:last-child, .linear[data-orient=ver] .linear:last-child, [data-orient=ver].box .linear:last-child, .linear[data-orient=ver] .box:last-child, [data-orient=ver].box .box:last-child {
+.linear[data-orient=ver] .box:last-child, [data-orient=ver].view .box:last-child, .linear[data-orient=ver] .linear:last-child, [data-orient=ver].view .linear:last-child, .linear[data-orient=ver] .view:last-child, [data-orient=ver].view .view:last-child {
   border-bottom: none; }
 
 .box h1 {

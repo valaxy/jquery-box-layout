@@ -1,0 +1,11 @@
+@charset "utf-8";
+@import "../../src/style/style";
+
+div {
+	border: 1px solid #000;
+}
+
+.everything {
+	width: 100%;
+	display: -webkit-box;
+}

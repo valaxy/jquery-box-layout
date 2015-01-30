@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+// each linear layout has a `.linear`
+.linear {
+	position: absolute !important; // @todo relative bug see jquery-ui-resizeable
+	border: none;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: auto;
+	height: auto;
+}
+
+.linear[data-orient=hor] {
+
+}
+
+.linear[data-orient=ver] {
+
+}
+
+// each box has a `.box`
+.box {
+	@extend .linear;
+}
+
