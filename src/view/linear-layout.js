@@ -6,6 +6,7 @@ define(function (require) {
 	var LinearLayout = function (options) {
 		this._$dom = $('<div></div>')
 		this._views = []
+		this._resizeables = []
 		this._$dom.css('flex-direction', options.direction)
 
 		// make css api
@@ -22,26 +23,52 @@ define(function (require) {
 
 
 	LinearLayout.prototype.appendView = function (view, config) {
+		this.addViewAt(this._views.length, view, config)
+	}
+
+	LinearLayout.prototype.addViewAt = function (i, view, config) {
 		if (typeof config.flex == 'string') {
 			view._$dom.css({
 				'flex-basis': config.flex
 			})
 		} else {
 			view._$dom.css({
-				'flex-grow': String(config.flex)
+				'flex': String(config.flex)
 			})
 		}
-		if (this._views.length > 0) {
-			new Resizeable(this._views[this._views.length - 1]._$dom, view._$dom, this.direction())
+
+
+		// insert prev - current plugin
+		var prev = i > 0 ? this._views[i - 1] : null
+		if (prev) {
+			// must delete first then insert, cannot happen at the same time
+			this._resizeables.length >= i && this._resizeables.splice(i - 1, 1)[0].off()
+			var resizeable = new Resizeable(prev._$dom, view._$dom, this.direction())
+			this._resizeables.splice(i - 1, 0, resizeable)
 		}
 
-		this._$dom.append(view._$dom)
-		this._views.push(view)
+
+		// insert current - next plugin
+		var next = this._views[i]
+		if (next) {
+			var resizeable = new Resizeable(view._$dom, next._$dom, this.direction())
+			this._resizeables.splice(i, 0, resizeable)
+		}
+
+
+		// insert dom
+		if (prev) {
+			prev._$dom.after(view._$dom)
+		} else if (next) {
+			next._$dom.before(view._$dom)
+		} else {
+			this._$dom.append(view._$dom)
+		}
+
+		// insert finally
+		this._views.splice(i, 0, view)
 	}
 
-	LinearLayout.prototype.updateView = function (view, config) {
-
-	}
 
 	LinearLayout.prototype.removeViewAt = function (i) {
 		this._boxes[i].$dom.remove()

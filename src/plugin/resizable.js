@@ -3,7 +3,7 @@ define(function (require) {
 
 	var getFlex = function ($dom) {
 		var value = $dom.css('flex-basis')
-		if (value == '') {
+		if (value == '' || value == '0%') {
 			return Number($dom.css('flex-grow'))
 		} else {
 			return value
@@ -11,6 +11,12 @@ define(function (require) {
 	}
 
 	var Resizable = function ($dom1, $dom2, direction) {
+		this._$dom1 = $dom1
+		this._on($dom1, $dom2, direction)
+	}
+
+
+	Resizable.prototype._on = function ($dom1, $dom2, direction) {
 		var flex1 = getFlex($dom1)
 		var flex2 = getFlex($dom2)
 		var sizeProperty = direction == 'row' ? 'width' : 'height'
@@ -41,8 +47,8 @@ define(function (require) {
 				})
 			} else { // flex, fix
 				$dom1.on('resize', function (e, ui) {
-					var newFlex1 = flex1 + flex1 / size1 * (ui.size[sizeProperty] - size1)
-					var newFlex2 = size1 + size2 - ui.size[sizeProperty]
+					var newFlex1 = flex1 * (ui.size[sizeProperty] / size1)
+					var newFlex2 = size1 + size2 - ui.size[sizeProperty] + 'px'
 					$dom1.css('flex-grow', newFlex1)
 					$dom2.css('flex-basis', newFlex2)
 					$dom1.css(sizeProperty, '') // clear the jquery-ui size setter
@@ -51,22 +57,26 @@ define(function (require) {
 		} else {
 			if (typeof flex2 == 'number') { // fix, flex
 				$dom1.on('resize', function (e, ui) {
-					var newFlex1 = ui.size[sizeProperty]
-					var newFlex2 = flex2 - flex2 / size2 * (ui.size[sizeProperty] - size1)
+					var newFlex1 = ui.size[sizeProperty] + 'px'
+					var newFlex2 = flex2 * (size1 + size2 - ui.size[sizeProperty]) / size2
 					$dom1.css('flex-basis', newFlex1)
 					$dom2.css('flex-grow', newFlex2)
 					$dom1.css(sizeProperty, '') // clear the jquery-ui size setter
 				})
 			} else { // fix, fix
 				$dom1.on('resize', function (e, ui) {
-					var newFlex1 = ui.size[sizeProperty]
-					var newFlex2 = (size1 + size2 - newFlex1) + 'px'
+					var newFlex1 = ui.size[sizeProperty] + 'px'
+					var newFlex2 = (size1 + size2 - ui.size[sizeProperty]) + 'px'
 					$dom1.css('flex-basis', newFlex1)
 					$dom2.css('flex-basis', newFlex2)
 					$dom1.css(sizeProperty, '') // clear the jquery-ui size setter
 				})
 			}
 		}
+	}
+
+	Resizable.prototype.off = function () {
+		this._$dom1.resizable('destroy')
 	}
 
 	return Resizable
