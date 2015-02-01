@@ -31,28 +31,8 @@ define(function (require, exports) {
 		$('.everything').append(linear._$dom)
 
 
-		//var $v1 = v1._$dom
-		//var $v2 = v2._$dom
-
-		//// resize
-		//var a
-		//var b
-		//v1._$dom.resizable({
-		//	handles: 'e',
-		//	animate: false,
-		//	start: function () {
-		//		a = Number($v1.css('flex-grow'))
-		//		b = Number($v2.css('flex-grow'))
-		//		console.log(a)
-		//		console.log(b)
-		//	},
-		//	resize: function (e, ui) {
-		//		var flex = (a * b * ui.size.width) / ((a + b) * ui.originalSize.width - a * ui.size.width)
-		//		console.log(flex)
-		//		console.log(ui.originalSize, ui.size)
-		//		$v1.css('flex', '' + flex)
-		//		$v1.css('width', 'auto')
-		//	}
-		//})
+		setTimeout(function () {
+			linear.removeViewAt(1)
+		}, 2000)
 	}
 })

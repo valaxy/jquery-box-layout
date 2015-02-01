@@ -71,13 +71,16 @@ define(function (require) {
 
 
 	LinearLayout.prototype.removeViewAt = function (i) {
-		this._boxes[i].$dom.remove()
-		this._boxes.splice(i, 1)
-
-	}
-
-	LinearLayout.prototype._check = function () {
-
+		this._views.splice(i, 1)[0]._$dom.remove()
+		if (i > 0) {
+			this._resizeables.splice(i - 1, 1)[0].off()
+		}
+		var prev = this._views[i - 1]
+		var next = this._views[i]
+		if (prev && next) {
+			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction())
+			this._resizeables.splice(i - 1, 0, plugin)
+		}
 	}
 
 	return LinearLayout
