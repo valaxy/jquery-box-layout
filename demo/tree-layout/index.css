@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .view {
   display: flex; }
 
@@ -9,9 +10,9 @@ html {
   height: 100%; }
 
 body {
-  font-size: 15px;
+  font-size: 11px;
   height: 100%;
-  font-family: Arial; }
+  font-family: "微软雅黑"; }
 
 .everything {
   width: 100%;
@@ -32,7 +33,7 @@ body {
 
 .view {
   position: relative; }
-  .view h1 {
+  .view p {
     position: absolute;
     top: 0;
     bottom: 0;

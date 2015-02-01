@@ -1,11 +1,15 @@
 define(function (require) {
-	var $ = require('jquery')
 
 	var View = function (options) {
-		this._$dom = $(options.selector).detach()
+		// _$dom
+	}
 
-		// make css API
-		this._$dom.addClass('view')
+	View.prototype.flex = function () {
+
+	}
+
+	View.prototype.isFlexInParent = function () {
+		
 	}
 
 	return View

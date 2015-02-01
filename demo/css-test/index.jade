@@ -2,7 +2,7 @@ doctype html
 html
     head
         meta(charset="utf-8")
-        title -web-box test
+        title flex-box-model test
         link(rel="stylesheet" href="index.css")
     body
         div.everything
@@ -10,7 +10,7 @@ html
                 h1 1
             div.d2 2
             div.d3
-                div.d4 4
+                div.d4 I only have 30px height
                 div.d5 5
 
         // startup
@@ -23,6 +23,6 @@ html
                     'jquery-ui': 'bower_components/jquery-ui/jquery-ui.min'
                 }
             })
-            require(['demo/css-js-test/index'], function (index) {
+            require(['demo/css-test/index'], function (index) {
                 index.init()
             })

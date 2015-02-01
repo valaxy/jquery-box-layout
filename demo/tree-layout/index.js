@@ -37,13 +37,21 @@ define(function (require, exports) {
 					selector: '.box4'
 				}, {
 					_schema: 'view',
-					flex: 1,
+					flex: '100px',
 					selector: '.box5'
 				}, {
+					_schema: 'view',
+					flex: '150px',
+					selector: '.box8'
+				},{
 					_schema: 'view',
 					flex: 1,
 					selector: '.box6'
 				}]
+			}, {
+				_schema: 'view',
+				flex: '40px',
+				selector: '.box7'
 			}]
 		})
 

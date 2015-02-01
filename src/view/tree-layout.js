@@ -1,10 +1,10 @@
 define(function (require, exports) {
 	var LinearLayout = require('./linear-layout')
-	var View = require('./view')
+	var SimpleView = require('./simple-view')
 
 	var createView = function (config) {
 		if (config._schema == 'view') {
-			return new View({
+			return new SimpleView({
 				selector: config.selector
 			})
 		} else { // linear-layout

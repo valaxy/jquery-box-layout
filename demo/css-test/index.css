@@ -10,24 +10,24 @@ h1 {
   width: 50%; }
 
 .everything {
-  display: -webkit-box;
+  display: flex;
   height: 100%; }
   .everything .d1 {
-    display: -webkit-box;
+    display: flex;
     border-right: 1px solid #000;
-    -webkit-box-flex: 1; }
+    flex: 1; }
   .everything .d2 {
-    display: -webkit-box;
-    -webkit-box-flex: 2; }
+    display: flex;
+    flex: 2; }
   .everything .d3 {
-    display: -webkit-box;
-    -webkit-box-flex: 3;
-    -webkit-box-orient: vertical; }
+    display: flex;
+    flex: 3;
+    flex-direction: column; }
     .everything .d3 .d4 {
-      display: -webkit-box;
-      -webkit-box-flex: 1;
+      display: flex;
+      flex-basis: 30px;
       border-bottom: 1px solid #000; }
     .everything .d3 .d5 {
-      display: -webkit-box;
-      -webkit-box-flex: 2;
+      display: flex;
+      flex-grow: 1;
       border-bottom: 1px solid #000; }
