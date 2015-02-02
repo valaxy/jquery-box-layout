@@ -2,12 +2,12 @@
 
 // each linear layout has a `.linear`
 .linear {
-
+	display: flex;
 }
 
-// each view has a `.box`
+// each view has a `.view`
 .view {
-	display: flex;
+
 }
 
 //.linear[data-orient=horizontal] {

@@ -23,13 +23,11 @@ h1 {
 	height: 100%;
 
 	.d1 {
-		display: flex;
 		border-right: 1px solid #000;
 		flex: 1;
 	}
 
 	.d2 {
-		display: flex;
 		flex: 2;
 	}
 
@@ -39,13 +37,11 @@ h1 {
 		flex-direction: column;
 
 		.d4 {
-			display: flex;
 			flex-basis: 30px;
 			border-bottom: 1px solid #000;
 		}
 
 		.d5 {
-			display: flex;
 			flex-grow: 1;
 			border-bottom: 1px solid #000;
 		}
