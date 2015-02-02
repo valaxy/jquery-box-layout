@@ -7,6 +7,7 @@ define(function (require) {
 
 		// make css API
 		this._$dom.addClass('view')
+		View.call(this, options)
 	}
 
 	SimpleView.prototype = new View

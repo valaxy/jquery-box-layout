@@ -4,13 +4,9 @@ define(function (require, exports) {
 
 	var createView = function (config) {
 		if (config._schema == 'view') {
-			return new SimpleView({
-				selector: config.selector
-			})
+			return new SimpleView(config)
 		} else { // linear-layout
-			return new LinearLayout({
-				direction: config.direction
-			})
+			return new LinearLayout(config)
 		}
 	}
 

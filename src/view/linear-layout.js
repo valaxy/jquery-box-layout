@@ -12,6 +12,7 @@ define(function (require) {
 		// make css api
 		this._$dom.addClass('linear').addClass('view')
 		this._$dom.attr('data-direction', options.direction)
+		View.call(this, options)
 	}
 
 

@@ -6,6 +6,7 @@ define(function (require, exports) {
 		var $dom = treeLayout.init({
 			_schema: 'linear',
 			direction: 'column',
+			class: 'everything',
 			views: [{
 				_schema: 'view',
 				flex: 2,
@@ -43,7 +44,7 @@ define(function (require, exports) {
 					_schema: 'view',
 					flex: '150px',
 					selector: '.box8'
-				},{
+				}, {
 					_schema: 'view',
 					flex: 1,
 					selector: '.box6'
@@ -55,6 +56,6 @@ define(function (require, exports) {
 			}]
 		})
 
-		$('.everything').append($dom)
+		$('body').append($dom)
 	}
 })
