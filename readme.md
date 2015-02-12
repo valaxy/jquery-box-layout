@@ -59,3 +59,10 @@ $('.everything').append($dom)
 ```
 
 Third, check the dom use css to beautify page.
+
+
+# LinearLayout
+- getViewAt
+- appendView
+- addViewAt
+- removeViewAt

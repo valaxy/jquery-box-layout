@@ -23,6 +23,11 @@ define(function (require) {
 	}
 
 
+	/** Return (index+1)-th view */
+	LinearLayout.prototype.getViewAt = function (index) {
+		return this._views[index]
+	}
+
 	LinearLayout.prototype.appendView = function (view, config) {
 		this.addViewAt(this._views.length, view, config)
 	}

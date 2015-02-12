@@ -30,6 +30,7 @@ define(function (require, exports) {
 		})
 		$('.everything').append(linear._$dom)
 
+		console.log(linear.getViewAt(1))
 
 		setTimeout(function () {
 			linear.removeViewAt(1)
