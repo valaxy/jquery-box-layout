@@ -96,12 +96,12 @@ define(function (require) {
 	LinearLayout.prototype.toJSON = function () {
 		var views = []
 		for (var i = 0; i < this._views.length; i++) {
-			views.push(this._views.toJSON())
+			views.push(this._views[i].toJSON())
 		}
 		return {
 			_schema: this._options._schema,
 			flex: this.flex(),
-			direction: this.direction(), // fix this
+			direction: this.direction(),
 			className: this._options.className,
 			views: views
 		}
