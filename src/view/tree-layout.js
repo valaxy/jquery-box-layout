@@ -3,7 +3,7 @@ define(function (require, exports) {
 	var SimpleView = require('./simple-view')
 
 	var createView = function (config) {
-		if (config._schema == 'view') {
+		if (config._schema == 'simple') {
 			return new SimpleView(config)
 		} else { // linear-layout
 			return new LinearLayout(config)

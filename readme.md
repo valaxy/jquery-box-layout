@@ -21,48 +21,30 @@ div.everything
 ```
 Second, config a json object to apply box layout.
 
-```javascript
-var boxLayout = require('./src/box-layout')
-var $dom = boxLayout.init({
-	_schema: 'linear',
-	isHor: false,
-	boxes: [{
-		_schema: 'box',
-		size: 100,
-		domSelector: '.box0'
-	}, {
-		_schema: 'linear',
-		isHor: true,
-		size: 'auto',
-		boxes: [{
-			_schema: 'linear',
-			isHor: false,
-			size: 300,
-			boxes: [{
-				_schema: 'box',
-				size: 200,
-				domSelector: '.box1'
-			}, {
-				_schema: 'box',
-				size: 'auto',
-				domSelector: '.box2'
-			}]
-		}, {
-			_schema: 'box',
-			size: 'auto',
-			domSelector: '.box3'
-		}]
-	}]
-})
 
-$('.everything').append($dom)
-```
+# Introduction
+## SimpleView
+	{
+	    _schema: 'simple',     // type string
+	    flex: 1,               // or '10px', number:flex, string:width
+	    selector: '.box',      // detach the dom
+		className: 'my-simple' // add class to dom
+	}
 
-Third, check the dom use css to beautify page.
+## LinearLayout
+	{
+		_schema: 'linear',      // type string
+		flex: 2,	
+		direction: 'column',    // or 'row'
+		className: 'my-linear', 
+		views: [...]            // view configs contained in dom
+	}
 
-
-# LinearLayout
 - getViewAt
 - appendView
 - addViewAt
 - removeViewAt
+
+
+
+Third, check the dom use css to beautify page.

@@ -1,9 +1,11 @@
-define(function (require) {
-
+define(function () {
+	//
+	// This is base class of SimpleView & LinearLayout
+	//
 	var View = function (options) {
-		// _$dom
-		if (options && options.class) {
-			this._$dom.addClass(options.class)
+		options = options || {}
+		if (options.className) {
+			this._$dom.addClass(options.className)
 		}
 	}
 
