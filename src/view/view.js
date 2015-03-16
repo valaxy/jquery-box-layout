@@ -14,6 +14,11 @@ define(function () {
 	}
 
 
+	View.prototype.$dom = function () {
+		return this._$dom
+	}
+
+
 	/** Get the flex-value in css */
 	View.prototype.flex = function () {
 		var flexBasis = this._$dom.css('flex-basis')

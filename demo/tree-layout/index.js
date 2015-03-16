@@ -2,7 +2,7 @@ define(function (require, exports) {
 	var treeLayout = require('../../src/view/tree-layout')
 
 	exports.init = function () {
-		var $dom = treeLayout.init({
+		var root = treeLayout.init({
 			_schema: 'linear',
 			direction: 'column',
 			className: 'everything',
@@ -54,7 +54,12 @@ define(function (require, exports) {
 				selector: '.box7'
 			}]
 		})
+		$('body').append(root.$dom())
 
-		$('body').append($dom)
+		// record and recover
+		var data = root.toJSON()
+		var root2 = treeLayout.init(data)
+		root.$dom().remove()
+		$('body').append(root2.$dom())
 	}
 })

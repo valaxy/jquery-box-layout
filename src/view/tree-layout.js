@@ -32,7 +32,7 @@ define(function (require, exports) {
 		if (config._schema == 'linear') {
 			processLinaerLayout(linear, config)
 		}
-		return linear._$dom
+		return linear
 	}
 
 
