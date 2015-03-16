@@ -1,5 +1,5 @@
 define(function (require, exports) {
-	QUnit.module('BoxWatcher')
+	module('BoxWatcher')
 
 	//QUnit.test('numberfy', function (assert) {
 	//	assert.equal(numberfy('10px'), 10)

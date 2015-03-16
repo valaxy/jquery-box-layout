@@ -4,6 +4,8 @@ define(function (require) {
 	var View = require('./view')
 
 	var LinearLayout = function (options) {
+		options.flex = String(options.flex)
+		this._options = options
 		this._$dom = $('<div></div>')
 		this._views = []
 		this._resizeables = []
@@ -33,7 +35,7 @@ define(function (require) {
 	}
 
 	LinearLayout.prototype.addViewAt = function (i, view, config) {
-		if (typeof config.flex == 'string') {
+		if (!config.flex.match(/^\d+$/)) {
 			view._$dom.css({
 				'flex-basis': config.flex
 			})
@@ -86,6 +88,22 @@ define(function (require) {
 		if (prev && next) {
 			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction())
 			this._resizeables.splice(i - 1, 0, plugin)
+		}
+	}
+
+
+	/** Get the json data */
+	LinearLayout.prototype.toJSON = function () {
+		var views = []
+		for (var i = 0; i < this._views.length; i++) {
+			views.push(this._views.toJSON())
+		}
+		return {
+			_schema: this._options._schema,
+			flex: this.flex(),
+			direction: this.direction(), // fix this
+			className: this._options.className,
+			views: views
 		}
 	}
 

@@ -1,5 +1,9 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>QUnit test</title><link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css"></head><body><div id="qunit"></div><div id="qunit-fixture"></div><script src="../bower_components/qunit/qunit/qunit.js"></script><script src="../bower_components/requirejs/require.js"></script><!-- startup--><script>require.config({
-    baseUrl: '../'
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>QUnit test</title><link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css"></head><body><div id="qunit"></div><div id="qunit-fixture"></div><div class="test-area"><div class="test-box-1"></div><div class="test-box-2"></div></div><script src="../bower_components/qunit/qunit/qunit.js"></script><script src="../bower_components/requirejs/require.js"></script><!-- startup--><script>require.config({
+    baseUrl: '../',
+    paths: {
+        'jquery': 'bower_components/jquery/dist/jquery.min',
+        'jquery-ui': 'bower_components/jquery-ui/jquery-ui.min'
+    }
 })
 require(['test/test'], function () {
     // nothing

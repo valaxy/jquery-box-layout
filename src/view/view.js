@@ -13,9 +13,14 @@ define(function () {
 
 	}
 
-	View.prototype.flex = function () {
 
+	/** Get the flex-value in css */
+	View.prototype.flex = function () {
+		var flexBasis = this._$dom.css('flex-basis')
+		var flexGrow = this._$dom.css('flex-grow')
+		return flexGrow != '0' ? flexGrow : flexBasis
 	}
+
 
 	View.prototype.isFlexInParent = function () {
 
