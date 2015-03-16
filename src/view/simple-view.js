@@ -8,7 +8,7 @@ define(function (require) {
 		this._$dom = $(options.selector).detach()
 
 		// make css API
-		this._$dom.addClass('view')
+		this._$dom.addClass('simple').addClass('view')
 		View.call(this, options)
 	}
 
