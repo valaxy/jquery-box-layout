@@ -1,12 +1,10 @@
-> This is under development, and don't finish
-
 # Introduction
-box-layout is like below, you can easily config a json to create this layout.    
-It is a AMD module
+[Flex-Layout](http://www.w3.org/TR/css3-flexbox/) is W3C standard    
+This AMD/CMD module gives you a easily used function which you can config a json to create flex-layout.    
 ![ ](doc/basic.png)
 
 # Example
-First, create a html(below is jade code) like this.
+First, create a html(below is jade).
 
 ```jade
 div.everything
@@ -14,15 +12,28 @@ div.everything
     	h1 A
     div.box1
         h1 B
-    div.box2
-        h1 C
-    div.box3
-        h1 D
 ```
-Second, config a json object to apply box layout.
+Second, config a json object to apply flex layout.
 
+```javascript
+	var treeLayout = require('tree-layout')
+	var root = treeLayout.init({
+		_schema: 'linear',
+		direction: 'column',
+		className: 'everything',
+		views: [{
+			_schema: 'simple',
+			flex: 2,
+			selector: '.box0'
+		}, {
+			_schema: 'simple',
+			flex: 1,
+			selector: '.box1
+		}]
+	}) 
+```
 
-# Introduction
+# API
 ## SimpleView
 	{
 	    _schema: 'simple',     // type string
@@ -45,6 +56,9 @@ Second, config a json object to apply box layout.
 - addViewAt
 - removeViewAt
 
-
-
-Third, check the dom use css to beautify page.
+## CSS API
+- `.linear[data-direction="row"]`
+- `.linear[data-direction="column"]`
+- `.linear`
+- `.simple`
+- `.view` all the LinearLayout and SimpleView

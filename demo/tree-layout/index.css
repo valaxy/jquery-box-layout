@@ -10,7 +10,7 @@ html, body {
   height: 100%; }
 
 body {
-  font-size: 11px;
+  font-size: 20px;
   font-family: "微软雅黑"; }
 
 .everything {
@@ -18,12 +18,12 @@ body {
   height: 100%; }
 
 .linear[data-direction=row] > .view {
-  border-right: 1px solid #aaaaaa; }
+  border-right: 1px solid #aaa; }
 .linear[data-direction=row] .view:last-child {
   border-right: none; }
 
 .linear[data-direction=column] > .view {
-  border-bottom: 1px solid #aaaaaa; }
+  border-bottom: 1px solid #aaa; }
 .linear[data-direction=column] .view:last-child {
   border-bottom: none; }
 
