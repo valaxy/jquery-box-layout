@@ -2,6 +2,7 @@ define(function (require) {
 	var $ = require('jquery')
 	var Resizeable = require('../plugin/resizable')
 	var View = require('./view')
+	var help = require('../help/help')
 
 	var LinearLayout = function (options) {
 		options.flex = String(options.flex)
@@ -18,7 +19,7 @@ define(function (require) {
 	}
 
 
-	LinearLayout.prototype = new View
+	View.extend(LinearLayout)
 
 	LinearLayout.prototype.direction = function () {
 		return this._$dom.css('flex-direction')
@@ -98,13 +99,13 @@ define(function (require) {
 		for (var i = 0; i < this._views.length; i++) {
 			views.push(this._views[i].toJSON())
 		}
-		return {
+		return help.removeUndefinedProperties({
 			_schema: this._options._schema,
 			flex: this.flex(),
 			direction: this.direction(),
 			className: this._options.className,
 			views: views
-		}
+		})
 	}
 
 	return LinearLayout

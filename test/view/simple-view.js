@@ -3,7 +3,11 @@ define(function (require) {
 	var SimpleView = require('src/view/simple-view')
 	var $ = require('jquery')
 
-	module('SimpleView')
+	module('SimpleView', {
+		beforeEach: function () {
+
+		}
+	})
 
 	test('constructor()|toJSON()', function (assert) {
 		var linear = new LinearLayout({
@@ -18,8 +22,7 @@ define(function (require) {
 		})
 		var s2 = new SimpleView({
 			_schema: 'simple',
-			selector: '.test-box-2',
-			className: 'my-box'
+			selector: '.test-box-2'
 		})
 		linear.appendView(s1, {
 			flex: '1'
@@ -27,7 +30,7 @@ define(function (require) {
 		linear.appendView(s2, {
 			flex: '100px'
 		})
-		$('.test-area').append(linear._$dom)
+		$('.test-area').append(linear.$dom())
 
 
 		// test
@@ -40,9 +43,7 @@ define(function (require) {
 		assert.deepEqual(s2.toJSON(), {
 			_schema: 'simple',
 			flex: '100px',
-			selector: '.test-box-2',
-			className: 'my-box'
+			selector: '.test-box-2'
 		})
-
 	})
 })

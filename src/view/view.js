@@ -10,7 +10,9 @@ define(function () {
 	}
 
 	View.extend = function (Class) {
-
+		var v = new View
+		delete v._$dom
+		Class.prototype = v
 	}
 
 

@@ -1,9 +1,9 @@
 define(function (require) {
 	var $ = require('jquery')
 	var View = require('./view')
+	var help = require('../help/help')
 
 	var SimpleView = function (options) {
-		options.flex = String(options.flex)
 		this._options = options
 		this._$dom = $(options.selector).detach()
 
@@ -12,17 +12,17 @@ define(function (require) {
 		View.call(this, options)
 	}
 
-	SimpleView.prototype = new View
+	View.extend(SimpleView)
 
 
 	/** Get json data */
 	SimpleView.prototype.toJSON = function () {
-		return {
+		return help.removeUndefinedProperties({
 			_schema: this._options._schema,
 			flex: this.flex(),
 			selector: this._options.selector,
 			className: this._options.className
-		}
+		})
 	}
 
 	return SimpleView

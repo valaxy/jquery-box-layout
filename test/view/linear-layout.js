@@ -2,7 +2,11 @@ define(function (require) {
 	var LinearLayout = require('src/view/linear-layout')
 	var $ = require('jquery')
 
-	module('LinearLayout')
+	module('LinearLayout', {
+		beforeEach: function () {
+
+		}
+	})
 
 	test('constructor()|toJSON()', function (assert) {
 		var l1 = new LinearLayout({
@@ -14,7 +18,6 @@ define(function (require) {
 		var l2 = new LinearLayout({
 			_schema: 'linear',
 			direction: 'column',
-			className: 'my-linear-2',
 			views: []
 		})
 		l1.appendView(l2, {
@@ -31,7 +34,6 @@ define(function (require) {
 			views: [{
 				_schema: 'linear',
 				direction: 'column',
-				className: 'my-linear-2',
 				flex: '10',
 				views: []
 			}]
