@@ -36,7 +36,7 @@ define(function (require) {
 	}
 
 	LinearLayout.prototype.addViewAt = function (i, view, config) {
-		if (!config.flex.match(/^\d+$/)) {
+		if (!config.flex.match(/^\d*(\.\d*)?$/)) {
 			view._$dom.css({
 				'flex-basis': config.flex
 			})

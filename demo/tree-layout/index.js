@@ -8,7 +8,7 @@ define(function (require, exports) {
 			className: 'everything',
 			views: [{
 				_schema: 'simple',
-				flex: '2',
+				flex: '2.01',
 				selector: '.box0'
 			}, {
 				_schema: 'linear',
