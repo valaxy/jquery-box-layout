@@ -8,32 +8,32 @@ define(function (require, exports) {
 			className: 'everything',
 			views: [{
 				_schema: 'simple',
-				flex: 2,
+				flex: '2',
 				selector: '.box0'
 			}, {
 				_schema: 'linear',
 				direction: 'row',
-				flex: 8,
+				flex: '8',
 				views: [{
 					_schema: 'linear',
 					direction: 'column',
-					flex: 2,
+					flex: '2',
 					views: [{
 						_schema: 'simple',
-						flex: 1,
+						flex: '1',
 						selector: '.box1'
 					}, {
 						_schema: 'simple',
-						flex: 1,
+						flex: '1',
 						selector: '.box2'
 					}]
 				}, {
 					_schema: 'simple',
-					flex: 5,
+					flex: '5',
 					selector: '.box3'
 				}, {
 					_schema: 'simple',
-					flex: 1,
+					flex: '1',
 					selector: '.box4'
 				}, {
 					_schema: 'simple',
@@ -45,7 +45,7 @@ define(function (require, exports) {
 					selector: '.box8'
 				}, {
 					_schema: 'simple',
-					flex: 1,
+					flex: '1',
 					selector: '.box6'
 				}]
 			}, {
@@ -61,5 +61,10 @@ define(function (require, exports) {
 		var root2 = treeLayout.init(data)
 		root.$dom().remove()
 		$('body').append(root2.$dom())
+
+		// bind event
+		root2.$dom().on('resizestop', function () {
+			console.log(root2.toJSON())
+		})
 	}
 })

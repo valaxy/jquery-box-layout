@@ -1,30 +1,31 @@
 {
-	"name": "jquery-flex-layout",
-	"version": "0.0.2",
-	"homepage": "https://github.com/valaxy/jquery-box-layout",
-	"authors": [
-		"valaxy <valaxy.tian@gmail.com>"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	],
-	"main": [
-		"src/view/attach-view",
-		"src/box-layout"
-	],
-	"dependencies": {
-		"jquery": "~2.1.3",
-		"jquery-ui": "~1.11.2",
-		"javascript-state-machine": "~2.3.5",
-		"candy.js": "valaxy/candy.js"
-	},
-	"devDependencies": {
-		"qunit": "~1.16.0",
-		"requirejs": "~2.1.15"
-	}
+  "name": "jquery-flex-layout",
+  "version": "0.0.2",
+  "homepage": "https://github.com/valaxy/jquery-box-layout",
+  "authors": [
+    "valaxy <valaxy.tian@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "main": [
+    "src/view/attach-view",
+    "src/box-layout"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "jquery-ui": "~1.11.2",
+    "javascript-state-machine": "~2.3.5",
+    "candy.js": "valaxy/candy.js",
+    "eventEmitter": "~4.2.11"
+  },
+  "devDependencies": {
+    "qunit": "~1.16.0",
+    "requirejs": "~2.1.15"
+  }
 }

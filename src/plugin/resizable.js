@@ -1,4 +1,6 @@
 define(function (require) {
+	var $ = require('jquery')
+	//var EventEmitter = require('event-emitter')
 	require('jquery-ui')
 
 	var getFlex = function ($dom) {
@@ -10,11 +12,14 @@ define(function (require) {
 		}
 	}
 
+	/** Events:
+	 **     - resize-stop: resize stop */
 	var Resizable = function ($dom1, $dom2, direction) {
 		this._$dom1 = $dom1
 		this._on($dom1, $dom2, direction)
 	}
 
+	//$.extend(Resizable, EventEmitter.prototype)
 
 	Resizable.prototype._on = function ($dom1, $dom2, direction) {
 		var flex1 = getFlex($dom1)
@@ -25,6 +30,7 @@ define(function (require) {
 
 		var size1
 		var size2
+		var me = this
 		$dom1.resizable({
 			handles: handles,
 			animate: false,
@@ -34,6 +40,9 @@ define(function (require) {
 				flex1 = Number($dom1.css('flex-grow'))
 				flex2 = Number($dom2.css('flex-grow'))
 				$dom1.resizable('option', maxSizeProperty, size1 + size2)
+			},
+			stop: function () {
+				//me._$dom1.trigger('resize-stop')
 			}
 		})
 		if (typeof flex1 == 'number') {
