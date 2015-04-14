@@ -7,33 +7,33 @@ define(function (require, exports) {
 
 	exports.init = function () {
 		var v1 = new SimpleView({
-			selector: '.v1'
+			selector: '.v1' // css selector
 		})
 		var v2 = new SimpleView({
-			selector: '.v2'
+			selector: $('<div>1</div>') // jquery object
 		})
 		var v3 = new SimpleView({
-			selector: '.v3'
+			selector: $('<div>2</div>')
 		})
+
 
 		var linear = new LinearLayout({
 			direction: 'row'
 		})
 		linear.appendView(v1, {
-			flex: 1
+			flex: '1'
 		})
 		linear.appendView(v3, {
-			flex: '100px'
+			flex: '0 100px'
 		})
 		linear.appendView(v2, {
-			flex: 2 // 1296
+			flex: '2'
 		})
 		$('.everything').append(linear._$dom)
 
-		console.log(linear.getViewAt(1))
 
-		setTimeout(function () {
+		$('.remove').click(function () {
 			linear.removeViewAt(1)
-		}, 2000)
+		})
 	}
 })

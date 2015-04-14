@@ -33,5 +33,12 @@ define(function () {
 
 	}
 
+
+
+
+	View.prototype.split = function () {
+
+	}
+
 	return View
 })

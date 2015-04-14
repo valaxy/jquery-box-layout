@@ -3,6 +3,9 @@ define(function (require) {
 	var View = require('./view')
 	var help = require('../help/help')
 
+	/** options:
+	 **     selector: css selector | jquery object
+	 */
 	var SimpleView = function (options) {
 		this._options = options
 		this._$dom = $(options.selector).detach()

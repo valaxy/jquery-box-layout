@@ -31,37 +31,53 @@ define(function (require) {
 		return this._views[index]
 	}
 
-	LinearLayout.prototype.appendView = function (view, config) {
-		this.addViewAt(this._views.length, view, config)
+
+	/** Add view at last
+	 ** view: LinearLayout or SimpleView
+	 ** options:
+	 **     flex: css `flex`
+	 */
+	LinearLayout.prototype.appendView = function (view, options) {
+		this.addViewAt(this._views.length, view, options)
 	}
 
-	LinearLayout.prototype.addViewAt = function (i, view, config) {
-		if (!config.flex.match(/^\d*(\.\d*)?$/)) {
-			view._$dom.css({
-				'flex-basis': config.flex
-			})
-		} else {
-			view._$dom.css({
-				'flex': String(config.flex)
-			})
-		}
+
+	/** Add view at first
+	 ** view: LinearLayout or SimpleView
+	 ** options:
+	 **     flex: css `flex`
+	 */
+	LinearLayout.prototype.prependView = function (view, options) {
+		this.addViewAt(0, view, options)
+	}
 
 
+	/** Add view at specify position
+	 ** index: position
+	 ** view: LinearLayout or SimpleView
+	 ** options:
+	 **     flex: css `flex`
+	 */
+	LinearLayout.prototype.addViewAt = function (index, view, options) {
+		view._$dom.css({
+			flex: options.flex
+		})
+		
 		// insert prev - current plugin
-		var prev = i > 0 ? this._views[i - 1] : null
+		var prev = index > 0 ? this._views[index - 1] : null
 		if (prev) {
 			// must delete first then insert, cannot happen at the same time
-			this._resizeables.length >= i && this._resizeables.splice(i - 1, 1)[0].off()
+			this._resizeables.length >= index && this._resizeables.splice(index - 1, 1)[0].off()
 			var resizeable = new Resizeable(prev._$dom, view._$dom, this.direction())
-			this._resizeables.splice(i - 1, 0, resizeable)
+			this._resizeables.splice(index - 1, 0, resizeable)
 		}
 
 
 		// insert current - next plugin
-		var next = this._views[i]
+		var next = this._views[index]
 		if (next) {
 			var resizeable = new Resizeable(view._$dom, next._$dom, this.direction())
-			this._resizeables.splice(i, 0, resizeable)
+			this._resizeables.splice(index, 0, resizeable)
 		}
 
 
@@ -75,20 +91,23 @@ define(function (require) {
 		}
 
 		// insert finally
-		this._views.splice(i, 0, view)
+		this._views.splice(index, 0, view)
 	}
 
 
-	LinearLayout.prototype.removeViewAt = function (i) {
-		this._views.splice(i, 1)[0]._$dom.remove()
-		if (i > 0) {
-			this._resizeables.splice(i - 1, 1)[0].off()
+	/** Remote view At position `index`:
+	 ** index: the position
+	 */
+	LinearLayout.prototype.removeViewAt = function (index) {
+		this._views.splice(index, 1)[0]._$dom.remove()
+		if (index > 0) {
+			this._resizeables.splice(index - 1, 1)[0].off()
 		}
-		var prev = this._views[i - 1]
-		var next = this._views[i]
+		var prev = this._views[index - 1]
+		var next = this._views[index]
 		if (prev && next) {
 			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction())
-			this._resizeables.splice(i - 1, 0, plugin)
+			this._resizeables.splice(index - 1, 0, plugin)
 		}
 	}
 
