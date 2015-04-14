@@ -17,6 +17,9 @@ define(function (require) {
 
 	View.extend(SimpleView)
 
+	View.createSimpleView = function (options) {
+		return new SimpleView(options)
+	}
 
 	/** Get json data */
 	SimpleView.prototype.toJSON = function () {

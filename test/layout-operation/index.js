@@ -35,5 +35,12 @@ define(function (require, exports) {
 		$('.remove').click(function () {
 			linear.removeViewAt(1)
 		})
+
+		$('.split').click(function () {
+			var s = new SimpleView({
+				selector: $('<div>我是新增的</div>')
+			})
+			v1.splitVertical(s, 'top')
+		})
 	}
 })

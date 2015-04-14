@@ -4,6 +4,10 @@ define(function (require) {
 	var View = require('./view')
 	var help = require('../help/help')
 
+
+	/** options:
+	 **     direction: 'row' | 'column'
+	 */
 	var LinearLayout = function (options) {
 		options.flex = String(options.flex)
 		this._options = options
@@ -20,6 +24,10 @@ define(function (require) {
 
 
 	View.extend(LinearLayout)
+
+	View.createLinearLayout = function (options) {
+		return new LinearLayout(options)
+	}
 
 	LinearLayout.prototype.direction = function () {
 		return this._$dom.css('flex-direction')
@@ -62,7 +70,8 @@ define(function (require) {
 		view._$dom.css({
 			flex: options.flex
 		})
-		
+		view._parent = this
+
 		// insert prev - current plugin
 		var prev = index > 0 ? this._views[index - 1] : null
 		if (prev) {
@@ -99,7 +108,10 @@ define(function (require) {
 	 ** index: the position
 	 */
 	LinearLayout.prototype.removeViewAt = function (index) {
-		this._views.splice(index, 1)[0]._$dom.remove()
+		var view = this._views.splice(index, 1)[0]
+		view._$dom.remove()
+		view._parent = null
+
 		if (index > 0) {
 			this._resizeables.splice(index - 1, 1)[0].off()
 		}
@@ -109,6 +121,31 @@ define(function (require) {
 			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction())
 			this._resizeables.splice(index - 1, 0, plugin)
 		}
+	}
+
+
+	LinearLayout.prototype.removeView = function (view) {
+		for (var i = 0; i < this._views.length; i++) {
+			if (view == this._views[i]) {
+				this.removeViewAt(i)
+				break
+			}
+		}
+	}
+
+
+	LinearLayout.prototype.findViewAt = function (view) {
+		for (var i = 0; i < this._views.length; i++) {
+			if (view == this._views[i]) {
+				return i
+			}
+		}
+		return -1
+	}
+
+
+	LinearLayout.prototype.length = function () {
+		return this._views.length
 	}
 
 
