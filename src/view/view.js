@@ -38,6 +38,46 @@ define(function () {
 		return this._parent
 	}
 
+
+	//var split = function (type, view, position) {
+	//	var isVertical = (type == 'vertical')
+	//	position = position || (isVertical ? 'bottom' : 'right') // default value
+	//	if (!this.parent()) { // root element
+	//		var wrap = View.createLinearLayout({
+	//			direction: 'column'
+	//		})
+	//		var mark = this._$dom.parent()
+	//		this._$dom.detach()
+	//
+	//		if (position == 'top') {
+	//			wrap.appendView(view, {flex: '1'}) // todo: 为什么wrap不能用
+	//			wrap.appendView(this, {flex: '1'})
+	//		} else {
+	//			wrap.appendView(this, {flex: '1'})
+	//			mark.append(wrap._$dom)
+	//			wrap.appendView(view, {flex: '1'})
+	//		}
+	//	} else {
+	//		var parent = this.parent()
+	//		var index = parent.findViewAt(this)
+	//		parent.removeViewAt(index)
+	//
+	//		var wrap = View.createLinearLayout({
+	//			direction: 'column'
+	//		})
+	//
+	//		if (position == 'top') {
+	//			wrap.appendView(view, {flex: '1'})
+	//			wrap.appendView(this, {flex: '1'})
+	//		} else {
+	//			wrap.appendView(this, {flex: '1'})
+	//			wrap.appendView(view, {flex: '1'})
+	//		}
+	//		parent.addViewAt(index, wrap, {flex: '1'})
+	//	}
+	//}
+
+
 	/** Split with a view
 	 ** view:
 	 ** position: 'left' | 'right'(default)
@@ -59,32 +99,50 @@ define(function () {
 			wrap.appendView(this, {flex: '1'})
 			wrap.appendView(view, {flex: '1'})
 		}
-		parent.addViewAt(index, wrap, {flex: flex}) // todo: 应该使用原来的flex
+		parent.addViewAt(index, wrap, {flex: flex})
 
 	}
 
 
-	/** Split with a view
-	 ** view:
+	/** Split this vertical with `view` which will at `position`
+	 ** view: the new added view
 	 ** position: 'top' | 'bottom'(default)
 	 */
 	View.prototype.splitVertical = function (view, position) {
 		position = position || 'bottom'
-		var p = this.parent()
-		var index = p.findViewAt(this)
-		p.removeViewAt(index)
+		if (!this.parent()) { // root element
+			var wrap = View.createLinearLayout({
+				direction: 'column'
+			})
+			var mark = this._$dom.parent()
+			this._$dom.detach()
 
-		var wrap = View.createLinearLayout({
-			direction: 'column'
-		})
-		if (position == 'top') {
-			wrap.appendView(view, {flex: '1'})
-			wrap.appendView(this, {flex: '1'})
+			if (position == 'top') {
+				wrap.appendView(view, {flex: '1'}) // todo: 为什么wrap不能用
+				wrap.appendView(this, {flex: '1'})
+			} else {
+				wrap.appendView(this, {flex: '1'})
+				mark.append(wrap._$dom)
+				wrap.appendView(view, {flex: '1'})
+			}
 		} else {
-			wrap.appendView(this, {flex: '1'})
-			wrap.appendView(view, {flex: '1'})
+			var parent = this.parent()
+			var index = parent.findViewAt(this)
+			parent.removeViewAt(index)
+
+			var wrap = View.createLinearLayout({
+				direction: 'column'
+			})
+
+			if (position == 'top') {
+				wrap.appendView(view, {flex: '1'})
+				wrap.appendView(this, {flex: '1'})
+			} else {
+				wrap.appendView(this, {flex: '1'})
+				wrap.appendView(view, {flex: '1'})
+			}
+			parent.addViewAt(index, wrap, {flex: '1'})
 		}
-		p.addViewAt(index, wrap, {flex: '1'})
 	}
 
 	return View

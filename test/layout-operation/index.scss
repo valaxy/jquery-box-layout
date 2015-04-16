@@ -15,9 +15,16 @@ html, body {
 		height: 100%;
 	}
 }
-.simple {
-	border-right: 1px solid #000;
+.linear[data-direction=row] {
+	> .view {
+		border-right: 1px solid #000;
+	}
+	> .view:nth-last-of-type(1) {
+		border-right: none;
+	}
 }
-.simple:nth-last-of-type(1) {
-	border-right: none;
+.linear[data-direction=column] {
+	> .view {
+		border-bottom: 1px solid #000;
+	}
 }

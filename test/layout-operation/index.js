@@ -42,5 +42,14 @@ define(function (require, exports) {
 			})
 			v1.splitVertical(s, 'top')
 		})
+
+		$('.addViewAtBottom').click(function () {
+			var s = new SimpleView({
+				selector: $('<div>新的视图</div>')
+			})
+			linear.addViewAtEdge(s, 'bottom', {
+				flex: '1'
+			})
+		})
 	}
 })

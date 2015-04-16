@@ -96,6 +96,7 @@ define(function (require) {
 		} else if (next) {
 			next._$dom.before(view._$dom)
 		} else {
+			//console.log(this._$dom[0]), view._$dom[0]
 			this._$dom.append(view._$dom)
 		}
 
@@ -162,6 +163,52 @@ define(function (require) {
 			className: this._options.className,
 			views: views
 		})
+	}
+
+
+	//---------------------------------------------------------
+	// Advanced API
+	//---------------------------------------------------------
+
+
+	LinearLayout.prototype._findAncestor = function (direction) {
+		var find = this
+		while (true) {
+			if (!find.parent()) {
+				return find
+			} else if (find.direction() == direction) {
+				return find
+			}
+
+			find = find.parent()
+		}
+	}
+
+
+	/** Add view at edge
+	 ** direction: 'left' | 'right' | 'top' | 'bottom'
+	 ** options:
+	 **     flex: css `flex`
+	 */
+	LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
+		if (position == 'bottom') {
+			if (this.direction() == 'row') {
+				var ancestor = this._findAncestor('column')
+				if (ancestor.direction() == 'column') {
+					ancestor.appendView(view, options)
+				} else {
+					ancestor.splitVertical(view, 'bottom')
+				}
+			} else {
+				this.appendView(view, options)
+			}
+		} else if (position == 'top') {
+
+		} else if (position == 'left') {
+
+		} else if (position == 'right') {
+
+		}
 	}
 
 	return LinearLayout
