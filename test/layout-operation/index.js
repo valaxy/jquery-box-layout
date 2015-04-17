@@ -5,6 +5,21 @@ define(function (require, exports) {
 	require('jquery-ui')
 
 
+	var createView = function () {
+		return new SimpleView({
+			selector: $('<div>new view</div>')
+		})
+	}
+
+	var getRoot = function (view) {
+		while (true) {
+			if (!view.parent()) {
+				return view
+			}
+			view = view.parent()
+		}
+	}
+
 	exports.init = function () {
 		var v1 = new SimpleView({
 			selector: '.v1' // css selector
@@ -29,7 +44,7 @@ define(function (require, exports) {
 		linear.appendView(v2, {
 			flex: '2'
 		})
-		$('.everything').append(linear._$dom)
+		$('.main').append(linear._$dom)
 
 
 		$('.remove').click(function () {
@@ -43,13 +58,34 @@ define(function (require, exports) {
 			v1.splitVertical(s, 'top')
 		})
 
-		$('.addViewAtBottom').click(function () {
-			var s = new SimpleView({
-				selector: $('<div>新的视图</div>')
-			})
-			linear.addViewAtEdge(s, 'bottom', {
+
+		$('.addViewAtLeft').click(function () {
+			linear.addViewAtEdge(createView(), 'left', {
 				flex: '1'
 			})
+			linear = getRoot(linear)
+		})
+
+		$('.addViewAtTop').click(function () {
+			linear.addViewAtEdge(createView(), 'top', {
+				flex: '1'
+			})
+			linear = getRoot(linear)
+		})
+
+
+		$('.addViewAtRight').click(function () {
+			linear.addViewAtEdge(createView(), 'right', {
+				flex: '1'
+			})
+			linear = getRoot(linear)
+		})
+
+		$('.addViewAtBottom').click(function () {
+			linear.addViewAtEdge(createView(), 'bottom', {
+				flex: '1'
+			})
+			linear = getRoot(linear)
 		})
 	}
 })

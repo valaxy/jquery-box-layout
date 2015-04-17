@@ -191,23 +191,31 @@ define(function (require) {
 	 **     flex: css `flex`
 	 */
 	LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
+		var ancestor
 		if (position == 'bottom') {
-			if (this.direction() == 'row') {
-				var ancestor = this._findAncestor('column')
-				if (ancestor.direction() == 'column') {
-					ancestor.appendView(view, options)
-				} else {
-					ancestor.splitVertical(view, 'bottom')
-				}
+			if (this.direction() == 'column' || ((ancestor = this._findAncestor('column')) && ancestor.direction() == 'column')) {
+				ancestor ? ancestor.appendView(view, options) : this.appendView(view, options)
 			} else {
-				this.appendView(view, options)
+				ancestor.split(view, 'bottom', options)
 			}
 		} else if (position == 'top') {
-
+			if (this.direction() == 'column' || ((ancestor = this._findAncestor('column')) && ancestor.direction() == 'column')) {
+				ancestor ? ancestor.addViewAt(0, view, options) : this.addViewAt(0, view, options)
+			} else {
+				ancestor.split(view, 'top', options)
+			}
 		} else if (position == 'left') {
-
+			if (this.direction() == 'row' || ((ancestor = this._findAncestor('row')) && ancestor.direction() == 'row')) {
+				ancestor ? ancestor.addViewAt(0, view, options) : this.addViewAt(0, view, options)
+			} else {
+				ancestor.split(view, 'left', options)
+			}
 		} else if (position == 'right') {
-
+			if (this.direction() == 'row' || ((ancestor = this._findAncestor('row')) && ancestor.direction() == 'row')) {
+				ancestor ? ancestor.appendView(view, options) : this.appendView(view, options)
+			} else {
+				ancestor.split(view, 'right', options)
+			}
 		}
 	}
 

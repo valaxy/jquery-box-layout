@@ -6,11 +6,16 @@ html
         link(rel="stylesheet" href="index.css")
         link(rel="stylesheet" href="../../bower_components/jquery-ui/themes/sunny/jquery-ui.min.css")
     body
-        p 使用JS API的方式构建一个视图系统
-            button.remove 单击移除第2个视图
-            button.split 分割添加一个新视图
-            button.addViewAtBottom 在「最下面」添加视图
+        //- 使用JS API的方式构建一个视图系统
         div.everything
+            div.button-list
+                button.remove 单击移除第2个视图
+                button.split 分割添加一个新视图
+                button.addViewAtTop add view at top
+                button.addViewAtRight add view at right
+                button.addViewAtBottom add view at bottom
+                button.addViewAtLeft add view at left
+            div.main
         div.v1 I'm exist in html
 
         // startup
