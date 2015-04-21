@@ -43,6 +43,7 @@ define(function () {
 	 ** view: the new added view
 	 ** position: 'top' | 'bottom' | 'left' | 'right'
 	 ** options:
+	 ** return: this
 	 */
 	View.prototype.split = function (view, position, options) {
 		// init paras
@@ -84,6 +85,7 @@ define(function () {
 			}
 			parent.addViewAt(index, wrap, {flex: '1'}) // todo: check here, use 原来的 flex
 		}
+		return this
 	}
 
 

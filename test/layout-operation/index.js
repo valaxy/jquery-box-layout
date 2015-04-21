@@ -41,11 +41,33 @@ define(function (require, exports) {
 		})
 
 
+		//
+		// split
+		//
 		$('.splitRootAtTop').click(function () {
 			root.split(createSimple(), 'top', {flex: '1'})
+			root = root.parent()
+		})
+
+		$('.splitRootAtRight').click(function () {
+			root.split(createSimple(), 'right', {flex: '1'})
+			root = root.parent()
+		})
+
+		$('.splitRootAtBottom').click(function () {
+			root.split(createSimple(), 'bottom', {flex: '1'})
+			root = root.parent()
+		})
+
+		$('.splitRootAtLeft').click(function () {
+			root.split(createSimple(), 'left', {flex: '1'})
+			root = root.parent()
 		})
 
 
+		//
+		// addViewAtEdge
+		//
 		$('.addViewAtLeft').click(function () {
 			root.addViewAtEdge(createSimple(), 'left', {
 				flex: '1'
