@@ -10,13 +10,23 @@ html
         div.everything
             div.button-list
                 button.remove 单击移除第2个视图
-                button.split 分割添加一个新视图
-                button.addViewAtTop add view at top
-                button.addViewAtRight add view at right
-                button.addViewAtBottom add view at bottom
-                button.addViewAtLeft add view at left
+                fieldset
+                    legend split
+                    button.splitRootAtTop split root at top
+                    button.splitRootAtBottom split root at bottom
+                    button.splitRootAtLeft split root at left
+                    button.splitRootAtRight split root at right
+                fieldset
+                    legend addViewAtEdge
+                    button.addViewAtTop add view at top
+                    button.addViewAtRight add view at right
+                    button.addViewAtBottom add view at bottom
+                    button.addViewAtLeft add view at left
+                fieldset
+                    legend replaceWith
+                    button.replaceWithRoot replace with root
+                    //button.replaceWithFirst replace with first
             div.main
-        div.v1 I'm exist in html
 
         // startup
         script(src="../../bower_components/requirejs/require.js")

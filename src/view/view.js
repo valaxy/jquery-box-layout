@@ -39,76 +39,10 @@ define(function () {
 	}
 
 
-	///** Split with a view
-	// ** view:
-	// ** position: 'left' | 'right'(default)
-	// */
-	//View.prototype.splitHorizontal = function (view, position) {
-	//	position = position || 'right'
-	//	var parent = this.parent()
-	//	var index = parent.findViewAt(this)
-	//	var flex = view.flex2()
-	//	parent.removeViewAt(index)
-	//
-	//	var wrap = View.createLinearLayout({
-	//		direction: 'row'
-	//	})
-	//	if (position == 'left') {
-	//		wrap.appendView(view, {flex: '1'})
-	//		wrap.appendView(this, {flex: '1'})
-	//	} else {
-	//		wrap.appendView(this, {flex: '1'})
-	//		wrap.appendView(view, {flex: '1'})
-	//	}
-	//	parent.addViewAt(index, wrap, {flex: flex}) // todo: check here, use 原来的 flex
-	//
-	//}
-	//
-	//
-	//
-	//View.prototype.splitVertical = function (view, position) {
-	//	position = position || 'bottom'
-	//	if (!this.parent()) { // root element
-	//		var wrap = View.createLinearLayout({
-	//			direction: 'column'
-	//		})
-	//		var mark = this._$dom.parent()
-	//		this._$dom.detach()
-	//
-	//		if (position == 'top') {
-	//			wrap.appendView(view, {flex: '1'}) // todo: 为什么wrap不能用
-	//			wrap.appendView(this, {flex: '1'})
-	//		} else {
-	//			wrap.appendView(this, {flex: '1'})
-	//			mark.append(wrap._$dom)
-	//			wrap.appendView(view, {flex: '1'})
-	//		}
-	//	} else {
-	//		var parent = this.parent()
-	//		var index = parent.findViewAt(this)
-	//		parent.removeViewAt(index)
-	//
-	//		var wrap = View.createLinearLayout({
-	//			direction: 'column'
-	//		})
-	//
-	//		if (position == 'top') {
-	//			wrap.appendView(view, {flex: '1'})
-	//			wrap.appendView(this, {flex: '1'})
-	//		} else {
-	//			wrap.appendView(this, {flex: '1'})
-	//			wrap.appendView(view, {flex: '1'})
-	//		}
-	//		parent.addViewAt(index, wrap, {flex: '1'})
-	//	}
-	//}
-
-
 	/** Split this with `view` which will at `position`
 	 ** view: the new added view
 	 ** position: 'top' | 'bottom' | 'left' | 'right'
 	 ** options:
-	 **     flex: css
 	 */
 	View.prototype.split = function (view, position, options) {
 		// init paras
@@ -148,8 +82,26 @@ define(function () {
 				wrap.appendView(this, {flex: '1'})
 				wrap.appendView(view, options)
 			}
-			parent.addViewAt(index, wrap, {flex: '1'})
+			parent.addViewAt(index, wrap, {flex: '1'}) // todo: check here, use 原来的 flex
 		}
+	}
+
+
+	/** Replace this with another `view`, use original options
+	 ** return: this
+	 **/
+	View.prototype.replaceWith = function (view) {
+		var oldFlex = this.flex2()
+		if (this.parent()) {
+			var index = parent.indexOfView(view)
+			parent.removeViewAt(index)
+			parent.addViewAt(index, view, {
+				flex: oldFlex
+			})
+		} else {
+			this._$dom.replaceWith(view._$dom)
+		}
+		return this
 	}
 
 	return View

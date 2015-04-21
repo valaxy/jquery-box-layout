@@ -135,7 +135,17 @@ define(function (require) {
 	}
 
 
+	/** @Deprecated */
 	LinearLayout.prototype.findViewAt = function (view) {
+		for (var i = 0; i < this._views.length; i++) {
+			if (view == this._views[i]) {
+				return i
+			}
+		}
+		return -1
+	}
+
+	LinearLayout.prototype.indexOfView = function (view) {
 		for (var i = 0; i < this._views.length; i++) {
 			if (view == this._views[i]) {
 				return i

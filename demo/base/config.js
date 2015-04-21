@@ -3,6 +3,7 @@ requirejs.config({
 	paths: {
 		'jquery': 'bower_components/jquery/dist/jquery',
 		'jquery-ui': 'bower_components/jquery-ui/jquery-ui',
-		'event-emitter': 'bower_components/eventEmitter/EventEmitter'
+		'event-emitter': 'bower_components/eventEmitter/EventEmitter',
+		'chance': 'bower_components/chance/chance'
 	}
 })
