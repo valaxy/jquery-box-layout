@@ -95,7 +95,8 @@ define(function () {
 	View.prototype.replaceWith = function (view) {
 		var oldFlex = this.flex2()
 		if (this.parent()) {
-			var index = parent.indexOfView(view)
+			var parent = this.parent()
+			var index = parent.indexOfView(this)
 			parent.removeViewAt(index)
 			parent.addViewAt(index, view, {
 				flex: oldFlex
