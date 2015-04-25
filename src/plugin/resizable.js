@@ -18,11 +18,13 @@ define(function (require) {
 		this._$dom1 = $dom1
 		this._$dom2 = $dom2
 		this._direction = direction
+		this._on = false
 	}
 
 	//$.extend(Resizable, EventEmitter.prototype)
 
 	Resizable.prototype.on = function () {
+		this._on = true
 		var $dom1 = this._$dom1,
 			$dom2 = this._$dom2,
 			direction = this._direction
@@ -34,7 +36,6 @@ define(function (require) {
 
 		var size1
 		var size2
-		var me = this
 		$dom1.resizable({
 			handles: handles,
 			animate: false,
@@ -90,7 +91,9 @@ define(function (require) {
 	}
 
 	Resizable.prototype.off = function () {
-		this._$dom1.resizable('destroy')
+		if (this._on) {
+			this._$dom1.resizable('destroy')
+		}
 		return this
 	}
 
