@@ -37,11 +37,11 @@ define(function (require, exports) {
 					selector: '.box4'
 				}, {
 					_schema: 'simple',
-					flex: '100px',
+					flex: '0 100px',
 					selector: '.box5'
 				}, {
 					_schema: 'simple',
-					flex: '150px',
+					flex: '0 150px',
 					selector: '.box8'
 				}, {
 					_schema: 'simple',
@@ -50,21 +50,21 @@ define(function (require, exports) {
 				}]
 			}, {
 				_schema: 'simple',
-				flex: '40px',
+				flex: '0 40px',
 				selector: '.box7'
 			}]
 		})
 		$('body').append(root.$dom())
 
-		// record and recover
-		var data = root.toJSON()
-		var root2 = treeLayout.init(data)
-		root.$dom().remove()
-		$('body').append(root2.$dom())
-
-		// bind event
-		root2.$dom().on('resizestop', function () {
-			console.log(root2.toJSON())
-		})
+		//// record and recover
+		//var data = root.toJSON()
+		//var root2 = treeLayout.init(data)
+		//root.$dom().remove()
+		//$('body').append(root2.$dom())
+		//
+		//// bind event
+		//root2.$dom().on('resizestop', function () {
+		//	console.log(root2.toJSON())
+		//})
 	}
 })

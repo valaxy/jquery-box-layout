@@ -31,8 +31,8 @@ define(function (require, exports) {
 
 		var root = new LinearLayout({direction: 'row'})
 		root.appendView(v1, {flex: '1'})
-		root.appendView(v3, {flex: '0 100px'})
-		root.appendView(v2, {flex: '2'})
+		root.appendView(v3, {flex: '0 100px', resizeableBefore: false})
+		root.appendView(v2, {flex: '2', resizeableBefore: false})
 		$('.main').append(root._$dom)
 
 

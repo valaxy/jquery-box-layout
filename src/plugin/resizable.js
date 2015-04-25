@@ -16,12 +16,16 @@ define(function (require) {
 	 **     - resize-stop: resize stop */
 	var Resizable = function ($dom1, $dom2, direction) {
 		this._$dom1 = $dom1
-		this._on($dom1, $dom2, direction)
+		this._$dom2 = $dom2
+		this._direction = direction
 	}
 
 	//$.extend(Resizable, EventEmitter.prototype)
 
-	Resizable.prototype._on = function ($dom1, $dom2, direction) {
+	Resizable.prototype.on = function () {
+		var $dom1 = this._$dom1,
+			$dom2 = this._$dom2,
+			direction = this._direction
 		var flex1 = getFlex($dom1)
 		var flex2 = getFlex($dom2)
 		var sizeProperty = direction == 'row' ? 'width' : 'height'
@@ -82,10 +86,12 @@ define(function (require) {
 				})
 			}
 		}
+		return this
 	}
 
 	Resizable.prototype.off = function () {
 		this._$dom1.resizable('destroy')
+		return this
 	}
 
 	return Resizable

@@ -44,6 +44,8 @@ define(function (require) {
 	 ** view: LinearLayout or SimpleView
 	 ** options:
 	 **     flex: css `flex`
+	 **     resizeableBefore: true or false between `view` and the one before `view`
+	 **                       ignore when 0 view
 	 */
 	LinearLayout.prototype.appendView = function (view, options) {
 		this.addViewAt(this._views.length, view, options)
@@ -54,6 +56,8 @@ define(function (require) {
 	 ** view: LinearLayout or SimpleView
 	 ** options:
 	 **     flex: css `flex`
+	 **     resizeableAfter: true or false between `view` and the one after `view`
+	 **                      ignore when 0 view
 	 */
 	LinearLayout.prototype.prependView = function (view, options) {
 		this.addViewAt(0, view, options)
@@ -65,27 +69,42 @@ define(function (require) {
 	 ** view: LinearLayout or SimpleView
 	 ** options:
 	 **     flex: css `flex`
+	 **     resizeableBefore: boolean(true)
+	 **     resizeableAfter: boolean(true)
 	 */
 	LinearLayout.prototype.addViewAt = function (index, view, options) {
-		view._$dom.css({
-			flex: options.flex
-		})
+		options = $.extend({
+			resizeableBefore: true,
+			resizeableAfter: true
+		}, options)
+		console.log(options)
+		view._$dom.css({flex: options.flex})
 		view._parent = this
 
-		// insert prev - current plugin
+
+		// final prev and next view
 		var prev = index > 0 ? this._views[index - 1] : null
+		var next = this._views[index]
+
+
+		// insert after prev
 		if (prev) {
 			// must delete first then insert, cannot happen at the same time
-			this._resizeables.length >= index && this._resizeables.splice(index - 1, 1)[0].off()
+			next && this._resizeables.splice(index - 1, 1)[0].off()
 			var resizeable = new Resizeable(prev._$dom, view._$dom, this.direction())
+			if (options.resizeableBefore) {
+				resizeable.on()
+			}
 			this._resizeables.splice(index - 1, 0, resizeable)
 		}
 
 
-		// insert current - next plugin
-		var next = this._views[index]
+		// insert before next
 		if (next) {
 			var resizeable = new Resizeable(view._$dom, next._$dom, this.direction())
+			if (options.resizableAfter) {
+				resizeable.on()
+			}
 			this._resizeables.splice(index, 0, resizeable)
 		}
 
@@ -96,7 +115,6 @@ define(function (require) {
 		} else if (next) {
 			next._$dom.before(view._$dom)
 		} else {
-			//console.log(this._$dom[0]), view._$dom[0]
 			this._$dom.append(view._$dom)
 		}
 
@@ -119,7 +137,7 @@ define(function (require) {
 		var prev = this._views[index - 1]
 		var next = this._views[index]
 		if (prev && next) {
-			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction())
+			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction()).on()
 			this._resizeables.splice(index - 1, 0, plugin)
 		}
 	}

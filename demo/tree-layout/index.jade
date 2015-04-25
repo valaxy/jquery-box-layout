@@ -27,15 +27,8 @@ html
 
         // startup
         script(src="../../bower_components/requirejs/require.js")
+        script(src="../base/config.js")
         script.
-            require.config({
-                baseUrl: '../../',
-                paths: {
-                    jquery: 'bower_components/jquery/dist/jquery.min',
-                    'jquery-ui': 'bower_components/jquery-ui/jquery-ui.min',
-                    'event-emitter': 'bower_components/eventEmitter/EventEmitter.min'
-                }
-            })
             require(['demo/tree-layout/index'], function (index) {
                 index.init()
             })
