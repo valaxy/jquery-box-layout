@@ -77,7 +77,6 @@ define(function (require) {
 			resizeableBefore: true,
 			resizeableAfter: true
 		}, options)
-		console.log(options)
 		view._$dom.css({flex: options.flex})
 		view._parent = this
 
