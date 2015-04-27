@@ -69,14 +69,14 @@ define(function (require, exports) {
 		// addViewAtEdge
 		//
 		$('.addViewAtLeft').click(function () {
-			root.addViewAtEdge2(createSimple(), 'left', {
+			root.addViewAtEdge(createSimple(), 'left', {
 				flex: '1'
 			})
 			root = getRoot(root)
 		})
 
 		$('.addViewAtTop').click(function () {
-			root.addViewAtEdge2(createSimple(), 'top', {
+			root.addViewAtEdge(createSimple(), 'top', {
 				flex: '1'
 			})
 			root = getRoot(root)
@@ -84,14 +84,14 @@ define(function (require, exports) {
 
 
 		$('.addViewAtRight').click(function () {
-			root.addViewAtEdge2(createSimple(), 'right', {
+			root.addViewAtEdge(createSimple(), 'right', {
 				flex: '1'
 			})
 			root = getRoot(root)
 		})
 
 		$('.addViewAtBottom').click(function () {
-			root.addViewAtEdge2(createSimple(), 'bottom', {
+			root.addViewAtEdge(createSimple(), 'bottom', {
 				flex: '1'
 			})
 			root = getRoot(root)

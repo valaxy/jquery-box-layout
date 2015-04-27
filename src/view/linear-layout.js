@@ -235,7 +235,7 @@ define(function (require) {
 	 ** options:
 	 **     flex: css `flex`
 	 */
-	LinearLayout.prototype.addViewAtEdge2 = function (view, position, options) {
+	LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
 		var positionConfig = {
 			bottom: 'row',
 			top   : 'row',
