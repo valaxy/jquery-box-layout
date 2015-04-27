@@ -14,11 +14,11 @@ define(function (require) {
 		this._$dom = $('<div></div>')
 		this._views = []
 		this._resizeables = []
-		this._$dom.css('flex-direction', options.direction)
+
 
 		// make css api
 		this._$dom.addClass('linear').addClass('view')
-		this._$dom.attr('data-direction', options.direction)
+		this.direction(options.direction)
 		View.call(this, options)
 	}
 
@@ -29,8 +29,16 @@ define(function (require) {
 		return new LinearLayout(options)
 	}
 
-	LinearLayout.prototype.direction = function () {
-		return this._$dom.css('flex-direction')
+
+	/** Direction: row || column
+	 */
+	LinearLayout.prototype.direction = function (direction) {
+		if (direction) {
+			this._$dom.css('flex-direction', direction).attr('data-direction', direction)
+			return this
+		} else {
+			return this._$dom.css('flex-direction')
+		}
 	}
 
 
@@ -75,7 +83,7 @@ define(function (require) {
 	LinearLayout.prototype.addViewAt = function (index, view, options) {
 		options = $.extend({
 			resizeableBefore: true,
-			resizeableAfter: true
+			resizeableAfter : true
 		}, options)
 		view._$dom.css({flex: options.flex})
 		view._parent = this
@@ -139,14 +147,15 @@ define(function (require) {
 			var plugin = new Resizeable(prev._$dom, next._$dom, this.direction()).on()
 			this._resizeables.splice(index - 1, 0, plugin)
 		}
+
+		return view
 	}
 
 
 	LinearLayout.prototype.removeView = function (view) {
 		for (var i = 0; i < this._views.length; i++) {
 			if (view == this._views[i]) {
-				this.removeViewAt(i)
-				break
+				return this.removeViewAt(i)
 			}
 		}
 	}
@@ -184,12 +193,21 @@ define(function (require) {
 			views.push(this._views[i].toJSON())
 		}
 		return help.removeUndefinedProperties({
-			_schema: this._options._schema,
-			flex: this.flex(),
+			_schema  : this._options._schema,
+			flex     : this.flex(),
 			direction: this.direction(),
 			className: this._options.className,
-			views: views
+			views    : views
 		})
+	}
+
+
+	LinearLayout.prototype.empty = function () {
+		var children = []
+		for (var i = this._views.length - 1; i >= 0; i--) {
+			children.push(this.removeViewAt(i))
+		}
+		return children
 	}
 
 
@@ -213,38 +231,74 @@ define(function (require) {
 
 
 	/** Add view at edge
-	 ** direction: 'left' | 'right' | 'top' | 'bottom'
+	 ** position: 'left' | 'right' | 'top' | 'bottom'
 	 ** options:
 	 **     flex: css `flex`
 	 */
-	LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
-		var ancestor
-		if (position == 'bottom') {
-			if (this.direction() == 'column' || ((ancestor = this._findAncestor('column')) && ancestor.direction() == 'column')) {
-				ancestor ? ancestor.appendView(view, options) : this.appendView(view, options)
-			} else {
-				ancestor.split(view, 'bottom', options)
-			}
-		} else if (position == 'top') {
-			if (this.direction() == 'column' || ((ancestor = this._findAncestor('column')) && ancestor.direction() == 'column')) {
-				ancestor ? ancestor.addViewAt(0, view, options) : this.addViewAt(0, view, options)
-			} else {
-				ancestor.split(view, 'top', options)
-			}
-		} else if (position == 'left') {
-			if (this.direction() == 'row' || ((ancestor = this._findAncestor('row')) && ancestor.direction() == 'row')) {
-				ancestor ? ancestor.addViewAt(0, view, options) : this.addViewAt(0, view, options)
-			} else {
-				ancestor.split(view, 'left', options)
-			}
-		} else if (position == 'right') {
-			if (this.direction() == 'row' || ((ancestor = this._findAncestor('row')) && ancestor.direction() == 'row')) {
-				ancestor ? ancestor.appendView(view, options) : this.appendView(view, options)
-			} else {
-				ancestor.split(view, 'right', options)
-			}
+	LinearLayout.prototype.addViewAtEdge2 = function (view, position, options) {
+		var positionConfig = {
+			bottom: 'row',
+			top   : 'row',
+			left  : 'column',
+			right : 'column'
 		}
+		var appendConfig = {
+			bottom: true,
+			right : true
+		}
+
+		var direction = positionConfig[position]
+		var isAppend = appendConfig[position]
+		if (this.direction() == direction) {
+			var views = this.empty()
+			var wrap = new LinearLayout({
+				direction: direction
+			})
+			for (var i = 0; i < views.length; i++) {
+				wrap.appendView(views[i], {
+					flex: '1'
+				})
+			}
+			this.direction(direction == 'row' ? 'column' : 'row')
+			this.appendView(wrap, {flex: '1'})
+		}
+		isAppend ? this.appendView(view, options) : this.prependView(view, options)
 	}
 
 	return LinearLayout
 })
+
+///** Add view at edge
+// ** position: 'left' | 'right' | 'top' | 'bottom'
+// ** options:
+// **     flex: css `flex`
+// ** @Deprecated
+// */
+//LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
+//	var ancestor
+//	if (position == 'bottom') {
+//		if (this.direction() == 'column' || ((ancestor = this._findAncestor('column')) && ancestor.direction() == 'column')) {
+//			ancestor ? ancestor.appendView(view, options) : this.appendView(view, options)
+//		} else {
+//			ancestor.split(view, 'bottom', options)
+//		}
+//	} else if (position == 'top') {
+//		if (this.direction() == 'column' || ((ancestor = this._findAncestor('column')) && ancestor.direction() == 'column')) {
+//			ancestor ? ancestor.addViewAt(0, view, options) : this.addViewAt(0, view, options)
+//		} else {
+//			ancestor.split(view, 'top', options)
+//		}
+//	} else if (position == 'left') {
+//		if (this.direction() == 'row' || ((ancestor = this._findAncestor('row')) && ancestor.direction() == 'row')) {
+//			ancestor ? ancestor.addViewAt(0, view, options) : this.addViewAt(0, view, options)
+//		} else {
+//			ancestor.split(view, 'left', options)
+//		}
+//	} else if (position == 'right') {
+//		if (this.direction() == 'row' || ((ancestor = this._findAncestor('row')) && ancestor.direction() == 'row')) {
+//			ancestor ? ancestor.appendView(view, options) : this.appendView(view, options)
+//		} else {
+//			ancestor.split(view, 'right', options)
+//		}
+//	}
+//}

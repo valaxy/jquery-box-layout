@@ -107,5 +107,12 @@ define(function () {
 		return this
 	}
 
+
+	/** Wrap with another view
+	 */
+	View.prototype.wrap = function (view) {
+
+	}
+
 	return View
 })
