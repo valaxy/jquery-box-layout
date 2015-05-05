@@ -21,7 +21,9 @@ define(function () {
 	}
 
 
-	/** Get the flex-value in css */
+	/** Get the flex-value in css
+	 ** @Deprecated
+	 */
 	View.prototype.flex = function () {
 		var flexBasis = this._$dom.css('flex-basis')
 		var flexGrow = this._$dom.css('flex-grow')
@@ -108,10 +110,36 @@ define(function () {
 	}
 
 
-	/** Wrap with another view
-	 */
-	View.prototype.wrap = function (view) {
+	View.prototype.getConfig = function () {
+		return {
+			flex: this.flex2()
+		}
+	}
 
+
+	/** Wrap by `wrapper`
+	 ** options: options of this as child of wrapper
+	 ** return: this
+	 */
+	View.prototype.wrap = function (wrapper, options) {
+		if (!(wrapper instanceof View.LinearLayout) || !(wrapper.length() == 0) || wrapper.parent()) {
+			throw new Error('wrapper should be LinearLayout and empty and no parent')
+		}
+
+		if (this.parent()) {
+			var thisParent = this.parent()
+			var index = thisParent.indexOfView(this)
+			var originalOptions = this.getConfig()
+			thisParent.removeViewAt(index)
+			thisParent.addViewAt(index, wrapper, originalOptions)
+		} else {
+			var $root = this.$dom().parent() // $root is not in any SimpleView/LinearLyaout
+			this.$dom().detach()
+			$root.append(wrapper.$dom())
+		}
+
+		wrapper.appendView(this, options)
+		return this
 	}
 
 	return View

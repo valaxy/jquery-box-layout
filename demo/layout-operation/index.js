@@ -8,10 +8,27 @@ define(function (require, exports) {
 
 	var random = new Chance
 	var id = 0
+	var targetView
 	var createSimple = function () {
-		return new SimpleView({
+		var view = new SimpleView({
 			selector: $('<div></div>').text(id++)
 		})
+		view.$dom().on('click', function () {
+			targetView = view
+			$('.info .current span').text(view.$dom().text())
+		})
+		if (!targetView) {
+			targetView = view
+			$('.info .current span').text(view.$dom().text())
+		}
+		return view
+	}
+
+	var createLinear = function () {
+		var view = new LinearLayout({
+			direction: 'row'
+		})
+		return view
 	}
 
 	var getRoot = function (view) {
@@ -31,8 +48,8 @@ define(function (require, exports) {
 
 		var root = new LinearLayout({direction: 'row'})
 		root.appendView(v1, {flex: '1'})
-		root.appendView(v2, {flex: '0 100px', resizeableBefore: false})
-		root.appendView(v3, {flex: '2', resizeableBefore: false})
+		root.appendView(v2, {flex: '0 100px', resizeableBefore: true})
+		root.appendView(v3, {flex: '2', resizeableBefore: true})
 		$('.main').append(root._$dom)
 
 
@@ -109,5 +126,10 @@ define(function (require, exports) {
 			v1.replaceWith(v)
 			v1 = v
 		})
+
+
+		window.wrapCurrentSimple = function () {
+			targetView.wrap(createLinear())
+		}
 	}
 })

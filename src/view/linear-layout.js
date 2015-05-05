@@ -22,6 +22,8 @@ define(function (require) {
 		View.call(this, options)
 	}
 
+	View.LinearLayout = LinearLayout
+
 
 	View.extend(LinearLayout)
 
@@ -109,7 +111,7 @@ define(function (require) {
 		// insert before next
 		if (next) {
 			var resizeable = new Resizeable(view._$dom, next._$dom, this.direction())
-			if (options.resizableAfter) {
+			if (options.resizeableAfter) {
 				resizeable.on()
 			}
 			this._resizeables.splice(index, 0, resizeable)
@@ -135,7 +137,7 @@ define(function (require) {
 	 */
 	LinearLayout.prototype.removeViewAt = function (index) {
 		var view = this._views.splice(index, 1)[0]
-		view._$dom.remove()
+		view._$dom.detach()
 		view._parent = null
 
 		if (index > 0) {
