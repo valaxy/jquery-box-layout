@@ -128,8 +128,18 @@ define(function (require, exports) {
 		})
 
 
-		window.wrapCurrentSimple = function () {
-			targetView.wrap(createLinear())
-		}
+		//
+		// wrap
+		//
+		$('.wrapCurrentSimple').click(function () {
+			targetView.wrap(createLinear(), {
+				flex: 1
+			})
+		})
+		$('.wrapRoot').click(function () {
+			root.wrap(createLinear(), {
+				flex: 1
+			})
+		})
 	}
 })
