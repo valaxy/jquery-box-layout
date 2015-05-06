@@ -204,10 +204,16 @@ define(function (require) {
 	}
 
 
-	//---------------------------------------------------------
-	// Advanced API
-	//---------------------------------------------------------
-
+	/** Remove all the children
+	 ** return: a Array in order
+	 */
+	LinearLayout.prototype.empty = function () {
+		var children = []
+		for (var i = this._views.length - 1; i >= 0; i--) {
+			children.push(this.removeViewAt(i))
+		}
+		return children.reverse()
+	}
 
 	LinearLayout.prototype._findAncestor = function (direction) {
 		var find = this
@@ -223,17 +229,9 @@ define(function (require) {
 	}
 
 
-	/** Remove all the children
-	 ** return: a Array in order
-	 */
-	LinearLayout.prototype.empty = function () {
-		var children = []
-		for (var i = this._views.length - 1; i >= 0; i--) {
-			children.push(this.removeViewAt(i))
-		}
-		return children.reverse()
-	}
-
+	//---------------------------------------------------------
+	// Advanced API
+	//---------------------------------------------------------
 
 	/** Add view at edge
 	 ** position: 'left' | 'right' | 'top' | 'bottom'

@@ -22,20 +22,19 @@ define(function () {
 
 
 	/** Get the flex-value in css
-	 ** @Deprecated
 	 */
-	View.prototype.flex = function () {
-		var flexBasis = this._$dom.css('flex-basis')
-		var flexGrow = this._$dom.css('flex-grow')
-		return flexGrow != '0' ? flexGrow : flexBasis
+	View.prototype.flex = function (value) {
+		if (value !== undefined) {
+			this._$dom.css('flex', value)
+			return this
+		} else {
+			return this._$dom.css('flex')
+		}
 	}
 
 
-	View.prototype.flex2 = function () {
-		return this._$dom.css('flex')
-	}
-
-
+	/** Parent
+	 */
 	View.prototype.parent = function () {
 		return this._parent
 	}
@@ -95,7 +94,7 @@ define(function () {
 	 ** return: this
 	 **/
 	View.prototype.replaceWith = function (view) {
-		var oldFlex = this.flex2()
+		var oldFlex = this.flex()
 		if (this.parent()) {
 			var parent = this.parent()
 			var index = parent.indexOfView(this)
@@ -114,7 +113,7 @@ define(function () {
 	 */
 	View.prototype.getConfig = function () {
 		return {
-			flex: this.flex2()
+			flex: this.flex()
 		}
 	}
 
