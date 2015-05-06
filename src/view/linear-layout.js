@@ -188,19 +188,19 @@ define(function (require) {
 	}
 
 
-	/** Get the json data */
+	/** Get the json data
+	 **/
 	LinearLayout.prototype.toJSON = function () {
 		var views = []
 		for (var i = 0; i < this._views.length; i++) {
 			views.push(this._views[i].toJSON())
 		}
-		return help.removeUndefinedProperties({
+		return help.removeUndefinedProperties($.extend({
 			_schema  : this._options._schema,
-			flex     : this.flex(),
 			direction: this.direction(),
 			className: this._options.className,
 			views    : views
-		})
+		}, this.getConfig()))
 	}
 
 
