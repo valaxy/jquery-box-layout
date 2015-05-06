@@ -110,6 +110,8 @@ define(function () {
 	}
 
 
+	/** Get the original config, if it removed from LinearLayout, it will be saved
+	 */
 	View.prototype.getConfig = function () {
 		return {
 			flex: this.flex2()

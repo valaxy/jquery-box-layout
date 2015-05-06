@@ -204,15 +204,6 @@ define(function (require) {
 	}
 
 
-	LinearLayout.prototype.empty = function () {
-		var children = []
-		for (var i = this._views.length - 1; i >= 0; i--) {
-			children.push(this.removeViewAt(i))
-		}
-		return children
-	}
-
-
 	//---------------------------------------------------------
 	// Advanced API
 	//---------------------------------------------------------
@@ -232,6 +223,18 @@ define(function (require) {
 	}
 
 
+	/** Remove all the children
+	 ** return: a Array in order
+	 */
+	LinearLayout.prototype.empty = function () {
+		var children = []
+		for (var i = this._views.length - 1; i >= 0; i--) {
+			children.push(this.removeViewAt(i))
+		}
+		return children.reverse()
+	}
+
+
 	/** Add view at edge
 	 ** position: 'left' | 'right' | 'top' | 'bottom'
 	 ** options:
@@ -244,27 +247,21 @@ define(function (require) {
 			left  : 'column',
 			right : 'column'
 		}
-		var appendConfig = {
-			bottom: true,
-			right : true
-		}
 
 		var direction = positionConfig[position]
-		var isAppend = appendConfig[position]
-		if (this.direction() == direction) {
+		var shouldAppend = position == 'bottom' || position == 'right'
+		if (this.direction() == direction) { // direction no match
 			var views = this.empty()
 			var wrap = new LinearLayout({
 				direction: direction
 			})
-			for (var i = views.length - 1; i >= 0; i--) {
-				wrap.appendView(views[i], {
-					flex: '1'
-				})
+			for (var i = 0; i < views.length; i++) {
+				wrap.appendView(views[i], views[i].getConfig()) // add original views as children
 			}
 			this.direction(direction == 'row' ? 'column' : 'row')
-			this.appendView(wrap, {flex: '1'})
+			this.appendView(wrap, {flex: '1'}) // todo, 这里参数这样配合适吗
 		}
-		isAppend ? this.appendView(view, options) : this.prependView(view, options)
+		shouldAppend ? this.appendView(view, options) : this.prependView(view, options)
 	}
 
 	return LinearLayout
