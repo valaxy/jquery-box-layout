@@ -51,7 +51,7 @@ define(function (require, exports) {
 					selector: '.box4'
 				}, {
 					_schema : 'simple',
-					flex    : '1',
+					flex    : '0 100px',
 					selector: '.box6'
 				}]
 			}, {
@@ -62,6 +62,8 @@ define(function (require, exports) {
 			}]
 		})
 		$('body').append(root.$dom())
+
+		console.log(root.toJSON())
 
 		//// record and recover
 		//var data = root.toJSON()

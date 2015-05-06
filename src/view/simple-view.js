@@ -23,12 +23,11 @@ define(function (require) {
 
 	/** Get json data */
 	SimpleView.prototype.toJSON = function () {
-		return help.removeUndefinedProperties({
-			_schema: this._options._schema,
-			flex: this.flex(),
-			selector: this._options.selector,
+		return help.removeUndefinedProperties($.extend({
+			_schema  : this._options._schema,
+			selector : this._options.selector,
 			className: this._options.className
-		})
+		}, this.getConfig()))
 	}
 
 	return SimpleView
