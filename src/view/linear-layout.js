@@ -84,7 +84,7 @@ define(function (require) {
 	 */
 	LinearLayout.prototype.addViewAt = function (index, view, options) {
 		options = $.extend({
-			resizeableBefore: true,
+			resizeableBefore: true, // todo, 有时这些选项不会生效, 因为依赖项还没被加到view里来
 			resizeableAfter : true
 		}, options)
 		view._$dom.css({flex: options.flex})

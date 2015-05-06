@@ -16,7 +16,9 @@ define(function (require, exports) {
 			var viewConfig = config.views[i]
 			var view = createView(viewConfig)
 			linear.appendView(view, {
-				flex: viewConfig.flex
+				flex            : viewConfig.flex,
+				resizeableBefore: viewConfig.resizeableBefore,
+				resizeableAfter : viewConfig.resizeableAfter
 			})
 
 			// recrusly
