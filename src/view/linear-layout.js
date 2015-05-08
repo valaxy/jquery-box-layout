@@ -229,6 +229,13 @@ define(function (require) {
 	}
 
 
+	/** No parent and child is a isolate LinearLayout
+	 */
+	LinearLayout.prototype.isIsolate = function () {
+		return this.length() == 0 && !this.parent()
+	}
+
+
 	//---------------------------------------------------------
 	// Advanced API
 	//---------------------------------------------------------

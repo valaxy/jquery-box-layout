@@ -30,5 +30,10 @@ define(function (require) {
 		}, this.getConfig()))
 	}
 
+
+	SimpleView.prototype.isIsolate = function () {
+		return !this.parent()
+	}
+
 	return SimpleView
 })

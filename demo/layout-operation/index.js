@@ -2,33 +2,52 @@ define(function (require, exports) {
 	var LinearLayout = require('src/view/linear-layout')
 	var SimpleView = require('src/view/simple-view')
 	var $ = require('jquery')
-	var Chance = require('chance')
 	require('jquery-ui')
 
 
-	var random = new Chance
-	var id = 0
 	var targetView
+	var chooseView = function (view) {
+		if (targetView) {
+			targetView.$dom().removeClass('select')
+		}
+		targetView = view
+		view.$dom().addClass('select')
+		if (view instanceof  LinearLayout) {
+			$('.info .current span').text('select LinearLayout')
+		} else {
+			$('.info .current span').text('select SimpleView')
+		}
+
+	}
+
+	var id = 0
+
 	var createSimple = function () {
 		var view = new SimpleView({
-			selector: $('<div></div>').text(id++)
+			selector: $('<div><p>' + (id++) + '</p></div>')
 		})
-		view.$dom().on('click', function () {
-			targetView = view
-			$('.info .current span').text(view.$dom().text())
+		view.$dom().on('click', function (e) {
+			chooseView(view)
+			return false
 		})
 		if (!targetView) {
-			targetView = view
-			$('.info .current span').text(view.$dom().text())
+			chooseView(view)
 		}
 		return view
 	}
 
-	var createLinear = function () {
+	var createLinear = function (direction) {
 		var view = new LinearLayout({
-			direction: 'row'
+			direction: direction
 		})
+		bindLinear(view)
 		return view
+	}
+
+	var bindLinear = function (view) {
+		view.$dom().on('click', function (e) {
+			chooseView(view)
+		})
 	}
 
 	var getRoot = function (view) {
@@ -46,7 +65,7 @@ define(function (require, exports) {
 		var v3 = createSimple()
 
 
-		var root = new LinearLayout({direction: 'row'})
+		var root = createLinear('row')
 		root.appendView(v1, {flex: '1'})
 		root.appendView(v2, {flex: '0 100px', resizeableBefore: true})
 		root.appendView(v3, {flex: '2', resizeableBefore: true})
@@ -61,24 +80,24 @@ define(function (require, exports) {
 		//
 		// split
 		//
-		$('.splitRootAtTop').click(function () {
-			root.split(createSimple(), 'top', {flex: '1'})
-			root = root.parent()
+		$('.splitAtTop').click(function () {
+			targetView.split(createSimple(), 'top', {flex: '1'}, {flex: '1'})
+			bindLinear(targetView.parent())
 		})
 
-		$('.splitRootAtRight').click(function () {
-			root.split(createSimple(), 'right', {flex: '1'})
-			root = root.parent()
+		$('.splitAtRight').click(function () {
+			targetView.split(createSimple(), 'right', {flex: '1'}, {flex: '1'})
+			bindLinear(targetView.parent())
 		})
 
-		$('.splitRootAtBottom').click(function () {
-			root.split(createSimple(), 'bottom', {flex: '1'})
-			root = root.parent()
+		$('.splitAtBottom').click(function () {
+			targetView.split(createSimple(), 'bottom', {flex: '1'}, {flex: '1'})
+			bindLinear(targetView.parent())
 		})
 
-		$('.splitRootAtLeft').click(function () {
-			root.split(createSimple(), 'left', {flex: '1'})
-			root = root.parent()
+		$('.splitAtLeft').click(function () {
+			targetView.split(createSimple(), 'left', {flex: '1'}, {flex: '1'})
+			bindLinear(targetView.parent())
 		})
 
 

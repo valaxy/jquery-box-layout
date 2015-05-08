@@ -40,37 +40,41 @@ define(function () {
 	}
 
 
-	/** Split this with `view` which will at `position`
-	 ** view: the new added view
-	 ** position: 'top' | 'bottom' | 'left' | 'right'
-	 ** options:
+	/** Create a parent layout, append both of this and `adder`, the `adder` will at `position` of this
+	 ** adder:        the new added view
+	 ** position:     'top' | 'bottom' | 'left' | 'right'
+	 ** adderOptions: options of adder
+	 ** thisOptions:  options of this
 	 ** return: this
 	 */
-	View.prototype.split = function (view, position, options) {
+	View.prototype.split = function (adder, position, adderOptions, thisOptions) {
 		// init paras
-		var type = position == 'left' || position == 'right' ? 'horizontal' : 'vertical'
+		var type = (position == 'left' || position == 'right') ? 'horizontal' : 'vertical'
 		var isVertical = type == 'vertical'
+		position = position || (isVertical ? 'bottom' : 'right')
+
 
 		// split it
-		position = position || (isVertical ? 'bottom' : 'right')
 		if (!this.parent()) { // root element
-			var wrap = View.createLinearLayout({
+			var wrap = new View.LinearLayout({
 				direction: isVertical ? 'column' : 'row'
 			})
-			var mark = this._$dom.parent()
+			var $parent = this._$dom.parent()
 			this._$dom.detach()
 
+			// root element no need to remove from layout
 			if (position == 'top' || position == 'left') {
-				wrap.appendView(view, options) // todo: 为什么$.wrap()有问题
-				wrap.appendView(this, {flex: '1'})
+				wrap.appendView(adder, adderOptions)
+				wrap.appendView(this, thisOptions)
 			} else {
-				wrap.appendView(this, {flex: '1'})
-				wrap.appendView(view, options)
+				wrap.appendView(this, thisOptions)
+				wrap.appendView(adder, adderOptions)
 			}
-			mark.append(wrap._$dom)
+			$parent.append(wrap._$dom)
 		} else {
 			var parent = this.parent()
 			var index = parent.findViewAt(this)
+			var oldOptions = this.getConfig()
 			parent.removeViewAt(index)
 
 			var wrap = View.createLinearLayout({
@@ -78,13 +82,13 @@ define(function () {
 			})
 
 			if (position == 'top' || position == 'left') {
-				wrap.appendView(view, options)
-				wrap.appendView(this, {flex: '1'})
+				wrap.appendView(adder, adderOptions)
+				wrap.appendView(this, thisOptions)
 			} else {
-				wrap.appendView(this, {flex: '1'})
-				wrap.appendView(view, options)
+				wrap.appendView(this, thisOptions)
+				wrap.appendView(adder, adderOptions)
 			}
-			parent.addViewAt(index, wrap, {flex: '1'}) // todo: check here, use 原来的 flex
+			parent.addViewAt(index, wrap, oldOptions)
 		}
 		return this
 	}
@@ -123,7 +127,7 @@ define(function () {
 	 ** return: this
 	 */
 	View.prototype.wrap = function (wrapper, options) {
-		if (!(wrapper instanceof View.LinearLayout) || !(wrapper.length() == 0) || wrapper.parent()) {
+		if (!(wrapper instanceof View.LinearLayout) || !(wrapper.isIsolate())) {
 			throw new Error('wrapper should be LinearLayout and empty and no parent')
 		}
 
