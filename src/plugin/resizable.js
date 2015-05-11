@@ -15,7 +15,7 @@ define(function (require) {
 	var Resizable = function ($dom1, $dom2, direction) {
 		this._$dom1 = $dom1
 		this._$dom2 = $dom2
-		this._direction = direction
+		this._currentPosition = direction
 		this._on = false
 	}
 
@@ -24,7 +24,7 @@ define(function (require) {
 		this._on = true
 		var $dom1     = this._$dom1,
 		    $dom2     = this._$dom2,
-		    direction = this._direction
+		    direction = this._currentPosition
 		var flex1 = getFlex($dom1)
 		var flex2 = getFlex($dom2)
 		var sizeProperty = direction == 'row' ? 'width' : 'height'

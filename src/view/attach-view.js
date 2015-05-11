@@ -12,7 +12,7 @@ define(function (require) {
 	 */
 	var AttachView = function (options) {
 		this._$dom = $(options.selector)
-		this._direction = options.direction
+		this._currentPosition = options.direction
 		this._init()
 	}
 
@@ -43,7 +43,7 @@ define(function (require) {
 
 
 		// init css
-		switch (this._direction) {
+		switch (this._currentPosition) {
 			case 'left':
 				$hideHandler.css({
 					width: HANDLER_SIZE,
@@ -133,7 +133,7 @@ define(function (require) {
 	AttachView.prototype._open = function () {
 		var me = this
 		var animateConfig = {}
-		animateConfig[this._direction] = 0
+		animateConfig[this._currentPosition] = 0
 		me._$dom.show()
 		this._$dom.animate(animateConfig, function () {
 			me._fsm.transition()
@@ -143,7 +143,7 @@ define(function (require) {
 	AttachView.prototype._close = function () {
 		var me = this
 		var animateConfig = {}
-		animateConfig[this._direction] = '-' + DOM_SIZE
+		animateConfig[this._currentPosition] = '-' + DOM_SIZE
 		this._$dom.animate(animateConfig, function () {
 			me._$dom.hide()
 			me._fsm.transition()
