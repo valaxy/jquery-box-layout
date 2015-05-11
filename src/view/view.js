@@ -40,6 +40,19 @@ define(function () {
 	}
 
 
+	/** Remove this from parent
+	 ** return: this
+	 */
+	View.prototype.remove = function () {
+		if (!this.parent()) {
+			throw new Error('Can not remove, because there is no parent')
+		}
+
+		this.parent().removeView(this)
+		return this
+	}
+
+
 	/** Create a parent layout, append both of this and `adder`, the `adder` will at `position` of this
 	 ** adder:        the new added view
 	 ** position:     'top' | 'bottom' | 'left' | 'right'
@@ -48,6 +61,10 @@ define(function () {
 	 ** return: this
 	 */
 	View.prototype.split = function (adder, position, adderOptions, thisOptions) {
+		if (adder.parent()) {
+			adder.remove()
+		}
+
 		// init paras
 		var type = (position == 'left' || position == 'right') ? 'horizontal' : 'vertical'
 		var isVertical = type == 'vertical'

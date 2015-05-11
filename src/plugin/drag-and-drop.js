@@ -2,9 +2,7 @@ define(function (require) {
 	var SimpleView = require('../view/simple-view')
 	var Rect = require('./rect')
 	var $ = require('jquery')
-
-	var NAMESPACE = '.valaxy/linear-layout'
-
+	var NAMESPACE = require('../view/jquery-event-namespace')
 
 	var initDropArea = function () {
 		var root = this._options.root.toTreeNode()
@@ -46,7 +44,7 @@ define(function (require) {
 			var toView = this._currentRect.view
 			var position = this._currentPosition
 
-			
+			fromView.removeNonredundant()
 			toView.split(fromView, position, {flex: '1'}, {flex: '1'})
 		}
 	}

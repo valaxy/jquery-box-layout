@@ -40,5 +40,19 @@ define(function (require) {
 		return !this.parent()
 	}
 
+	SimpleView.prototype.removeNonredundant = function () {
+		var me = this
+		var parent
+		while (true) {
+			parent = me.parent()
+			me.remove()
+			if (parent.length() != 0) {
+				break
+			}
+			me = parent
+		}
+		return this
+	}
+
 	return SimpleView
 })
