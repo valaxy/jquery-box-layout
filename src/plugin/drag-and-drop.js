@@ -4,29 +4,31 @@ define(function (require) {
 	var $ = require('jquery')
 	var NAMESPACE = require('../view/jquery-event-namespace')
 
-	var initDropArea = function () {
+	var initDropRect = function () {
 		var root = this._options.root.toTreeNode()
 		var rects = this._rects = []
+		var me = this
 		root.postorderWalk(function (node) {
 			var view = node.value()
 			if (view instanceof SimpleView) {
-				rects.push(new Rect(
-					view.$dom()[0].getBoundingClientRect(),
-					view
-				))
+				var r = new Rect(view)
+				rects.push(r)
+				if (view == me._fromView) {
+					me._fromRect = r
+				}
 			}
 		})
 	}
 
 
 	var onDragStart = function (e) {
-		initDropArea.call(this)
+		this._fromView = findSimpleView.call(this, findSimpleDom(e.currentTarget))
+		initDropRect.call(this)
 		var $ghostLayer = $(this._options.ghostLayer)
 		var $ghost = this._$ghost = $('<div>').addClass('ghost').css({
 			position: 'absolute'
 		})
 
-		this._fromView = findSimpleView.call(this, findSimpleDom(e.currentTarget))
 		this._currentRect = null
 		this._currentPosition = null
 		$ghostLayer.append($ghost)
@@ -77,18 +79,23 @@ define(function (require) {
 			left: e.clientX,
 			top : e.clientY
 		}
-		//console.log(position)
-
 
 		var me = this
 		this._rects.forEach(function (rect) {
 			var direction = rect.in(position)
 			if (direction) {
-				if (rect != me._currentRect || me._currentPosition != direction) {
+				console.log(me._fromRect)
+				if (rect == me._fromRect) {
+					me._currentRect = null
+					me._currentPosition = null
+
+					me._$ghost.hide()
+				} else if (rect != me._currentRect || me._currentPosition != direction) {
 					me._currentRect = rect
 					me._currentPosition = direction
 					//console.log(rect, position, direction)
 
+					me._$ghost.show()
 					switch (direction) {
 						case 'left':
 							me._$ghost.css({
@@ -145,9 +152,10 @@ define(function (require) {
 		options.ghostLayer = options.ghostLayer || 'body'
 		this._options = options
 
-		this._fromView = null         // drag start view
-		this._rects = null            // drop area
 		this._$ghost = null           // ghost rect
+		this._rects = null            // drop area
+		this._fromView = null         // drag start view
+		this._fromRect = null         // drag rect
 		this._currentRect = null      // rect
 		this._currentPosition = null  // postion
 

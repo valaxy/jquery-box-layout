@@ -1,11 +1,13 @@
 define(function () {
 	// O is at left and top
-	var Rect = function (clientRect, view) {
+	var Rect = function (view) {
+		var clientRect = view.$dom()[0].getBoundingClientRect()
+
+		this.view = view
 		this.left = clientRect.left
 		this.top = clientRect.top
 		this.bottom = clientRect.top + clientRect.height
 		this.right = clientRect.left + clientRect.width
-		this.view = view
 	}
 
 	Rect.prototype = {
