@@ -108,7 +108,7 @@ define(function (require) {
 			var shouldAppend = position == 'bottom' || position == 'right'
 			if (this.direction() == direction) { // direction no match
 				var views = this.empty()
-				var wrap = new LinearLayout({
+				var wrap = new View.LinearLayout({
 					direction: direction
 				})
 				for (var i = 0; i < views.length; i++) {
