@@ -1,3 +1,5 @@
+> This is under development
+
 # Introduction
 [Flex-Layout](http://www.w3.org/TR/css3-flexbox/) is W3C standard    
 This AMD/CMD module gives you a easily used function which you can config a json to create flex-layout.    

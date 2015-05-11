@@ -12,16 +12,7 @@ define(function (require) {
 	}
 
 
-	/** Direction: row || column
-	 */
-	LinearLayout.prototype.direction = function (direction) {
-		if (direction) {
-			this._$dom.css('flex-direction', direction).attr('data-direction', direction)
-			return this
-		} else {
-			return this._$dom.css('flex-direction')
-		}
-	}
+
 
 
 	/** Return (index+1)-th view
