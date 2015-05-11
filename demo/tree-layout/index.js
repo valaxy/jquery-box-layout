@@ -1,5 +1,6 @@
 define(function (require, exports) {
-	var treeLayout = require('../../src/view/tree-layout')
+	var treeLayout = require('src/view/tree-layout')
+	var DragAndDrop = require('src/plugin/drag-and-drop')
 
 	exports.init = function () {
 		var root = treeLayout.init({
@@ -63,7 +64,14 @@ define(function (require, exports) {
 		})
 		$('body').append(root.$dom())
 
-		console.log(root.toJSON())
+		new DragAndDrop({
+			root      : root,
+			ghostLayer: 'body'
+		})
+
+		// toXXX
+		//console.log(root.toJSON())
+		//console.log(root.toTreeNode())
 
 		//// record and recover
 		//var data = root.toJSON()

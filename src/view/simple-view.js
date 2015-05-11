@@ -2,6 +2,7 @@ define(function (require) {
 	var $ = require('jquery')
 	var View = require('./view')
 	var help = require('../help/help')
+	var OrderedNode = require('array-ordered-node')
 
 	/** options:
 	 **     selector: css selector | jquery object
@@ -28,6 +29,10 @@ define(function (require) {
 			selector : this._options.selector,
 			className: this._options.className
 		}, this.getConfig()))
+	}
+
+	SimpleView.prototype.toTreeNode = function () {
+		return new OrderedNode(this)
 	}
 
 

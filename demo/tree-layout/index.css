@@ -40,3 +40,8 @@ body {
     right: 0;
     text-align: center;
     line-height: 30px; }
+
+body .ghost {
+  background: blue;
+  border-radius: 4px;
+  opacity: 0.8; }

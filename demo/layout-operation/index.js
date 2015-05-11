@@ -67,7 +67,7 @@ define(function (require, exports) {
 
 		var root = createLinear('row')
 		root.appendView(v1, {flex: '1'})
-		root.appendView(v2, {flex: '0 100px', resizeableBefore: true})
+		root.appendView(v2, {flex: '2', resizeableBefore: true})
 		root.appendView(v3, {flex: '2', resizeableBefore: true})
 		$('.main').append(root._$dom)
 

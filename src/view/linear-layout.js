@@ -3,6 +3,7 @@ define(function (require) {
 	var Resizeable = require('../plugin/resizable')
 	var View = require('./view')
 	var help = require('../help/help')
+	var OrderedNode = require('array-ordered-node')
 
 
 	/** options:
@@ -44,7 +45,8 @@ define(function (require) {
 	}
 
 
-	/** Return (index+1)-th view */
+	/** Return (index+1)-th view
+	 */
 	LinearLayout.prototype.getViewAt = function (index) {
 		return this._views[index]
 	}
@@ -201,6 +203,18 @@ define(function (require) {
 			className: this._options.className,
 			views    : views
 		}, this.getConfig()))
+	}
+
+
+	LinearLayout.prototype.toTreeNode = function () {
+		var node = new OrderedNode(this)
+
+		for (var i = 0; i < this._views.length; i++) {
+			var child = this._views[i].toTreeNode()
+			node.addChildLast(child)
+		}
+
+		return node
 	}
 
 
