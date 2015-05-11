@@ -99,3 +99,21 @@ body, button {
 		}
 	}
 }
+
+body {
+	.ghost {
+		background:          blue;
+		transition-property: top, left, width, height;
+		transition-duration: 0.2s;
+		border-radius:       4px;
+		opacity:             0.8;
+	}
+}
+
+body {
+	-webkit-user-select: none;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}

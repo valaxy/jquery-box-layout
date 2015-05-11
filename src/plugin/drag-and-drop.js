@@ -48,6 +48,7 @@ define(function (require) {
 
 			fromView.removeNonredundant()
 			toView.split(fromView, position, {flex: '1'}, {flex: '1'})
+			toView.upNonredundant()
 		}
 	}
 
@@ -84,7 +85,6 @@ define(function (require) {
 		this._rects.forEach(function (rect) {
 			var direction = rect.in(position)
 			if (direction) {
-				console.log(me._fromRect)
 				if (rect == me._fromRect) {
 					me._currentRect = null
 					me._currentPosition = null

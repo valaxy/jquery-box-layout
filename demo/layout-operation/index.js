@@ -2,6 +2,7 @@ define(function (require, exports) {
 	var LinearLayout = require('src/view/linear-layout')
 	var SimpleView = require('src/view/simple-view')
 	var $ = require('jquery')
+	var DragAndDrop = require('src/plugin/drag-and-drop')
 	require('jquery-ui')
 
 
@@ -71,6 +72,9 @@ define(function (require, exports) {
 		root.appendView(v3, {flex: '2', resizeableBefore: true})
 		$('.main').append(root._$dom)
 
+		new DragAndDrop({
+			root: root
+		})
 
 		$('.remove').click(function () {
 			root.removeViewAt(1)

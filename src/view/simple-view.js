@@ -4,19 +4,7 @@ define(function (require) {
 	var help = require('../help/help')
 	var OrderedNode = require('array-ordered-node')
 
-	/** options:
-	 **     selector: css selector | jquery object
-	 */
-	var SimpleView = function (options) {
-		this._options = options
-		this._$dom = $(options.selector).detach()
-
-		// make css API
-		this._$dom.addClass('simple').addClass('view')
-		View.call(this, options)
-	}
-
-	View.extend(SimpleView)
+	var SimpleView = View.SimpleView
 
 	View.createSimpleView = function (options) {
 		return new SimpleView(options)
@@ -40,19 +28,6 @@ define(function (require) {
 		return !this.parent()
 	}
 
-	SimpleView.prototype.removeNonredundant = function () {
-		var me = this
-		var parent
-		while (true) {
-			parent = me.parent()
-			me.remove()
-			if (parent.length() != 0) {
-				break
-			}
-			me = parent
-		}
-		return this
-	}
 
 	return SimpleView
 })

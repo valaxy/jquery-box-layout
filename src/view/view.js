@@ -1,4 +1,5 @@
-define(function () {
+define(function (require) {
+
 	//
 	// This is base class of SimpleView & LinearLayout
 	//
@@ -13,7 +14,45 @@ define(function () {
 		var v = new View
 		delete v._$dom
 		Class.prototype = v
+		return Class
 	}
+
+	/** options:
+	 **     direction: 'row' | 'column'
+	 */
+	var LinearLayout = function (options) {
+		options.flex = String(options.flex)
+		this._options = options
+		this._$dom = $('<div></div>')
+		this._views = []
+		this._resizeables = []
+
+
+		// make css api
+		this._$dom.addClass('linear').addClass('view')
+		this.direction(options.direction)
+		View.call(this, options)
+	}
+
+	/** options:
+	 **     selector: css selector | jquery object
+	 */
+	var SimpleView = function (options) {
+		this._options = options
+		this._$dom = $(options.selector).detach()
+
+		// make css API
+		this._$dom.addClass('simple').addClass('view')
+		View.call(this, options)
+	}
+
+
+	View.SimpleView = View.extend(SimpleView)
+	View.LinearLayout = View.extend(LinearLayout)
+
+
+	require('./manipulation/removal')(View)
+	require('./manipulation/insertion')(View)
 
 
 	View.prototype.$dom = function () {
@@ -37,19 +76,6 @@ define(function () {
 	 */
 	View.prototype.parent = function () {
 		return this._parent
-	}
-
-
-	/** Remove this from parent
-	 ** return: this
-	 */
-	View.prototype.remove = function () {
-		if (!this.parent()) {
-			throw new Error('Can not remove, because there is no parent')
-		}
-
-		this.parent().removeView(this)
-		return this
 	}
 
 
