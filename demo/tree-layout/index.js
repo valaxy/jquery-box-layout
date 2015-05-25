@@ -69,6 +69,9 @@ define(function (require, exports) {
 			ghostLayer: 'body'
 		})
 
+
+		console.log(root.findViewByDom($('.box3')))
+
 		// toXXX
 		//console.log(root.toJSON())
 		//console.log(root.toTreeNode())

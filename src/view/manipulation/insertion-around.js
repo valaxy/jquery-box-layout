@@ -38,7 +38,7 @@ define(function (require, exports) {
 				$parent.append(wrap._$dom)
 			} else {
 				var parent = this.parent()
-				var index = parent.findViewAt(this)
+				var index = parent.indexOfView(this)
 				var oldOptions = this.getConfig()
 				parent.removeViewAt(index)
 
