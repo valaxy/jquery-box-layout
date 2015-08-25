@@ -1,5 +1,4 @@
 define(function (require) {
-	var $ = require('jquery')
 	var Resizeable = require('../../plugin/resizable')
 	var help = require('../../help/help')
 
@@ -7,69 +6,51 @@ define(function (require) {
 
 		/** Add view at last
 		 ** view: LinearLayout or SimpleView
-		 ** options:
-		 **     flex: css `flex`
-		 **     resizeableBefore: true or false between `view` and the one before `view`
-		 **                       ignore when 0 view
 		 */
-		View.LinearLayout.prototype.appendView = function (view, options) {
-			this.addViewAt(this._views.length, view, options)
+		View.LinearLayout.prototype.appendView = function (view) {
+			this.addViewAt(this._views.length, view)
 		}
 
 
 		/** Add view at first
 		 ** view: LinearLayout or SimpleView
-		 ** options:
-		 **     flex: css `flex`
-		 **     resizeableAfter: true or false between `view` and the one after `view`
-		 **                      ignore when 0 view
 		 */
-		View.LinearLayout.prototype.prependView = function (view, options) {
-			this.addViewAt(0, view, options)
+		View.LinearLayout.prototype.prependView = function (view) {
+			this.addViewAt(0, view)
 		}
 
 
 		/** Add view at specify position
-		 ** index: position
+		 ** index: position number
 		 ** view: LinearLayout or SimpleView
-		 ** options:
-		 **     flex: css `flex`
-		 **     resizeableBefore: boolean(true)
-		 **     resizeableAfter: boolean(true)
 		 */
-		View.LinearLayout.prototype.addViewAt = function (index, view, options) {
-			options = $.extend({
-				resizeableBefore: true, // todo, 有时这些选项不会生效, 因为依赖项还没被加到view里来
-				resizeableAfter : true
-			}, options)
-			view._$dom.css({flex: options.flex})
+		View.LinearLayout.prototype.addViewAt = function (index, view) {
 			view._parent = this
+			var prevIndex = index - 1
+			var nextIndex = index
+			var prev = index > 0 ? this._views[prevIndex] : null // prev is before the `view` after adding
+			var next = this._views[nextIndex]                    //  next is after the `view` after addding
 
 
-			// final prev and next view
-			var prev = index > 0 ? this._views[index - 1] : null
-			var next = this._views[index]
-
-
-			// insert after prev
+			// insert resizeable after prev
 			if (prev) {
 				// must delete first then insert, cannot happen at the same time
-				next && this._resizeables.splice(index - 1, 1)[0].off()
+				next && this._resizeables.splice(prevIndex, 1)[0].off()
 				var resizeable = new Resizeable(prev._$dom, view._$dom, this.direction())
-				if (options.resizeableBefore) {
+				if (prev._options.resizeableAfter && view._options.resizeableBefore) {
 					resizeable.on()
 				}
-				this._resizeables.splice(index - 1, 0, resizeable)
+				this._resizeables.splice(prevIndex, 0, resizeable)
 			}
 
 
-			// insert before next
+			// insert resizeable before next
 			if (next) {
 				var resizeable = new Resizeable(view._$dom, next._$dom, this.direction())
-				if (options.resizeableAfter) {
+				if (view._options.resizeableAfter && next._options.resizeableBefore) {
 					resizeable.on()
 				}
-				this._resizeables.splice(index, 0, resizeable)
+				this._resizeables.splice(nextIndex, 0, resizeable)
 			}
 
 
@@ -93,10 +74,8 @@ define(function (require) {
 
 		/** Add view at edge
 		 ** position: 'left' | 'right' | 'top' | 'bottom'
-		 ** options:
-		 **     flex: css `flex`
 		 */
-		View.LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
+		View.LinearLayout.prototype.addViewAtEdge = function (view, position) {
 			var positionConfig = {
 				bottom: 'row',
 				top   : 'row',
@@ -106,19 +85,27 @@ define(function (require) {
 
 			var direction = positionConfig[position]
 			var shouldAppend = position == 'bottom' || position == 'right'
-			if (this.direction() == direction) { // direction no match
+			if (this.direction() == direction) { // if direction not match then reorder
 				var views = this.empty()
 				var wrap = new View.LinearLayout({
-					direction: direction
+					direction: direction,
+					flex     : 1// todo, 这里的flex是多少?, 这里要调整算法
 				})
 				for (var i = 0; i < views.length; i++) {
-					wrap.appendView(views[i], views[i].getConfig()) // add original views as children
+					wrap.appendView(views[i]) // add original views as children
 				}
 				this.direction(direction == 'row' ? 'column' : 'row')
-				this.appendView(wrap, {flex: '1'}) // todo, 这里参数这样配合适吗
+				this.appendView(wrap)
 			}
-			shouldAppend ? this.appendView(view, options) : this.prependView(view, options)
+			shouldAppend ? this.appendView(view) : this.prependView(view)
 		}
 
 	}
 })
+
+
+//options = $.extend({
+//	resizeableBefore: true, // todo, 有时这些选项不会生效, 因为依赖项还没被加到view里来
+//	resizeableAfter : true
+//}, options)
+//view._$dom.css({flex: options.flex})

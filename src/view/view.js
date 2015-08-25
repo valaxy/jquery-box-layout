@@ -1,4 +1,5 @@
 define(function (require) {
+	var $ = require('jquery')
 
 	/** Base class of SimpleView & LinearLayout
 	 ** Do not instance from this Class
@@ -20,32 +21,51 @@ define(function (require) {
 
 	/** options:
 	 **     direction: 'row' | 'column'
+	 **     -------------
+	 **     [className]:
+	 **     -------------
+	 **     flex:
+	 **     [resizeableBefore]:
+	 **     [resizeableAfter]:
 	 */
 	var LinearLayout = function (options) {
-		this._options = options
-		this._$dom = $('<div></div>')
+		options = options || {}
+		if (!options.direction) {
+			throw new Error('direction must be exist')
+		}
 		this._views = []
 		this._resizeables = []
 
+		this._$dom = $('<div></div>').addClass('linear').addClass('view') // make css api
+		this.direction(options.direction) // direction
+		options.flex && this.flex(options.flex) // flex
+		this._options = options // else
 
-		// make css api
-		this._$dom.addClass('linear').addClass('view')
-		this.direction(options.direction)
-		options.flex && this.flex(options.flex)
 		View.call(this, options)
 	}
 
 
 	/** options:
 	 **     selector: css selector | jquery object
+	 **     -------------
+	 **     [className]:
+	 **     -------------
+	 **     [flex]:             default is auto
+	 **     [resizeableBefore]: default is false, true or false between `view` and the one before `view`
+	 **                         ignore when 0 view
+	 **     [resizeableAfter]:  default is false, true or false between `view` and the one after `view`
+	 **                         ignore when 0 view
 	 */
 	var SimpleView = function (options) {
-		this._options = options
-		this._$dom = $(options.selector).detach()
+		options = options || {}
+		if (!options.selector) {
+			throw new Error('selector must be exist')
+		}
 
-		// make css API
-		this._$dom.addClass('simple').addClass('view')
-		options.flex && this.flex(options.flex)
+		this._$dom = $(options.selector).detach().addClass('simple').addClass('view') // make css API
+		options.flex && this.flex(options.flex) // flex
+		this._options = options // else
+
 		View.call(this, options)
 	}
 
@@ -70,8 +90,6 @@ define(function (require) {
 	View.prototype.parent = function () {
 		return this._parent
 	}
-
-
 
 
 	/** Get the original config, if it removed from LinearLayout, it will be saved

@@ -23,9 +23,14 @@ define(function (require, exports) {
 
 	var id = 0
 
-	var createSimple = function () {
+	var createSimple = function (options) {
+		options = options || {}
+		options.flex = options.flex == undefined ? '1' : options.flex
 		var view = new SimpleView({
-			selector: $('<div><p>' + (id++) + '</p></div>')
+			selector        : $('<div><p>' + (id++) + '</p></div>'),
+			flex            : options.flex,
+			resizeableBefore: true,
+			resizeableAfter : true
 		})
 		view.$dom().on('click', function (e) {
 			chooseView(view)
@@ -39,7 +44,8 @@ define(function (require, exports) {
 
 	var createLinear = function (direction) {
 		var view = new LinearLayout({
-			direction: direction
+			direction: direction,
+			flex     : '1'
 		})
 		bindLinear(view)
 		return view
@@ -61,20 +67,19 @@ define(function (require, exports) {
 	}
 
 	exports.init = function () {
-		var v1 = createSimple()
-		var v2 = createSimple()
-		var v3 = createSimple()
-
+		var v1 = createSimple({flex: '1'})
+		var v2 = createSimple({flex: '2'})
+		var v3 = createSimple({flex: '2'})
 
 		var root = createLinear('row')
-		root.appendView(v1, {flex: '1'})
-		root.appendView(v2, {flex: '2', resizeableBefore: true})
-		root.appendView(v3, {flex: '2', resizeableBefore: true})
+		root.appendView(v1)
+		root.appendView(v2)
+		root.appendView(v3)
 		$('.main').append(root._$dom)
 
-		new DragAndDrop({
-			root: root
-		})
+		//new DragAndDrop({
+		//	root: root
+		//})
 
 		$('.remove').click(function () {
 			root.removeViewAt(1)

@@ -6,6 +6,10 @@ define(function (require) {
 
 	var SimpleView = View.SimpleView
 
+
+	/** Initialize function
+	 ** options:
+	 */
 	View.createSimpleView = function (options) {
 		return new SimpleView(options)
 	}
