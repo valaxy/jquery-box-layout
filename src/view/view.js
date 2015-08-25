@@ -97,7 +97,9 @@ define(function (require) {
 	 */
 	View.prototype.getConfig = function () {
 		return {
-			flex: this.flex()
+			flex            : this.flex(),
+			resizeableBefore: this._options.resizeableBefore,
+			resizeableAfter : this._options.resizeableAfter
 		}
 	}
 
