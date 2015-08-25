@@ -104,5 +104,19 @@ define(function (require) {
 	}
 
 
+	View.prototype.setConfig = function (options) {
+		options = options || {}
+		if (options.flex !== undefined) {
+			this.flex(options.flex)
+		}
+		if (options.resizeableBefore !== undefined) {
+
+		}
+		if (options.resizeableAfter !== undefined) {
+
+		}
+	}
+
+
 	return View
 })

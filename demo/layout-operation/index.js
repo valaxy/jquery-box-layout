@@ -159,13 +159,18 @@ define(function (require, exports) {
 		//
 		// wrap
 		//
-		$('.wrapCurrentSimple').click(function () {
-			targetView.wrap(createLinear(), {
+		$('.wrapCurrentWithColumn').click(function () {
+			targetView.wrap(createLinear('column'), {
+				flex: 1
+			})
+		})
+		$('.wrapCurrentWithRow').click(function () {
+			targetView.wrap(createLinear('row'), {
 				flex: 1
 			})
 		})
 		$('.wrapRoot').click(function () {
-			root.wrap(createLinear(), {
+			root.wrap(createLinear('row'), {
 				flex: 1
 			})
 		})

@@ -87,17 +87,17 @@ define(function (require, exports) {
 		})
 		$('body').append(root.$dom())
 
-		//new DragAndDrop({
-		//	root      : root,
-		//	ghostLayer: 'body'
-		//})
+		new DragAndDrop({
+			root      : root,
+			ghostLayer: 'body'
+		})
 
 
 		console.log(root.findViewByDom($('.box3')))
 
 		// toXXX
 		console.log(root.toJSON())
-		//console.log(root.toTreeNode())
+		//console.lo    g(root.toTreeNode())
 
 		//// record and recover
 		//var data = root.toJSON()

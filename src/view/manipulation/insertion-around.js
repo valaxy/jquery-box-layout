@@ -1,11 +1,11 @@
-define(function (require, exports) {
+define(function () {
 
 	return function (View) {
-		/** Create a parent layout, append both of this and `adder`, the `adder` will at `position` of this
+		/** Create a parent layout replacing `this` and append both of `this` and `adder`, the `adder` will at `position` of parent
 		 ** adder:        the new added view
 		 ** position:     'top' | 'bottom' | 'left' | 'right'
-		 ** adderOptions: options of adder
-		 ** thisOptions:  options of this
+		 ** adderOptions: new options of adder
+		 ** thisOptions:  new options of this
 		 ** return: this
 		 */
 		View.prototype.split = function (adder, position, adderOptions, thisOptions) {
@@ -28,12 +28,14 @@ define(function (require, exports) {
 				this._$dom.detach()
 
 				// root element no need to remove from layout
+				adder.setConfig(adderOptions)
+				this.setConfig(thisOptions)
 				if (position == 'top' || position == 'left') {
-					wrap.appendView(adder, adderOptions)
-					wrap.appendView(this, thisOptions)
+					wrap.appendView(adder)
+					wrap.appendView(this)
 				} else {
-					wrap.appendView(this, thisOptions)
-					wrap.appendView(adder, adderOptions)
+					wrap.appendView(this)
+					wrap.appendView(adder)
 				}
 				$parent.append(wrap._$dom)
 			} else {
@@ -46,14 +48,18 @@ define(function (require, exports) {
 					direction: isVertical ? 'column' : 'row'
 				})
 
+				adder.setConfig(adderOptions)
+				this.setConfig(thisOptions)
 				if (position == 'top' || position == 'left') {
-					wrap.appendView(adder, adderOptions)
-					wrap.appendView(this, thisOptions)
+					wrap.appendView(adder)
+					wrap.appendView(this)
 				} else {
-					wrap.appendView(this, thisOptions)
-					wrap.appendView(adder, adderOptions)
+					wrap.appendView(this)
+					wrap.appendView(adder)
 				}
-				parent.addViewAt(index, wrap, oldOptions)
+
+				wrap.setConfig(oldOptions)
+				parent.addViewAt(index, wrap)
 			}
 			return this
 		}
@@ -73,31 +79,31 @@ define(function (require, exports) {
 				var index = thisParent.indexOfView(this)
 				var originalOptions = this.getConfig()
 				thisParent.removeViewAt(index)
-				thisParent.addViewAt(index, wrapper, originalOptions)
+				wrapper.setConfig(originalOptions)
+				thisParent.addViewAt(index, wrapper)
 			} else {
-				var $root = this.$dom().parent() // $root is not in any SimpleView/LinearLyaout
+				var $root = this.$dom().parent() // $root is not in any SimpleView/LinearLayout
 				this.$dom().detach()
 				$root.append(wrapper.$dom())
 			}
 
-			wrapper.appendView(this, options)
+			this.setConfig(options)
+			wrapper.appendView(this)
 			return this
 		}
 
 
-		/** Replace this with another `view`, use original options
+		/** Replace this with another `view` which uses options of this
 		 ** return: this
 		 **/
 		View.prototype.replaceWith = function (view) {
-			var oldFlex = this.flex()
 			if (this.parent()) {
 				var parent = this.parent()
 				var index = parent.indexOfView(this)
 				parent.removeViewAt(index)
-				parent.addViewAt(index, view, {
-					flex: oldFlex
-				})
-			} else {
+				view.setConfig(this.getConfig())
+				parent.addViewAt(index, view)
+			} else { // root
 				this._$dom.replaceWith(view._$dom)
 			}
 			return this
