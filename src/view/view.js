@@ -5,15 +5,18 @@ define(function (require) {
 	 ** Do not instance from this Class
 	 */
 	var View = function (options) {
-		options = options || {}
+		options.resizeableBefore = !!options.resizeableBefore
+		options.resizeableAfter = !!options.resizeableAfter
 		if (options.className) {
 			this._$dom.addClass(options.className)
 		}
+		this._options = options // else
 	}
 
 	var extend = function (Class) {
-		var v = new View
+		var v = new View({})
 		delete v._$dom
+		delete v._options
 		Class.prototype = v
 		return Class
 	}
@@ -39,7 +42,6 @@ define(function (require) {
 		this._$dom = $('<div></div>').addClass('linear').addClass('view') // make css api
 		this.direction(options.direction) // direction
 		options.flex && this.flex(options.flex) // flex
-		this._options = options // else
 
 		View.call(this, options)
 	}
@@ -64,7 +66,6 @@ define(function (require) {
 
 		this._$dom = $(options.selector).detach().addClass('simple').addClass('view') // make css API
 		options.flex && this.flex(options.flex) // flex
-		this._options = options // else
 
 		View.call(this, options)
 	}
