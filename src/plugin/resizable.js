@@ -2,11 +2,11 @@ define(function (require) {
 	require('jquery-ui')
 
 	var getFlex = function ($dom) {
-		var value = $dom.css('flex-basis')
-		if (value == '' || value == '0%') {
-			return Number($dom.css('flex-grow'))
+		var value = $dom.css('flex-grow')
+		if (value != '0') {
+			return Number(value)
 		} else {
-			return value
+			return $dom.css('flex-basis')
 		}
 	}
 
