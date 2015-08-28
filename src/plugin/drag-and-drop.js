@@ -79,7 +79,7 @@ define(function (require) {
 			var position = this._currentPosition
 
 			fromView.removeNonredundant()
-			toView.split(fromView, position, {flex: '1'}, {flex: '1'})
+			toView.split(fromView, position, {flex: '1 1 0'}, {flex: '1 1 0'})
 
 			toView.keepUpNonredundant()
 		}
@@ -184,6 +184,8 @@ define(function (require) {
 		var root = this._options.root
 
 		root.$dom().off('mousedown' + NAMESPACE)
+		$(document).off('mousemove' + NAMESPACE)
+		$(document).off('mouseup' + NAMESPACE)
 	}
 
 	return DragAndDrop

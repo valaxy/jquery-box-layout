@@ -92,7 +92,7 @@ define(function (require) {
 				var views = this.empty()
 				var wrap = new View.LinearLayout({
 					direction: direction,
-					flex     : 1// todo, 这里的flex是多少?, 这里要调整算法
+					flex     : '1 1 0'// todo, 这里的flex是多少?, 这里要调整算法
 				})
 				for (var i = 0; i < views.length; i++) {
 					wrap.appendView(views[i]) // add original views as children
