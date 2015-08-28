@@ -91,6 +91,7 @@ define(function (require) {
 			left: e.clientX,
 			top : e.clientY
 		}
+		getSelection().removeAllRanges() // forbidden selection
 
 		var me = this
 		this._rects.forEach(function (rect) {
