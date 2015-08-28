@@ -22,7 +22,9 @@ define(function () {
 			// split it
 			if (!this.parent()) { // root element
 				var wrap = new View.LinearLayout({
-					direction: isVertical ? 'column' : 'row'
+					direction       : isVertical ? 'column' : 'row',
+					resizeableAfter : true,  // todo
+					resizeableBefore: true
 				})
 				var $parent = this._$dom.parent()
 				this._$dom.detach()
@@ -42,10 +44,12 @@ define(function () {
 				var parent = this.parent()
 				var index = parent.indexOfView(this)
 				var oldOptions = this.getConfig()
-				parent.removeViewAt(index)
+				this.remove()
 
 				var wrap = View.createLinearLayout({
-					direction: isVertical ? 'column' : 'row'
+					direction       : isVertical ? 'column' : 'row',
+					resizeableAfter : true, // todo
+					resizeableBefore: true
 				})
 
 				adder.setConfig(adderOptions)

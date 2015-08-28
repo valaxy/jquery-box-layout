@@ -32,10 +32,13 @@ define(function (require) {
 			var next = this._views[nextIndex]                    //  next is after the `view` after addding
 
 
+			// must delete first then insert
+			if (prev && next) {
+				this._resizeables.splice(prevIndex, 1)[0].off()
+			}
+
 			// insert resizeable after prev
 			if (prev) {
-				// must delete first then insert, cannot happen at the same time
-				next && this._resizeables.splice(prevIndex, 1)[0].off()
 				var resizeable = new Resizeable(prev._$dom, view._$dom, this.direction())
 				if (prev._options.resizeableAfter && view._options.resizeableBefore) {
 					resizeable.on()

@@ -75,10 +75,10 @@ define(function (require) {
 	View.LinearLayout = extend(LinearLayout)
 
 
-	require('./manipulation/removal')(View)
+	require('./manipulation/removal')(View, View.SimpleView, View.LinearLayout)
 	require('./manipulation/insertion')(View)
 	require('./manipulation/insertion-around')(View)
-	require('./manipulation/css')(View)
+	require('./manipulation/css')(View, View.SimpleView, View.LinearLayout)
 
 
 	View.prototype.$dom = function () {

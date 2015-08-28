@@ -174,5 +174,14 @@ define(function (require, exports) {
 				flex: 1
 			})
 		})
+
+
+		//
+		// remove
+		//
+		$('.removeCurrent').click(function () {
+			targetView.remove()
+		})
+
 	}
 })

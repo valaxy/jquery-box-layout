@@ -65,10 +65,12 @@ define(function (require) {
 
 
 		$(document).on('mousemove' + NAMESPACE, onMove.bind(this))
+		$(document).on('mouseup' + NAMESPACE, onDragStop.bind(this))
 	}
 
 	var onDragStop = function () {
 		$(document).off('mousemove' + NAMESPACE)
+		$(document).off('mouseup' + NAMESPACE)
 		this._$ghost.remove()
 
 		if (this._currentRect && this._currentPosition) {
@@ -77,8 +79,8 @@ define(function (require) {
 			var position = this._currentPosition
 
 			fromView.removeNonredundant()
-			toView.split(fromView, position, {flex: '1'}, {flex: '1'}) // todo
-			toView.upNonredundant()
+			toView.split(fromView, position, {flex: '1'}, {flex: '1'})
+			toView.keepUpNonredundant()
 		}
 	}
 
@@ -175,14 +177,12 @@ define(function (require) {
 		var handler = this._options.handler
 
 		root.$dom().on('mousedown' + NAMESPACE, handler, onDragStart.bind(this))
-		$(document).on('mouseup' + NAMESPACE, onDragStop.bind(this))
 	}
 
 	DragAndDrop.prototype.dispose = function () {
 		var root = this._options.root
 
 		root.$dom().off('mousedown' + NAMESPACE)
-		$(document).off('mouseup' + NAMESPACE)
 	}
 
 	return DragAndDrop

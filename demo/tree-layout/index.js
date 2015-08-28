@@ -89,7 +89,8 @@ define(function (require, exports) {
 
 		new DragAndDrop({
 			root      : root,
-			ghostLayer: 'body'
+			ghostLayer: 'body',
+			handler   : 'p'
 		})
 
 
