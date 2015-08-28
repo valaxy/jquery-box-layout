@@ -1,9 +1,16 @@
 define(function (require) {
+
+	//----------------------------------------------------------------------
+	// drag a box to another box
+	//----------------------------------------------------------------------
+
 	var SimpleView = require('../view/simple-view')
 	var Rect = require('./rect')
 	var $ = require('jquery')
-	var NAMESPACE = require('../view/jquery-event-namespace')
+	var NAMESPACE = '.valaxy/linear-layout'
 
+
+	// calculate all the rect can be dropped
 	var initDropRect = function () {
 		var root = this._options.root.toTreeNode()
 		var rects = this._rects = []
@@ -21,8 +28,31 @@ define(function (require) {
 	}
 
 
+	var findSimpleViewDom = function (dom) {
+		while (true) {
+			if ($(dom).hasClass('simple')) {
+				return dom
+			}
+			dom = dom.parentNode
+		}
+	}
+
+	var findSimpleView = function (dom) { // todo, 可能有性能问题, 但是没有更好的设计模式来解决这样的引用
+		var root = this._options.root
+		var find = null
+		root.toTreeNode().postorderWalk(function (node) {
+			var view = node.value()
+			if (view instanceof SimpleView && view.$dom()[0] === dom) {
+				find = view
+				return true
+			}
+		})
+		return find
+	}
+
+
 	var onDragStart = function (e) {
-		this._fromView = findSimpleView.call(this, findSimpleDom(e.currentTarget))
+		this._fromView = findSimpleView.call(this, findSimpleViewDom(e.currentTarget)) // find view from bottom to top
 		initDropRect.call(this)
 		var $ghostLayer = $(this._options.ghostLayer)
 		var $ghost = this._$ghost = $('<div>').addClass('ghost').css({
@@ -47,33 +77,11 @@ define(function (require) {
 			var position = this._currentPosition
 
 			fromView.removeNonredundant()
-			toView.split(fromView, position, {flex: '1'}, {flex: '1'})
+			toView.split(fromView, position, {flex: '1'}, {flex: '1'}) // todo
 			toView.upNonredundant()
 		}
 	}
 
-
-	var findSimpleDom = function (dom) {
-		while (true) {
-			if ($(dom).hasClass('simple')) {
-				return dom
-			}
-			dom = dom.parentNode
-		}
-	}
-
-	var findSimpleView = function (dom) { // todo, 可能有性能问题, 但是没有更好的设计模式来解决这样的引用
-		var root = this._options.root
-		var find = null
-		root.toTreeNode().postorderWalk(function (node) {
-			var view = node.value()
-			if (view instanceof SimpleView && view.$dom()[0] === dom) {
-				find = view
-				return true
-			}
-		})
-		return find
-	}
 
 	var onMove = function (e) {
 		var position = {
@@ -85,7 +93,7 @@ define(function (require) {
 		this._rects.forEach(function (rect) {
 			var direction = rect.in(position)
 			if (direction) {
-				if (rect == me._fromRect) {
+				if (rect == me._fromRect) { // drag in original rect
 					me._currentRect = null
 					me._currentPosition = null
 
@@ -93,7 +101,6 @@ define(function (require) {
 				} else if (rect != me._currentRect || me._currentPosition != direction) {
 					me._currentRect = rect
 					me._currentPosition = direction
-					//console.log(rect, position, direction)
 
 					me._$ghost.show()
 					switch (direction) {
@@ -133,15 +140,15 @@ define(function (require) {
 				}
 				return
 			}
-		})
+		}.bind(this))
 
 	}
 
 
 	/** options:
-	 **     root:
-	 **     handler:
-	 **     ghostLayer: selector of ghost layer
+	 **     root: root view
+	 **     [handler]: a selector of which can be dragged
+	 **     [ghostLayer]: selector of ghost layer
 	 ** events:
 	 ** selectors:
 	 **     .ghost: selector about ghost of where to drop
@@ -149,15 +156,15 @@ define(function (require) {
 	 */
 	var DragAndDrop = function (options) {
 		options.handler = '.simple' + (options.handler ? ' ' + options.handler : '')
-		options.ghostLayer = options.ghostLayer || 'body'
+		options.ghostLayer = options.ghostLayer || 'body' // where to add ghost
 		this._options = options
 
 		this._$ghost = null           // ghost rect
-		this._rects = null            // drop area
+		this._rects = null            // drop areas
 		this._fromView = null         // drag start view
-		this._fromRect = null         // drag rect
+		this._fromRect = null         // drag start rect
 		this._currentRect = null      // rect
-		this._currentPosition = null  // postion
+		this._currentPosition = null  // position
 
 		this.init()
 	}
@@ -180,13 +187,3 @@ define(function (require) {
 
 	return DragAndDrop
 })
-
-//root.toTreeNode().postorderWalk((function (node) {
-//	var view = node.value()
-//	if (view instanceof SimpleView) {
-//		view.$dom().off('mousedown', function () {
-//			this._fromView = view
-//			dragstart.call(me)
-//		})
-//	}
-//}).bind(this))

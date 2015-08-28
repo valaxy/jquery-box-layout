@@ -3,7 +3,7 @@
     "version":         "0.1.0-dev",
     "homepage":        "https://github.com/valaxy/jquery-box-layout",
     "authors":         [
-        "valaxy <valaxy.tian@gmail.com>"
+        "valaxy <valaxy@qq.com>"
     ],
     "license":         "MIT",
     "ignore":          [
@@ -14,8 +14,10 @@
         "tests"
     ],
     "main":            [
-        "src/view/attach-view",
-        "src/box-layout"
+        "src/view/simple-view",
+        "src/view/linear-layout",
+        "src/plugin/resizable",
+        "src/plugin/drag-and-drop"
     ],
     "dependencies":    {
         "algorithm-data-structure": "valaxy/algorithm-data-structure",
