@@ -45,7 +45,6 @@ define(function () {
 				var index = parent.indexOfView(this)
 				var oldOptions = this.getConfig()
 				this.remove()
-
 				var wrap = View.createLinearLayout({
 					direction       : isVertical ? 'column' : 'row',
 					resizeableAfter : true, // todo

@@ -80,6 +80,7 @@ define(function (require) {
 
 			fromView.removeNonredundant()
 			toView.split(fromView, position, {flex: '1'}, {flex: '1'})
+
 			toView.keepUpNonredundant()
 		}
 	}

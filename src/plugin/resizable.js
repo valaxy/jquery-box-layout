@@ -96,9 +96,22 @@ define(function (require) {
 		return this
 	}
 
+
 	Resizable.prototype.off = function () {
 		if (this._on) {
+			// log: This is a bug about jquery-ui.resizable, but I don't report, because the bug system of jquery-ui is really annoying
+			// below is a temporary fix
+			var oldFind = $.prototype.find
+			$.prototype.find = function (selector) {
+				if (selector == '.ui-resizable-handle') {
+					arguments[0] = '>.ui-resizable-handle'
+				}
+				return oldFind.apply(this, arguments)
+			}
+
 			this._$dom1.resizable('destroy')
+
+			$.prototype.find = oldFind
 		}
 		return this
 	}

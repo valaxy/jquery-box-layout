@@ -90,13 +90,18 @@ define(function (require) {
 				throw new Error('`index` is out of range, 0 <= index < length()')
 			}
 
+
 			// @日志: 注意各种引用顺序
 			if (index < this.length() - 1) { // remove resizeable between prev and view
 				this._resizeables.splice(index, 1)[0].off()
 			}
+
 			if (index > 0) { // remove resizeable between prev and view
-				this._resizeables.splice(index - 1, 1)[0].off()
+				var test = this._resizeables.splice(index - 1, 1)[0]
+				test.off()
+
 			}
+
 
 			var view = this._views.splice(index, 1)[0]
 			view._$dom.detach()
