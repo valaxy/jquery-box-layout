@@ -5,6 +5,23 @@
 This AMD/CMD module gives you a easily used function which you can config a json to create flex-layout.    
 ![ ](doc/basic.png)
 
+# Usage
+```javascript
+// You need all of these
+require.config({
+	paths  : {
+		'algorithm-data-structure': 'bower_components/algorithm-data-structure/dest/',
+		'underscore'              : 'bower_components/underscore/underscore-min',
+		'jquery'                  : 'bower_components/jquery/dist/jquery.min',
+		'jquery-ui'               : 'bower_components/jquery-ui/jquery-ui.min',
+		'event-emitter'           : 'bower_components/eventEmitter/EventEmitter.min',
+		'cjs'                     : 'bower_components/cjs/cjs',
+		'amd-loader'              : 'bower_components/amd-loader/amd-loader',
+	}
+})
+
+```
+
 # Example
 First, create a html(below is jade).
 
