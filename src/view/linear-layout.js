@@ -23,8 +23,8 @@ define(function (require) {
 		var find = null
 		var dom = $dom[0]
 		this.toTreeNode().preorderWalk(function (node) {
-			if (node.value().$dom()[0] === dom) {
-				find = node.value()
+			if (node.value.$dom()[0] === dom) {
+				find = node.value
 				return true
 			}
 		})
@@ -63,9 +63,6 @@ define(function (require) {
 			views    : views
 		}, this.getConfig()))
 	}
-
-
-
 
 
 	LinearLayout.prototype._findAncestor = function (direction) {

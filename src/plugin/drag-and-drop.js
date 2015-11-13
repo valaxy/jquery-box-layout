@@ -16,7 +16,7 @@ define(function (require) {
 		var rects = this._rects = []
 		var me = this
 		root.postorderWalk(function (node) {
-			var view = node.value()
+			var view = node.value
 			if (view instanceof SimpleView) {
 				var r = new Rect(view)
 				rects.push(r)
@@ -41,7 +41,7 @@ define(function (require) {
 		var root = this._options.root
 		var find = null
 		root.toTreeNode().postorderWalk(function (node) {
-			var view = node.value()
+			var view = node.value
 			if (view instanceof SimpleView && view.$dom()[0] === dom) {
 				find = view
 				return true
