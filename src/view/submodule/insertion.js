@@ -92,7 +92,7 @@ define(function (require) {
 				var views = this.empty()
 				var wrap = new View.LinearLayout({
 					direction: direction,
-					flex     : '1 1 0'// todo, ÕâÀïµÄflexÊÇ¶àÉÙ?, ÕâÀïÒªµ÷ÕûËã·¨
+					flex     : '1 1 0'// todo, è¿™é‡Œçš„flexæ˜¯å¤šå°‘?, è¿™é‡Œè¦è°ƒæ•´ç®—æ³•
 				})
 				for (var i = 0; i < views.length; i++) {
 					wrap.appendView(views[i]) // add original views as children
@@ -108,7 +108,7 @@ define(function (require) {
 
 
 //options = $.extend({
-//	resizeableBefore: true, // todo, ÓĞÊ±ÕâĞ©Ñ¡Ïî²»»áÉúĞ§, ÒòÎªÒÀÀµÏî»¹Ã»±»¼Óµ½viewÀïÀ´
+//	resizeableBefore: true, // todo, æœ‰æ—¶è¿™äº›é€‰é¡¹ä¸ä¼šç”Ÿæ•ˆ, å› ä¸ºä¾èµ–é¡¹è¿˜æ²¡è¢«åŠ åˆ°viewé‡Œæ¥
 //	resizeableAfter : true
 //}, options)
 //view._$dom.css({flex: options.flex})

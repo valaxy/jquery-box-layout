@@ -33,6 +33,7 @@ define(function (require) {
 	 */
 	var LinearLayout = function (options) {
 		options = options || {}
+		options._schema = 'linear'
 		if (!options.direction) {
 			throw new Error('direction must be exist')
 		}
@@ -60,6 +61,7 @@ define(function (require) {
 	 */
 	var SimpleView = function (options) {
 		options = options || {}
+		options._schema = 'simple'
 		if (!options.selector) {
 			throw new Error('selector must be exist')
 		}
@@ -74,49 +76,12 @@ define(function (require) {
 	View.SimpleView = extend(SimpleView)
 	View.LinearLayout = extend(LinearLayout)
 
-
-	require('./manipulation/removal')(View, View.SimpleView, View.LinearLayout)
-	require('./manipulation/insertion')(View)
-	require('./manipulation/insertion-around')(View)
-	require('./manipulation/css')(View, View.SimpleView, View.LinearLayout)
-
-
-	View.prototype.$dom = function () {
-		return this._$dom
-	}
-
-
-	/** Parent
-	 */
-	View.prototype.parent = function () {
-		return this._parent
-	}
-
-
-	/** Get the original config, if it removed from LinearLayout, it will be saved
-	 */
-	View.prototype.getConfig = function () {
-		return {
-			flex            : this.flex(),
-			resizeableBefore: this._options.resizeableBefore,
-			resizeableAfter : this._options.resizeableAfter
-		}
-	}
-
-
-	View.prototype.setConfig = function (options) {
-		options = options || {}
-		if (options.flex !== undefined) {
-			this.flex(options.flex)
-		}
-		if (options.resizeableBefore !== undefined) {
-
-		}
-		if (options.resizeableAfter !== undefined) {
-
-		}
-	}
-
+	require('./submodule/removal')(View, View.SimpleView, View.LinearLayout)
+	require('./submodule/insertion')(View)
+	require('./submodule/insertion-around')(View)
+	require('./submodule/css')(View, View.SimpleView, View.LinearLayout)
+	require('./submodule/get-set')(View, View.SimpleView, View.LinearLayout)
+	require('./submodule/enumeration')(View, View.SimpleView, View.LinearLayout)
 
 	return View
 })

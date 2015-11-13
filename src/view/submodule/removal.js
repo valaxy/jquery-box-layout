@@ -60,7 +60,7 @@ define(function (require) {
 		/** Remove parent but no ancestry of parent
 		 ** return this
 		 */
-		LinearLayout.prototype.detach = function () { // todo, 名称带有歧义
+		LinearLayout.prototype.detach = function () { // todo, 鍚嶇О甯︽湁姝т箟
 			if (!this.isRoot()) {
 				var parent = this.parent()
 				var index = this.parent().indexOfView(this)
@@ -91,7 +91,7 @@ define(function (require) {
 			}
 
 
-			// @日志: 注意各种引用顺序
+			// @鏃ュ織: 娉ㄦ剰鍚勭寮曠敤椤哄簭
 			if (index < this.length() - 1) { // remove resizeable between prev and view
 				this._resizeables.splice(index, 1)[0].off()
 			}

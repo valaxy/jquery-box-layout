@@ -2,7 +2,6 @@ define(function (require) {
 	var $ = require('jquery')
 	var View = require('./view')
 	var help = require('../help/help')
-	var OrderedNode = require('array-ordered-node')
 
 
 	var LinearLayout = View.LinearLayout
@@ -66,16 +65,7 @@ define(function (require) {
 	}
 
 
-	LinearLayout.prototype.toTreeNode = function () {
-		var node = new OrderedNode(this)
 
-		for (var i = 0; i < this._views.length; i++) {
-			var child = this._views[i].toTreeNode()
-			node.addChildLast(child)
-		}
-
-		return node
-	}
 
 
 	LinearLayout.prototype._findAncestor = function (direction) {

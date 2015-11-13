@@ -2,7 +2,7 @@ define(function (require) {
 	var $ = require('jquery')
 	var View = require('./view')
 	var help = require('../help/help')
-	var OrderedNode = require('array-ordered-node')
+	var OrderedNode = require('cjs!algorithm-data-structure/tree/ordered/array-ordered-node')
 
 	var SimpleView = View.SimpleView
 
@@ -23,9 +23,7 @@ define(function (require) {
 		}, this.getConfig()))
 	}
 
-	SimpleView.prototype.toTreeNode = function () {
-		return new OrderedNode(this)
-	}
+
 
 
 	SimpleView.prototype.isIsolate = function () {

@@ -37,7 +37,7 @@ define(function (require) {
 		}
 	}
 
-	var findSimpleView = function (dom) { // todo, ¿ÉÄÜÓĞĞÔÄÜÎÊÌâ, µ«ÊÇÃ»ÓĞ¸üºÃµÄÉè¼ÆÄ£Ê½À´½â¾öÕâÑùµÄÒıÓÃ
+	var findSimpleView = function (dom) { // todo, å¯èƒ½æœ‰æ€§èƒ½é—®é¢˜, ä½†æ˜¯æ²¡æœ‰æ›´å¥½çš„è®¾è®¡æ¨¡å¼æ¥è§£å†³è¿™æ ·çš„å¼•ç”¨
 		var root = this._options.root
 		var find = null
 		root.toTreeNode().postorderWalk(function (node) {
@@ -52,7 +52,7 @@ define(function (require) {
 
 
 	var onDragStart = function (e) {
-		this._fromView = findSimpleView.call(this, findSimpleViewDom(e.currentTarget)) // find view from bottom to top
+		this._fromView = findSimpleView.call(this, findSimpleViewDom(e.currentTarget)) // find view from bottom to top of tree
 		initDropRect.call(this)
 		var $ghostLayer = $(this._options.ghostLayer)
 		var $ghost = this._$ghost = $('<div>').addClass('ghost').css({
@@ -150,8 +150,8 @@ define(function (require) {
 
 
 	/** options:
-	 **     root: root view
-	 **     [handler]: a selector of which can be dragged
+	 **     root: the root view to hold drag-and-drop interact logic
+	 **     [handler]: a selector of where can be dragged
 	 **     [ghostLayer]: selector of ghost layer
 	 ** events:
 	 ** selectors:

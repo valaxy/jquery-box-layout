@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        title QUnit test
+        link(rel="stylesheet" href="../../bower_components/qunit/qunit/qunit.css")
+    body
+        div#qunit
+        div#qunit-fixture
+
+        div.test-area
+            div.test-box-1
+            div.test-box-2
+
+        script(src="../../bower_components/qunit/qunit/qunit.js")
+        script(src="../../bower_components/requirejs/require.js")
+
+        // startup
+        script.
+            require.config({
+                baseUrl: '../../',
+                paths  : {
+                    'jquery'                  : 'bower_components/jquery/dist/jquery.min',
+                    'jquery-ui'               : 'bower_components/jquery-ui/jquery-ui.min',
+                    'event-emitter'           : 'bower_components/eventEmitter/EventEmitter.min',
+                    'chance'                  : 'bower_components/chance/chance',
+                    'algorithm-data-structure': 'bower_components/algorithm-data-structure/dest/',
+                    'cjs'                     : 'bower_components/cjs/cjs',
+                    'amd-loader'              : 'bower_components/amd-loader/amd-loader',
+                    'underscore'              : 'bower_components/underscore/underscore-min'
+                }
+            })
+            QUnit.config.autostart = false
+            require(['test/unit/test'], function () {
+                QUnit.start()
+            })
