@@ -5,4 +5,5 @@ define(function (require) {
 
 	require('../view/get-set')
 	require('../view/enumeration')
+	require('../view/search')
 })

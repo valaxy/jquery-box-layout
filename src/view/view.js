@@ -82,6 +82,7 @@ define(function (require) {
 	require('./submodule/css')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/get-set')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/enumeration')(View, View.SimpleView, View.LinearLayout)
+	require('./submodule/search')(View, View.SimpleView, View.LinearLayout)
 
 	return View
 })
