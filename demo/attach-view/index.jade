@@ -11,14 +11,9 @@ html
         div.bottom
 
         // startup
-        script(src="../../bower_components/requirejs/require.js")
+        script(src="../../node_modules/requirejs/require.js")
+        script(src="../base/config.js")
         script.
-            require.config({
-                baseUrl: '../../',
-                paths: {
-                    jquery: 'bower_components/jquery/dist/jquery.min'
-                }
-            })
             require([
                 'demo/attach-view/index'
             ], function (index) {

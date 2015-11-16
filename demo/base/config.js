@@ -1,12 +1,12 @@
 requirejs.config({
 	baseUrl: '../../',
 	paths  : {
-		'jquery'                  : 'bower_components/jquery/dist/jquery',
-		'jquery-ui'               : 'bower_components/jquery-ui/jquery-ui',
-		'chance'                  : 'bower_components/chance/chance',
-		'underscore'              : 'bower_components/underscore/underscore',
-		'algorithm-data-structure': 'bower_components/algorithm-data-structure/dest/',
-		'cjs'                     : 'bower_components/cjs/cjs',
-		'amd-loader'              : 'bower_components/amd-loader/amd-loader'
+		'jquery'                  : 'node_modules/jquery/dist/jquery',
+		'jquery-ui'               : 'node_modules/jquery-ui/jquery-ui',
+		'chance'                  : 'node_modules/chance/chance',
+		'underscore'              : 'node_modules/underscore/underscore',
+		'algorithm-data-structure': 'node_modules/algorithm-data-structure/dest/',
+		'cjs'                     : 'node_modules/cjs/cjs',
+		'amd-loader'              : 'node_modules/amd-loader/amd-loader'
 	}
 })

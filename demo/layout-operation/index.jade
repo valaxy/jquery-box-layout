@@ -4,7 +4,7 @@ html
         meta(charset="utf-8")
         title Hello box-layout
         link(rel="stylesheet" href="index.css")
-        link(rel="stylesheet" href="../../bower_components/jquery-ui/themes/sunny/jquery-ui.min.css")
+        link(rel="stylesheet" href="../../node_modules/jquery-ui/themes/sunny/jquery-ui.min.css")
     body
         //- 使用JS API的方式构建一个视图系统
         div.everything
@@ -41,7 +41,7 @@ html
             div.main
 
         // startup
-        script(src="../../bower_components/requirejs/require.js")
+        script(src="../../node_modules/requirejs/require.js")
         script(src="../../demo/base/config.js")
         script.
             require(['demo/layout-operation/index'], function (index) {

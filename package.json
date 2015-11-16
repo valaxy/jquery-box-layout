@@ -1,0 +1,40 @@
+{
+  "name": "jquery-flex-layout",
+  "version": "0.1.0-dev",
+  "description": "See github",
+  "main": [
+    "src/view/simple-view",
+    "src/view/linear-layout",
+    "src/plugin/resizable",
+    "src/plugin/drag-and-drop"
+  ],
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valaxy/jquery-flex-layout.git"
+  },
+  "author": "valaxy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valaxy/jquery-flex-layout/issues"
+  },
+  "homepage": "https://github.com/valaxy/jquery-flex-layout#readme",
+  "dependencies": {
+    "algorithm-data-structure": "github:valaxy/algorithm-data-structure",
+    "javascript-state-machine": "^2.3.5",
+    "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
+    "underscore": "^1.8.3",
+    "wolfamy87-eventemitter": "^4.3.0"
+  },
+  "devDependencies": {
+    "amd-loader": "github:valaxy/amd-loader#master",
+    "chance": "^0.8.0",
+    "cjs": "github:guybedford/cjs#master",
+    "qunitjs": "^1.20.0",
+    "requirejs": "^2.1.20"
+  }
+}
