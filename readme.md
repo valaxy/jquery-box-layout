@@ -1,5 +1,7 @@
 > This is under development
 
+[![Dependency Status](https://david-dm.org/valaxy/jquery-flex-layout.svg)](https://david-dm.org/valaxy/jquery-flex-layout)
+
 # Introduction
 [Flex-Layout](http://www.w3.org/TR/css3-flexbox/) is W3C standard    
 This AMD/CMD module gives you a easily used function which you can config a json to create flex-layout.    
@@ -10,13 +12,13 @@ This AMD/CMD module gives you a easily used function which you can config a json
 // You need all of these
 require.config({
 	paths  : {
-		'algorithm-data-structure': 'bower_components/algorithm-data-structure/dest/',
-		'underscore'              : 'bower_components/underscore/underscore-min',
-		'jquery'                  : 'bower_components/jquery/dist/jquery.min',
-		'jquery-ui'               : 'bower_components/jquery-ui/jquery-ui.min',
-		'event-emitter'           : 'bower_components/eventEmitter/EventEmitter.min',
-		'cjs'                     : 'bower_components/cjs/cjs',
-		'amd-loader'              : 'bower_components/amd-loader/amd-loader',
+		'algorithm-data-structure': 'node_modules/algorithm-data-structure/dest/',
+		'underscore'              : 'node_modules/underscore/underscore-min',
+		'jquery'                  : 'node_modules/jquery/dist/jquery.min',
+		'jquery-ui'               : 'node_modules/jquery-ui/jquery-ui.min',
+		'event-emitter'           : 'node_modules/eventEmitter/EventEmitter.min',
+		'cjs'                     : 'node_modules/cjs/cjs',
+		'amd-loader'              : 'node_modules/amd-loader/amd-loader',
 	}
 })
 
