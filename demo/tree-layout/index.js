@@ -90,7 +90,10 @@ define(function (require, exports) {
 		new DragAndDrop({
 			root      : root,
 			ghostLayer: 'body',
-			handler   : 'p'
+			handler   : 'p',
+			onDragged : function () {
+				console.info('drag')
+			}
 		})
 
 

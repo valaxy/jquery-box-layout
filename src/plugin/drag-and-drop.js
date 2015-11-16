@@ -10,6 +10,10 @@ define(function (require) {
 	var NAMESPACE = '.valaxy/linear-layout'
 
 
+	var emptyFunction = function () {
+
+	}
+
 	// calculate all the rect can be dropped
 	var initDropRect = function () {
 		var root = this._options.root.toTreeNode()
@@ -80,8 +84,9 @@ define(function (require) {
 
 			fromView.removeNonredundant()
 			toView.split(fromView, position, {flex: '1 1 0'}, {flex: '1 1 0'})
-
 			toView.keepUpNonredundant()
+
+			this._options.onDragged()
 		}
 	}
 
@@ -153,7 +158,8 @@ define(function (require) {
 	 **     root: the root view to hold drag-and-drop interact logic
 	 **     [handler]: a selector of where can be dragged
 	 **     [ghostLayer]: selector of ghost layer
-	 ** events:
+	 ** handlers:
+	 **     onDragged: Function
 	 ** selectors:
 	 **     .ghost: selector about ghost of where to drop
 	 **
@@ -161,6 +167,7 @@ define(function (require) {
 	var DragAndDrop = function (options) {
 		options.handler = '.simple' + (options.handler ? ' ' + options.handler : '')
 		options.ghostLayer = options.ghostLayer || 'body' // where to add ghost
+		options.onDragged = options.onDragged || emptyFunction
 		this._options = options
 
 		this._$ghost = null           // ghost rect

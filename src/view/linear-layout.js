@@ -4,11 +4,6 @@ define(function (require) {
 })
 
 
-//View.createLinearLayout = function (options) {
-//	return new LinearLayout(options)
-//}
-
-
 //LinearLayout.prototype._findAncestor = function (direction) {
 //	var find = this
 //	while (true) {

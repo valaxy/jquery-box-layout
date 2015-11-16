@@ -4,7 +4,7 @@
 
 # Introduction
 [Flex-Layout](http://www.w3.org/TR/css3-flexbox/) is W3C standard    
-This AMD/CMD module gives you a easily used function which you can config a json to create flex-layout.    
+This CommonJS module gives you a easily used function which you can config a json to create flex-layout.    
 ![ ](doc/basic.png)
 
 # Usage
@@ -49,7 +49,7 @@ Second, config a json object to apply flex layout.
 		}, {
 			_schema: 'simple',
 			flex: 1,
-			selector: '.box1
+			selector: '.box1'
 		}]
 	}) 
 ```

@@ -1,6 +1,6 @@
 define(function () {
 
-	return function (View) {
+	return function (View, SimpleView, LinearLayout) {
 		/** Create a parent layout replacing `this` and append both of `this` and `adder`, the `adder` will at `position` of parent
 		 ** adder:        the new added view
 		 ** position:     'top' | 'bottom' | 'left' | 'right'
@@ -45,7 +45,7 @@ define(function () {
 				var index = parent.indexOfView(this)
 				var oldOptions = this.getConfig()
 				this.remove()
-				var wrap = View.createLinearLayout({
+				var wrap = new LinearLayout({
 					direction       : isVertical ? 'column' : 'row',
 					resizeableAfter : true, // todo
 					resizeableBefore: true
