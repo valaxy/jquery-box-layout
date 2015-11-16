@@ -1,7 +1,10 @@
 define(function (require) {
 	var OrderedNode = require('cjs!algorithm-data-structure/tree/ordered/array-ordered-node')
+	var help = require('../../help/help')
+	var _ = require('underscore')
 
 	return function (View, SimpleView, LinearLayout) {
+
 		/** Document Object Model */
 		View.prototype.$dom = function () {
 			return this._$dom
@@ -23,6 +26,7 @@ define(function (require) {
 			}
 		}
 
+		/** Set config */
 		View.prototype.setConfig = function (options) {
 			options = options || {}
 			if (options.flex !== undefined) {
@@ -34,6 +38,23 @@ define(function (require) {
 			if (options.resizeableAfter !== undefined) {
 
 			}
+		}
+
+
+		/** Whether is isolate */
+		SimpleView.prototype.isIsolate = function () {
+			return !this.parent()
+		}
+
+		/** No parent and child is a isolate LinearLayout */
+		LinearLayout.prototype.isIsolate = function () {
+			return this.length() == 0 && !this.parent()
+		}
+
+
+		/** Whether is root */
+		View.prototype.isRoot = function () {
+			return !this.parent()
 		}
 
 
@@ -55,6 +76,41 @@ define(function (require) {
 			var node = new OrderedNode
 			node.value = this
 			return node
+		}
+
+
+		/** Return json data */
+		SimpleView.prototype.toJSON = function () {
+			return help.removeUndefinedProperties($.extend({
+				_schema  : this._options._schema,
+				selector : this._options.selector,
+				className: this._options.className
+			}, this.getConfig()))
+		}
+
+
+		/** Return json data */
+		LinearLayout.prototype.toJSON = function () {
+			return help.removeUndefinedProperties($.extend({
+				_schema  : this._options._schema,
+				direction: this.direction(),
+				className: this._options.className,
+				views    : _.map(this._views, function (view) {
+					return view.toJSON()
+				})
+			}, this.getConfig()))
+		}
+
+
+		/** Count of children */
+		LinearLayout.prototype.length = function () {
+			return this._views.length
+		}
+
+
+		/** Return (index+1)-th view */
+		LinearLayout.prototype.getViewAt = function (index) {
+			return this._views[index]
 		}
 	}
 })

@@ -12,5 +12,15 @@ define(function () {
 			})
 			return find
 		}
+
+		/** Return Index */
+		LinearLayout.prototype.indexOfView = function (view) {
+			for (var i = 0; i < this._views.length; i++) {
+				if (view == this._views[i]) {
+					return i
+				}
+			}
+			return -1
+		}
 	}
 })

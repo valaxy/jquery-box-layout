@@ -3,7 +3,7 @@ define(function (require) {
 	var SimpleView = require('src/view/simple-view')
 	var $ = require('jquery')
 
-	QUnit.module('get-set', {
+	QUnit.module('property', {
 		beforeEach: function () {
 
 		}

@@ -3,7 +3,7 @@ define(function (require) {
 	//require('./view/simple-view')
 	//require('./view/linear-layout')
 
-	require('../view/get-set')
+	require('../view/property')
 	require('../view/enumeration')
 	require('../view/search')
 })

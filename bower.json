@@ -24,7 +24,8 @@
     "jquery": "~2.1.4",
     "jquery-ui": "~1.11.4",
     "javascript-state-machine": "~2.3.5",
-    "eventEmitter": "~4.3.0"
+    "eventEmitter": "~4.3.0",
+    "underscore": "~1.8.3"
   },
   "devDependencies": {
     "qunit": "~1.20.0",
