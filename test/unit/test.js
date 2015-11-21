@@ -8,4 +8,5 @@ define(function (require) {
 	require('../view/search')
 
 	require('../dock-layout/dock-view')
+	require('../dock-layout/dock-layout')
 })

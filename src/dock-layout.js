@@ -12,7 +12,7 @@ define(function (require) {
 		this._options = options
 
 		this._views = []
-
+		this._showView = null
 		this._$wraps = {
 			left  : null,
 			top   : null,
@@ -60,6 +60,13 @@ define(function (require) {
 
 
 		/**
+		 * Get all dock views
+		 */
+		views: function () {
+			return this._views
+		},
+
+		/**
 		 * Add a new Dock view
 		 * @param options
 		 *      dom:        Selector | Dom
@@ -73,29 +80,29 @@ define(function (require) {
 			if (_.indexOf(doms, options.dom) >= 0) {
 				throw new Error('view exists')
 			}
-			var dock = new DockView({
-				dom: options.dom
-			})
-			this._views.push(dock)
+			var dockView = new DockView(options)
+			this._views.push(dockView)
+			return dockView
 		},
 
 		/**
 		 * Remove a Dock view
-		 * @param direction Direction
+		 * @param view
 		 */
-		removeView: function (direction) {
-			var views = this._views[direction]
-			if (views) {
-				views.off()
-				delete this._items[direction]
+		removeView: function (view) {
+			var views = this._views
+			var index = _.indexOf(views, view)
+			if (index < 0) {
+				throw new Error('view not exists')
 			}
+			return views.splice(index, 1)[0]
 		},
 
-		show: function (view, direction) {
+		show: function (view) {
 
 		},
 
-		hide: function (direction) {
+		hide: function () {
 
 		}
 	})
