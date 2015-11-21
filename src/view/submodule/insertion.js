@@ -1,5 +1,4 @@
 define(function (require) {
-	var Resizeable = require('../../plugin/resizeable/index')
 	var help = require('../../help/help')
 
 	return function (View, SimpleView, LinearLayout) {
@@ -27,9 +26,10 @@ define(function (require) {
 
 		// hook when add view
 		LinearLayout.prototype._onAddView = function (index, simpleView) {
-			for (var pluginName in simpleView._options.plugins) {
-				var plugin = simpleView._options.plugins[pluginName]
-				plugin.onAdd && plugin.onAdd.call(simpleView, this, index, simpleView)
+			for (var pluginName in simpleView._pluginHandlers) {
+				var pluginOptions = simpleView._options.plugins[pluginName]
+				var plugin = simpleView._pluginHandlers[pluginName]
+				plugin.onAdd && plugin.onAdd.call(simpleView, pluginOptions, this, index, simpleView)
 			}
 		}
 

@@ -1,23 +1,36 @@
 define(function (require) {
-	var $            = require('jquery'),
-	    EventEmitter = require('eventEmitter')
+	var $               = require('jquery'),
+	    ResizablePlugin = require('../plugin/resizeable/index')
 
 
 	/** Base class of SimpleView & LinearLayout
 	 ** Do not instance from this Class
-	 ** options:
-	 **     className: class of dom
-	 **     plugins:   map Object
 	 */
-	var View = function (options) {
-		options.resizeableBefore = !!options.resizeableBefore
-		options.resizeableAfter = !!options.resizeableAfter
+	var View = function () {
+		// do nothing
+	}
+
+
+	var initView = function (options) {
+		options.className = options.className || ''
 		options.plugins = options.plugins || {}
 		this._options = options
 
 		// className
-		if (options.className) {
-			this._$dom.addClass(options.className)
+		this._$dom.addClass(options.className)
+
+		// plugins
+		this._pluginHandlers = {}
+		for (var pluginName in this._options.plugins) {
+			var plugin = this._options.plugins[pluginName]
+			if (true === plugin)  this._options.plugins[pluginName] = {} // no params
+			switch (pluginName) {
+				case 'resizable':
+					this._pluginHandlers[pluginName] = ResizablePlugin
+					break
+				default:
+					throw new Error('plugin of ' + pluginName + ' not exist')
+			}
 		}
 	}
 
@@ -31,13 +44,14 @@ define(function (require) {
 	 **     flex:
 	 **     [resizeableBefore]:
 	 **     [resizeableAfter]:
+	 *     **     className: class of dom
+	 **     plugins:   map Object
 	 */
 	var LinearLayout = function (options) {
 		options = options || {}
 		options._schema = 'linear'
-		if (!options.direction) {
-			throw new Error('direction must be exist')
-		}
+		if (!options.direction) throw new Error('direction must be exist in LinearLayout')
+
 		this._views = []
 		this._resizeables = []
 
@@ -45,7 +59,7 @@ define(function (require) {
 		this.direction(options.direction) // direction
 		options.flex && this.flex(options.flex) // flex
 
-		View.call(this, options)
+		initView.call(this, options)
 	}
 
 
@@ -70,15 +84,12 @@ define(function (require) {
 		this._$dom = $(options.selector).detach().addClass('simple').addClass('view') // make css API
 		options.flex && this.flex(options.flex) // flex
 
-		View.call(this, options)
+		initView.call(this, options)
 	}
 
 
 	var extend = function (Class) {
-		var v = new View({})
-		delete v._$dom
-		delete v._options
-		Class.prototype = v
+		Class.prototype = new View()
 		return Class
 	}
 

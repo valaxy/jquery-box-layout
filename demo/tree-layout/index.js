@@ -4,7 +4,7 @@ define(function (require, exports) {
 
 	exports.init = function () {
 		var plugins = {
-			resizeable: require('src/plugin/resizeable/index')
+			resizable: true
 		}
 
 		var root = treeLayout.init({
@@ -66,17 +66,17 @@ define(function (require, exports) {
 					_schema : 'simple',
 					flex    : '5',
 					selector: '.box3',
-					plugins : plugins
+					plugins : {resizable: true}
 				}, {
 					_schema : 'simple',
 					flex    : '1',
 					selector: '.box4',
-					plugins : plugins
+					plugins : {resizable: true}
 				}, {
 					_schema : 'simple',
 					flex    : '0 100px',
 					selector: '.box6',
-					plugins : plugins
+					plugins : {resizable: true}
 				}]
 			}, {
 				_schema         : 'simple',
