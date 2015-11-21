@@ -1,26 +1,27 @@
 define(function (require) {
-	var $ = require('jquery')
+	var $            = require('jquery'),
+	    EventEmitter = require('eventEmitter')
+
 
 	/** Base class of SimpleView & LinearLayout
 	 ** Do not instance from this Class
+	 ** options:
+	 **     className: class of dom
+	 **     plugins:   map Object
 	 */
 	var View = function (options) {
 		options.resizeableBefore = !!options.resizeableBefore
 		options.resizeableAfter = !!options.resizeableAfter
+		options.plugins = options.plugins || {}
+		this._options = options
+
+		// className
 		if (options.className) {
 			this._$dom.addClass(options.className)
 		}
-		this._options = options // else
 	}
 
-	var extend = function (Class) {
-		var v = new View({})
-		delete v._$dom
-		delete v._options
-		Class.prototype = v
-		return Class
-	}
-
+	//Object.Assign(View.prototype, EventEmitter.prototype)
 
 	/** options:
 	 **     direction: 'row' | 'column'
@@ -73,9 +74,18 @@ define(function (require) {
 	}
 
 
+	var extend = function (Class) {
+		var v = new View({})
+		delete v._$dom
+		delete v._options
+		Class.prototype = v
+		return Class
+	}
+
 	View.SimpleView = extend(SimpleView)
 	View.LinearLayout = extend(LinearLayout)
 
+	require('./submodule/private')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/removal')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/insertion')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/insertion-around')(View, View.SimpleView, View.LinearLayout)

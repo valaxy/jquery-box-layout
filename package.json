@@ -29,7 +29,7 @@
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
     "underscore": "^1.8.3",
-    "wolfamy87-eventemitter": "^4.3.0"
+    "wolfy87-eventemitter": "^4.3.0"
   },
   "devDependencies": {
     "amd-loader": "github:valaxy/amd-loader#master",

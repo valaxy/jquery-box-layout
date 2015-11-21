@@ -1,5 +1,5 @@
 define(function (require) {
-	var Resizeable = require('../../plugin/resizable')
+	var Resizeable = require('../../plugin/resizeable/index')
 
 	return function (View, SimpleView, LinearLayout) {
 

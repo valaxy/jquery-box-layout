@@ -3,6 +3,10 @@ define(function (require, exports) {
 	var DragAndDrop = require('src/plugin/drag-and-drop')
 
 	exports.init = function () {
+		var plugins = {
+			resizeable: require('src/plugin/resizeable/index')
+		}
+
 		var root = treeLayout.init({
 			_schema  : 'linear',
 			direction: 'column',
@@ -59,23 +63,20 @@ define(function (require, exports) {
 						resizeableAfter : true
 					}]
 				}, {
-					_schema         : 'simple',
-					flex            : '5',
-					selector        : '.box3',
-					resizeableBefore: true,
-					resizeableAfter : true
+					_schema : 'simple',
+					flex    : '5',
+					selector: '.box3',
+					plugins : plugins
 				}, {
-					_schema         : 'simple',
-					flex            : '1',
-					selector        : '.box4',
-					resizeableBefore: true,
-					resizeableAfter : true
+					_schema : 'simple',
+					flex    : '1',
+					selector: '.box4',
+					plugins : plugins
 				}, {
-					_schema         : 'simple',
-					flex            : '0 100px',
-					selector        : '.box6',
-					resizeableBefore: true,
-					resizeableAfter : true
+					_schema : 'simple',
+					flex    : '0 100px',
+					selector: '.box6',
+					plugins : plugins
 				}]
 			}, {
 				_schema         : 'simple',

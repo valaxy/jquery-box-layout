@@ -1,11 +1,14 @@
 define(function (require) {
-	var Resizeable = require('../../plugin/resizable')
+	var Resizeable = require('../../plugin/resizeable/index')
 	var help = require('../../help/help')
 
-	return function (View) {
+	return function (View, SimpleView, LinearLayout) {
+
 
 		/** Add view at last
-		 ** view: LinearLayout or SimpleView
+		 **     view: LinearLayout or SimpleView
+		 ** Event:
+		 **     addView(index, view): trigger when add view
 		 */
 		View.LinearLayout.prototype.appendView = function (view) {
 			this.addViewAt(this._views.length, view)
@@ -13,61 +16,50 @@ define(function (require) {
 
 
 		/** Add view at first
-		 ** view: LinearLayout or SimpleView
+		 **     view: LinearLayout or SimpleView
+		 ** Event:
+		 **     addView(index, view): trigger when add view
 		 */
 		View.LinearLayout.prototype.prependView = function (view) {
 			this.addViewAt(0, view)
 		}
 
 
+		// hook when add view
+		LinearLayout.prototype._onAddView = function (index, simpleView) {
+			for (var pluginName in simpleView._options.plugins) {
+				var plugin = simpleView._options.plugins[pluginName]
+				plugin.onAdd && plugin.onAdd.call(simpleView, this, index, simpleView)
+			}
+		}
+
 		/** Add view at specify position
-		 ** index: position number
-		 ** view: LinearLayout or SimpleView
+		 **     index: position number
+		 **     view: LinearLayout or SimpleView
+		 ** Event:
+		 **     addView(index, view): trigger when add view
 		 */
 		View.LinearLayout.prototype.addViewAt = function (index, view) {
 			view._parent = this
 			var prevIndex = index - 1
 			var nextIndex = index
-			var prev = index > 0 ? this._views[prevIndex] : null // prev is before the `view` after adding
-			var next = this._views[nextIndex]                    //  next is after the `view` after addding
-
-
-			// must delete first then insert
-			if (prev && next) {
-				this._resizeables.splice(prevIndex, 1)[0].off()
-			}
-
-			// insert resizeable after prev
-			if (prev) {
-				var resizeable = new Resizeable(prev._$dom, view._$dom, this.direction())
-				if (prev._options.resizeableAfter && view._options.resizeableBefore) {
-					resizeable.on()
-				}
-				this._resizeables.splice(prevIndex, 0, resizeable)
-			}
-
-
-			// insert resizeable before next
-			if (next) {
-				var resizeable = new Resizeable(view._$dom, next._$dom, this.direction())
-				if (view._options.resizeableAfter && next._options.resizeableBefore) {
-					resizeable.on()
-				}
-				this._resizeables.splice(nextIndex, 0, resizeable)
-			}
-
+			var prev = this._views[prevIndex]  // prev is before the `view` after adding
+			var next = this._views[nextIndex]  //  next is after the `view` after adding
 
 			// insert dom
 			if (prev) {
-				prev._$dom.after(view._$dom)
+				prev.$dom().after(view.$dom())
 			} else if (next) {
-				next._$dom.before(view._$dom)
-			} else {
-				this._$dom.append(view._$dom)
+				next.$dom().before(view.$dom())
+			} else { // only one in array
+				this.$dom().append(view.$dom())
 			}
 
-			// insert finally
+			// insert view
 			this._views.splice(index, 0, view)
+
+			// plugin process
+			this._onAddView(index, view)
 		}
 
 

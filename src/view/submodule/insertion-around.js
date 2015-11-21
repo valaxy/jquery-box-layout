@@ -1,6 +1,6 @@
 define(function () {
 
-	return function (View, SimpleView, LinearLayout) {
+	return function (View, SimpleView, LinearLayout ) {
 		/** Create a parent layout replacing `this` and append both of `this` and `adder`, the `adder` will at `position` of parent
 		 ** adder:        the new added view
 		 ** position:     'top' | 'bottom' | 'left' | 'right'
