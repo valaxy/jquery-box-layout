@@ -1,5 +1,5 @@
 define(function (require) {
-	var StateMachine = require('bower_components/javascript-state-machine/state-machine.min')
+	var StateMachine = require('state-machine')
 	var $ = require('jquery')
 
 	var HANDLER_SIZE = '20px'

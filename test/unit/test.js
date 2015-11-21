@@ -6,4 +6,6 @@ define(function (require) {
 	require('../view/property')
 	require('../view/enumeration')
 	require('../view/search')
+
+	require('../dock-layout/dock-view')
 })

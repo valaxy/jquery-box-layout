@@ -6,7 +6,8 @@
     "src/view/simple-view",
     "src/view/linear-layout",
     "src/plugin/resizable",
-    "src/plugin/drag-and-drop"
+    "src/plugin/drag-and-drop",
+    "src/dock-layout"
   ],
   "directories": {
     "doc": "doc",
