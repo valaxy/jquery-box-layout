@@ -1,5 +1,6 @@
 define(function (require) {
 	var treeLayout = require('src/view/tree-layout'),
+	    SimpleView = require('src/view/simple-view'),
 	    $          = require('jquery')
 
 
@@ -50,11 +51,21 @@ define(function (require) {
 		}, {
 			_schema : 'simple',
 			flex    : '2 0 0',
-			selector: $('<flex-view>').text('B'),
+			selector: $('<flex-view>').text('C'),
 			plugins : {resizable: true}
 		}]
 	})
-	layout3.removeViewAt(2)
+	//layout3.removeViewAt(2)
+	//layout3.appendView(new SimpleView({
+	//	flex    : '2 0 0',
+	//	selector: $('<flex-view>').text('C'),
+	//	plugins : {resizable: true}
+	//}))
+	layout3.getViewAt(2).replaceWith(new SimpleView({
+		flex    : '2 0 0',
+		selector: $('<flex-view>').text('C'),
+		plugins : {resizable: true}
+	}))
 	$('body').append(layout3.$dom())
 
 

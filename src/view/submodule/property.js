@@ -17,30 +17,33 @@ define(function (require) {
 		}
 
 
-		/** Get the original config, if it removed from LinearLayout, it will be saved */
-		View.prototype.getConfig = function () {
-			return {
-				flex   : this.flex(),
-				plugins: this._options.plugins
+		/** Get the original config, if it removed from LinearLayout, it will be saved
+		 ** Or Set config
+		 */
+		View.prototype.config = function (options) {
+			if (options) {
+				if (options.flex !== undefined) {
+					this.flex(options.flex)
+				}
+			} else {
+				return {
+					flex   : this.flex(), // todo, 移除flex
+					plugins: this._options.plugins
+				}
 			}
+
 		}
 
-		/** Set config */
-		View.prototype.setConfig = function (options) {
-			options = options || {}
-			if (options.flex !== undefined) {
-				this.flex(options.flex)
+		/** Set plugin options todo 改成可以操纵插件的API, 改成merge形式
+		 ** name: plugin name
+		 ** options: new plugin options
+		 */
+		View.prototype.plugin = function (name, options) {
+			if (true === options) {
+				this._options.plugins[name] = {} // no params
+			} else if (typeof options != 'object') {
+				delete this._options.plugins[name] // todo, 可以在遍历的时候删除吗
 			}
-			if (options.resizeableBefore !== undefined) {
-
-			}
-			if (options.resizeableAfter !== undefined) {
-
-			}
-		}
-
-		View.prototype.hasPlugin = function (name) {
-			return true
 		}
 
 		/** Whether is isolate */
@@ -87,7 +90,7 @@ define(function (require) {
 				_schema  : this._options._schema,
 				selector : this._options.selector,
 				className: this._options.className
-			}, this.getConfig()))
+			}, this.config()))
 		}
 
 
@@ -100,7 +103,7 @@ define(function (require) {
 				views    : _.map(this._views, function (view) {
 					return view.toJSON()
 				})
-			}, this.getConfig()))
+			}, this.config()))
 		}
 
 

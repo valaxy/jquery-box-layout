@@ -20,18 +20,12 @@ define(function (require) {
 		this._$dom.addClass(options.className)
 
 		// plugins
-		this._pluginHandlers = {}
 		for (var pluginName in this._options.plugins) {
 			var plugin = this._options.plugins[pluginName]
 			if (true === plugin) {
 				this._options.plugins[pluginName] = {} // no params
-			}
-			switch (pluginName) {
-				case 'resizable':
-					this._pluginHandlers[pluginName] = ResizablePlugin
-					break
-				default:
-					throw new Error('plugin of ' + pluginName + ' not exist')
+			} else if (typeof plugin != 'object') {
+				delete this._options.plugins[pluginName] // todo, 可以在遍历的时候删除吗
 			}
 		}
 	}
