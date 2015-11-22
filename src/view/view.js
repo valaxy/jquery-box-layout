@@ -23,7 +23,9 @@ define(function (require) {
 		this._pluginHandlers = {}
 		for (var pluginName in this._options.plugins) {
 			var plugin = this._options.plugins[pluginName]
-			if (true === plugin)  this._options.plugins[pluginName] = {} // no params
+			if (true === plugin) {
+				this._options.plugins[pluginName] = {} // no params
+			}
 			switch (pluginName) {
 				case 'resizable':
 					this._pluginHandlers[pluginName] = ResizablePlugin
@@ -55,7 +57,7 @@ define(function (require) {
 		this._views = []
 		this._resizeables = []
 
-		this._$dom = $('<div></div>').addClass('linear').addClass('view') // make css api
+		this._$dom = $('<flex-view></flex-view>').addClass('linear').addClass('view') // make css api
 		this.direction(options.direction) // direction
 		options.flex && this.flex(options.flex) // flex
 

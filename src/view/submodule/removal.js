@@ -1,6 +1,4 @@
-define(function (require) {
-	var Resizeable = require('../../plugin/resizeable/index')
-
+define(function () {
 	return function (View, SimpleView, LinearLayout) {
 
 		/** Remove this from parent
@@ -81,6 +79,15 @@ define(function (require) {
 		}
 
 
+		LinearLayout.prototype._onRemoveView = function (index, simpleView) {
+			for (var pluginName in simpleView._pluginHandlers) {
+				var pluginOptions = simpleView._options.plugins[pluginName]
+				var plugin = simpleView._pluginHandlers[pluginName]
+				plugin.onRemove && plugin.onRemove.call(simpleView, pluginOptions, this, index, simpleView)
+			}
+		}
+
+
 		/** Remove view At position `index`
 		 ** index: the position
 		 ** return: the removed view
@@ -90,29 +97,11 @@ define(function (require) {
 				throw new Error('`index` is out of range, 0 <= index < length()')
 			}
 
-
-			// @日志: 注意各种引用顺序
-			if (index < this.length() - 1) { // remove resizeable between prev and view
-				this._resizeables.splice(index, 1)[0].off()
-			}
-
-			if (index > 0) { // remove resizeable between prev and view
-				var test = this._resizeables.splice(index - 1, 1)[0]
-				test.off()
-
-			}
-
-
 			var view = this._views.splice(index, 1)[0]
 			view._$dom.detach()
 			view._parent = null
 
-			var prev = this._views[index - 1]
-			var next = this._views[index]
-			if (prev && next) {
-				var plugin = new Resizeable(prev._$dom, next._$dom, this.direction()).on()
-				this._resizeables.splice(index - 1, 0, plugin)
-			}
+			this._onRemoveView(index, view)
 			return view
 		}
 
@@ -141,7 +130,6 @@ define(function (require) {
 			}
 			return children.reverse()
 		}
-
 
 	}
 })

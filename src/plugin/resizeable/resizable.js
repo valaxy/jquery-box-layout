@@ -34,11 +34,11 @@ define(function (require) {
 		var size2
 
 		$dom1.resizable({
-			handles : handles,
-			animate : false,
-			minWidth: 100,
-			maxWidth: 100,
-			start   : function () {
+			handles  : handles,
+			animate  : false,
+			minWidth : 100, // todo, 还需要锁定下一个窗格的大小
+			minHeight: 100,
+			start    : function () {
 				size1 = $dom1[sizeProperty]()
 				size2 = $dom2[sizeProperty]()
 				flex1 = Number($dom1.css('flex-grow'))

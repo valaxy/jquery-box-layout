@@ -40,6 +40,9 @@ define(function (require) {
 			}
 		}
 
+		View.prototype.hasPlugin = function (name) {
+			return true
+		}
 
 		/** Whether is isolate */
 		SimpleView.prototype.isIsolate = function () {

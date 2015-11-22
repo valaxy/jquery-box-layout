@@ -3,87 +3,42 @@ define(function (require, exports) {
 	var DragAndDrop = require('src/plugin/drag-and-drop')
 
 	exports.init = function () {
-		var plugins = {
-			resizable: true
-		}
-
 		var root = treeLayout.init({
 			_schema  : 'linear',
 			direction: 'column',
 			className: 'everything',
 			views    : [{
-				_schema         : 'simple',
-				flex            : '2.01',
-				selector        : '.box0',
-				resizeableBefore: true,
-				resizeableAfter : true
+				_schema : 'simple',
+				flex    : '2.01 0 0',
+				selector: '.box0',
+				plugins : {resizable: true}
 			}, {
-				_schema         : 'linear',
-				direction       : 'row',
-				flex            : '8',
-				resizeableBefore: true,
-				resizeableAfter : true,
-				views           : [{
-					_schema         : 'linear',
-					direction       : 'row',
-					flex            : '5',
-					resizeableBefore: true,
-					resizeableAfter : true,
-					views           : [{
-						_schema         : 'simple',
-						flex            : '1',
-						selector        : '.box5',
-						resizeableBefore: true,
-						resizeableAfter : true
-
+				_schema  : 'linear',
+				direction: 'row',
+				flex     : '8 0 0',
+				plugins  : {resizable: true},
+				views    : [{
+					_schema  : 'linear',
+					direction: 'column',
+					flex     : '1 0 0',
+					plugins  : {resizable: true},
+					views    : [{
+						_schema : 'simple',
+						flex    : '1 0 0',
+						selector: '.box1',
+						plugins : {resizable: true}
 					}, {
-						_schema         : 'simple',
-						flex            : '1',
-						selector        : '.box8',
-						resizeableBefore: true,
-						resizeableAfter : true
+						_schema : 'simple',
+						flex    : '1 0 0',
+						selector: '.box2',
+						plugins : {resizable: true}
 					}]
-				}, {
-					_schema         : 'linear',
-					direction       : 'column',
-					flex            : '0 200px',
-					resizeableBefore: true,
-					resizeableAfter : true,
-					views           : [{
-						_schema         : 'simple',
-						flex            : '1',
-						selector        : '.box1',
-						resizeableBefore: true,
-						resizeableAfter : true
-					}, {
-						_schema         : 'simple',
-						flex            : '1',
-						selector        : '.box2',
-						resizeableBefore: true,
-						resizeableAfter : true
-					}]
-				}, {
-					_schema : 'simple',
-					flex    : '5',
-					selector: '.box3',
-					plugins : {resizable: true}
-				}, {
-					_schema : 'simple',
-					flex    : '1',
-					selector: '.box4',
-					plugins : {resizable: true}
-				}, {
-					_schema : 'simple',
-					flex    : '0 100px',
-					selector: '.box6',
-					plugins : {resizable: true}
 				}]
 			}, {
-				_schema         : 'simple',
-				flex            : '0 40px',
-				selector        : '.box7',
-				resizeableBefore: true,
-				resizeableAfter : true
+				_schema : 'simple',
+				flex    : '0 0 40px',
+				selector: '.box7',
+				plugins : {resizable: true}
 			}]
 		})
 		$('body').append(root.$dom())
@@ -116,3 +71,74 @@ define(function (require, exports) {
 		//})
 	}
 })
+
+//var root = treeLayout.init({
+//	_schema  : 'linear',
+//	direction: 'column',
+//	className: 'everything',
+//	views    : [{
+//		_schema : 'simple',
+//		flex    : '2.01 0 0',
+//		selector: '.box0',
+//		plugins : {resizable: true}
+//	}, {
+//		_schema  : 'linear',
+//		direction: 'row',
+//		flex     : '8 0 0',
+//		plugins  : {resizable: true},
+//		views    : [{
+//			_schema  : 'linear',
+//			direction: 'row',
+//			flex     : '5 0 0',
+//			plugins  : {resizable: true},
+//			views    : [{
+//				_schema : 'simple',
+//				flex    : '1 0 0',
+//				selector: '.box5',
+//				plugins : {resizable: true}
+//
+//			}, {
+//				_schema : 'simple',
+//				flex    : '1 0 0',
+//				selector: '.box8',
+//				plugins : {resizable: true}
+//			}]
+//		}, {
+//			_schema  : 'linear',
+//			direction: 'column',
+//			flex     : '0 0 200px',
+//			plugins  : {resizable: true},
+//			views    : [{
+//				_schema : 'simple',
+//				flex    : '1 0 0',
+//				selector: '.box1',
+//				plugins : {resizable: true}
+//			}, {
+//				_schema : 'simple',
+//				flex    : '1 0 0',
+//				selector: '.box2',
+//				plugins : {resizable: true}
+//			}]
+//		}, {
+//			_schema : 'simple',
+//			flex    : '5 0 0',
+//			selector: '.box3',
+//			plugins : {resizable: true}
+//		}, {
+//			_schema : 'simple',
+//			flex    : '1 0 0',
+//			selector: '.box4',
+//			plugins : {resizable: true}
+//		}, {
+//			_schema : 'simple',
+//			flex    : '0 0 100px',
+//			selector: '.box6',
+//			plugins : {resizable: true}
+//		}]
+//	}, {
+//		_schema : 'simple',
+//		flex    : '0 0 40px',
+//		selector: '.box7',
+//		plugins : {resizable: true}
+//	}]
+//})

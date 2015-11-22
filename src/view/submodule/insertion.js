@@ -25,11 +25,11 @@ define(function (require) {
 
 
 		// hook when add view
-		LinearLayout.prototype._onAddView = function (index, simpleView) {
-			for (var pluginName in simpleView._pluginHandlers) {
-				var pluginOptions = simpleView._options.plugins[pluginName]
-				var plugin = simpleView._pluginHandlers[pluginName]
-				plugin.onAdd && plugin.onAdd.call(simpleView, pluginOptions, this, index, simpleView)
+		LinearLayout.prototype._onAddView = function (index, view) {
+			for (var pluginName in view._pluginHandlers) {
+				var pluginOptions = view._options.plugins[pluginName]
+				var plugin = view._pluginHandlers[pluginName]
+				plugin.onAdd && plugin.onAdd.call(view, pluginOptions, this, index, view)
 			}
 		}
 
@@ -39,7 +39,7 @@ define(function (require) {
 		 ** Event:
 		 **     addView(index, view): trigger when add view
 		 */
-		View.LinearLayout.prototype.addViewAt = function (index, view) {
+		LinearLayout.prototype.addViewAt = function (index, view) {
 			view._parent = this
 			var prevIndex = index - 1
 			var nextIndex = index
