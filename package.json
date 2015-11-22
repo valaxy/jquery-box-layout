@@ -27,7 +27,7 @@
     "algorithm-data-structure": "github:valaxy/algorithm-data-structure",
     "javascript-state-machine": "^2.3.5",
     "jquery": "^2.1.4",
-    "jquery-ui": "*",
+    "jquery-ui": "github:jquery/jquery-ui#1-11-stable",
     "underscore": "^1.8.3",
     "wolfy87-eventemitter": "^4.3.0"
   },

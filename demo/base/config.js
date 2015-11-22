@@ -2,7 +2,7 @@ requirejs.config({
 	baseUrl: '../../',
 	paths  : {
 		'jquery'                  : 'node_modules/jquery/dist/jquery',
-		'jquery-ui'               : 'bower_components/jquery-ui/jquery-ui',
+		'jquery-ui'               : 'node_modules/jquery-ui/ui',
 		'underscore'              : 'node_modules/underscore/underscore',
 		'algorithm-data-structure': 'node_modules/algorithm-data-structure/dest/',
 		'state-machine'           : 'node_modules/javascript-state-machine/state-machine',

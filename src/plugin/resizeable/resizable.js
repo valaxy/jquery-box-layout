@@ -1,5 +1,5 @@
 define(function (require) {
-	require('jquery-ui')
+	require('jquery-ui/resizable')
 
 	var getFlex = function ($dom) {
 		var value = $dom.css('flex-grow')
@@ -36,8 +36,8 @@ define(function (require) {
 		$dom1.resizable({
 			handles  : handles,
 			animate  : false,
-			minWidth : 100, // todo, 还需要锁定下一个窗格的大小
-			minHeight: 100,
+			minWidth : 40, // todo, 还需要锁定下一个窗格的大小
+			minHeight: 40,
 			start    : function () {
 				size1 = $dom1[sizeProperty]()
 				size2 = $dom2[sizeProperty]()
@@ -49,7 +49,7 @@ define(function (require) {
 		if (typeof flex1 == 'number') {
 			if (typeof flex2 == 'number') { // flex, flex
 				$dom1.on('resize', function (e, ui) {
-					if (e.target != $dom1[0]) { // fuck it, jquery-ui event will bubble up, so depend to process
+					if (e.target != $dom1[0]) { // fuck it, jquery-ui event will bubble up, so judge to process
 						return
 					}
 					var newFlex1 = ui.size[sizeProperty] / (size1 + size2) * (flex1 + flex2)
