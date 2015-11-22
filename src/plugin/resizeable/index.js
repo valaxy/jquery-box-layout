@@ -32,26 +32,27 @@ define(function (require) {
 			}
 		},
 
-		onRemove: function (options, linearLayout, view, index) {
+		onRemove: function (options, linearLayout, index, view) {
 			var prevIndex = index - 1
 			var prevView = linearLayout.getViewAt(prevIndex)
 			var nextView = linearLayout.getViewAt(index)
+			console.log(prevView.$dom().text(), nextView)
 
-			// remove resizable between view next
-			if (index < linearLayout.length() - 1) {
+			// remove resizable between view and next
+			if (nextView) {
 				linearLayout._resizeables.splice(index, 1)[0].off()
 			}
 
 			// remove resizable between prev and view
-			if (index > 0) {
-				var resizable = linearLayout._resizeables.splice(prevView, 1)[0]
+			if (prevView) {
+				var resizable = linearLayout._resizeables.splice(prevIndex, 1)[0]
 				resizable.off()
 			}
 
 			// apply resizable between
 			if (prevView && nextView) {
 				var resizable = new Resizeable(prevView.$dom(), nextView.$dom(), linearLayout.direction())
-				resizeable.on()
+				resizable.on()
 				linearLayout._resizeables.splice(prevIndex, 0, resizable)
 			}
 		}

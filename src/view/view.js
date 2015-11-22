@@ -79,9 +79,7 @@ define(function (require) {
 	var SimpleView = function (options) {
 		options = options || {}
 		options._schema = 'simple'
-		if (!options.selector) {
-			throw new Error('selector must be exist')
-		}
+		if (!options.selector) throw new Error('selector must be exist')
 
 		this._$dom = $(options.selector).detach().addClass('simple').addClass('view') // make css API
 		options.flex && this.flex(options.flex) // flex

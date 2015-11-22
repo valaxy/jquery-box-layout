@@ -1,25 +1,19 @@
-define(function (require) {
-	var help = require('../../help/help')
+define(function () {
 
 	return function (View, SimpleView, LinearLayout) {
 
-
 		/** Add view at last
 		 **     view: LinearLayout or SimpleView
-		 ** Event:
-		 **     addView(index, view): trigger when add view
 		 */
-		View.LinearLayout.prototype.appendView = function (view) {
+		LinearLayout.prototype.appendView = function (view) {
 			this.addViewAt(this._views.length, view)
 		}
 
 
 		/** Add view at first
 		 **     view: LinearLayout or SimpleView
-		 ** Event:
-		 **     addView(index, view): trigger when add view
 		 */
-		View.LinearLayout.prototype.prependView = function (view) {
+		LinearLayout.prototype.prependView = function (view) {
 			this.addViewAt(0, view)
 		}
 
@@ -36,10 +30,11 @@ define(function (require) {
 		/** Add view at specify position
 		 **     index: position number
 		 **     view: LinearLayout or SimpleView
-		 ** Event:
-		 **     addView(index, view): trigger when add view
+		 **     options:
+		 **         silent: Boolean, default is false
 		 */
-		LinearLayout.prototype.addViewAt = function (index, view) {
+		LinearLayout.prototype.addViewAt = function (index, view, options) {
+			options = options || {}
 			view._parent = this
 			var prevIndex = index - 1
 			var nextIndex = index
@@ -70,7 +65,7 @@ define(function (require) {
 		/** Add view at edge
 		 ** position: 'left' | 'right' | 'top' | 'bottom'
 		 */
-		View.LinearLayout.prototype.addViewAtEdge = function (view, position) {
+		LinearLayout.prototype.addViewAtEdge = function (view, position) {
 			var positionConfig = {
 				bottom: 'row',
 				top   : 'row',

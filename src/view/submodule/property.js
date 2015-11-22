@@ -20,9 +20,8 @@ define(function (require) {
 		/** Get the original config, if it removed from LinearLayout, it will be saved */
 		View.prototype.getConfig = function () {
 			return {
-				flex            : this.flex(),
-				resizeableBefore: this._options.resizeableBefore,
-				resizeableAfter : this._options.resizeableAfter
+				flex   : this.flex(),
+				plugins: this._options.plugins
 			}
 		}
 

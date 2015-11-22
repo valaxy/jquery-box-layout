@@ -79,11 +79,11 @@ define(function () {
 		}
 
 
-		LinearLayout.prototype._onRemoveView = function (index, simpleView) {
-			for (var pluginName in simpleView._pluginHandlers) {
-				var pluginOptions = simpleView._options.plugins[pluginName]
-				var plugin = simpleView._pluginHandlers[pluginName]
-				plugin.onRemove && plugin.onRemove.call(simpleView, pluginOptions, this, index, simpleView)
+		LinearLayout.prototype._onRemoveView = function (index, view) {
+			for (var pluginName in view._pluginHandlers) {
+				var pluginOptions = view._options.plugins[pluginName]
+				var plugin = view._pluginHandlers[pluginName]
+				plugin.onRemove && plugin.onRemove.call(view, pluginOptions, this, index, view)
 			}
 		}
 

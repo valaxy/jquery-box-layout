@@ -14,7 +14,7 @@ body {
 	font-family: "微软雅黑", "sans-serif";
 }
 
-.layout1, .layout2 {
+.layout {
 	width:    90%;
 	height:   400px;
 	border:   1px solid $COLOR;
@@ -27,6 +27,10 @@ body {
 		top:      -30px;
 		left:     0;
 	}
+}
+
+.layout0:after {
+	content: 'Layout2'
 }
 
 .layout1:after {

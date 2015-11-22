@@ -10,6 +10,18 @@ define(function (require) {
 	})
 
 
+	QUnit.test('toJSON()', function (assert) {
+		var s = new SimpleView({
+			selector: '.xx'
+		})
+		assert.deepEqual(s.toJSON(), {
+			_schema  : 'simple',
+			selector : '.xx',
+			className: '',
+			plugins  : {}
+		})
+	})
+
 	QUnit.test('SimpleView#toTreeNode()', function (assert) {
 		var s = new SimpleView({selector: $('<div>')})
 		var node = s.toTreeNode()

@@ -26,11 +26,16 @@ define(function (require, exports) {
 
 
 	exports.init = function (config) {
-		var linear = createView(config)
+		var rootView = createView(config)
 		if (config._schema == 'linear') {
-			processLinaerLayout(linear, config)
+			processLinaerLayout(rootView, config)
 		}
-		return linear
+		return rootView
+	}
+
+
+	exports.initChildren = function () {
+
 	}
 
 
