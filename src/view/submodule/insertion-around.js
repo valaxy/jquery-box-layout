@@ -1,6 +1,6 @@
 define(function () {
 
-	return function (View, SimpleView, LinearLayout ) {
+	return function (View, SimpleView, LinearLayout) {
 		/** Create a parent layout replacing `this` and append both of `this` and `adder`, the `adder` will at `position` of parent
 		 ** adder:        the new added view
 		 ** position:     'top' | 'bottom' | 'left' | 'right'
@@ -30,8 +30,8 @@ define(function () {
 				this._$dom.detach()
 
 				// root element no need to remove from layout
-				adder.setConfig(adderOptions)
-				this.setConfig(thisOptions)
+				adder.config(adderOptions)
+				this.config(thisOptions)
 				if (position == 'top' || position == 'left') {
 					wrap.appendView(adder)
 					wrap.appendView(this)
@@ -43,7 +43,7 @@ define(function () {
 			} else {
 				var parent = this.parent()
 				var index = parent.indexOfView(this)
-				var oldOptions = this.getConfig()
+				var oldOptions = this.config()
 				this.remove()
 				var wrap = new LinearLayout({
 					direction       : isVertical ? 'column' : 'row',
@@ -51,8 +51,8 @@ define(function () {
 					resizeableBefore: true
 				})
 
-				adder.setConfig(adderOptions)
-				this.setConfig(thisOptions)
+				adder.config(adderOptions)
+				this.config(thisOptions)
 				if (position == 'top' || position == 'left') {
 					wrap.appendView(adder)
 					wrap.appendView(this)
@@ -61,7 +61,7 @@ define(function () {
 					wrap.appendView(adder)
 				}
 
-				wrap.setConfig(oldOptions)
+				wrap.config(oldOptions)
 				parent.addViewAt(index, wrap)
 			}
 			return this
@@ -80,9 +80,9 @@ define(function () {
 			if (this.parent()) {
 				var thisParent = this.parent()
 				var index = thisParent.indexOfView(this)
-				var originalOptions = this.getConfig()
+				var originalOptions = this.config()
 				thisParent.removeViewAt(index)
-				wrapper.setConfig(originalOptions)
+				wrapper.config(originalOptions)
 				thisParent.addViewAt(index, wrapper)
 			} else {
 				var $root = this.$dom().parent() // $root is not in any SimpleView/LinearLayout
@@ -90,7 +90,7 @@ define(function () {
 				$root.append(wrapper.$dom())
 			}
 
-			this.setConfig(options)
+			this.config(options)
 			wrapper.appendView(this)
 			return this
 		}
@@ -104,7 +104,7 @@ define(function () {
 				var parent = this.parent()
 				var index = parent.indexOfView(this)
 				parent.removeViewAt(index)
-				view.setConfig(this.getConfig())
+				view.config(this.config())
 				parent.addViewAt(index, view)
 			} else { // root
 				this._$dom.replaceWith(view._$dom)

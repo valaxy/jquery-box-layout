@@ -36,7 +36,6 @@ define(function (require) {
 			var prevIndex = index - 1
 			var prevView = linearLayout.getViewAt(prevIndex)
 			var nextView = linearLayout.getViewAt(index)
-			console.log(prevView.$dom().text(), nextView)
 
 			// remove resizable between view and next
 			if (nextView) {

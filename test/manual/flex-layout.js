@@ -31,7 +31,7 @@ define(function (require) {
 	$('body').append(layout0.$dom())
 
 
-	// 删除后再添加的布局
+	var p = $('<p>').text('测试各种add/remove之后的布局')
 	var layout3 = treeLayout.init({
 		_schema  : 'linear',
 		direction: 'row',
@@ -39,33 +39,61 @@ define(function (require) {
 		className: 'layout layout3',
 		views    : [{
 			_schema : 'simple',
-			flex    : '1 0 0',
+			flex    : '2 0 0',
 			selector: $('<flex-view>').text('A'),
 			plugins : {resizable: true}
 
 		}, {
 			_schema : 'simple',
-			flex    : '3 0 0',
+			flex    : '1 0 0',
 			selector: $('<flex-view>').text('B'),
 			plugins : {resizable: true}
 		}, {
 			_schema : 'simple',
-			flex    : '2 0 0',
+			flex    : '1 0 0',
 			selector: $('<flex-view>').text('C'),
+			plugins : {resizable: true}
+		}, {
+			_schema : 'simple',
+			flex    : '1 0 0',
+			selector: $('<flex-view>').text('D'),
+			plugins : {resizable: true}
+		}, {
+			_schema : 'simple',
+			flex    : '1 0 0',
+			selector: $('<flex-view>').text('E'),
+			plugins : {resizable: true}
+		}, {
+			_schema : 'simple',
+			flex    : '1 0 0',
+			selector: $('<flex-view>').text('F'),
+			plugins : {resizable: true}
+		}, {
+			_schema : 'simple',
+			flex    : '2 0 0',
+			selector: $('<flex-view>').text('G'),
 			plugins : {resizable: true}
 		}]
 	})
-	//layout3.removeViewAt(2)
-	//layout3.appendView(new SimpleView({
+	layout3.removeViewAt(0)
+	layout3.removeViewAt(layout3.length() - 1)
+	layout3.appendView(new SimpleView({
+		flex    : '1 0 0',
+		selector: $('<flex-view>').text('add A'),
+		plugins : {resizable: true}
+	}))
+	layout3.prependView(new SimpleView({
+		flex    : '1 0 0',
+		selector: $('<flex-view>').text('add B'),
+		plugins : {resizable: true}
+	}))
+	layout3.removeViewAt(1)
+	//layout3.getViewAt(2).replaceWith(new SimpleView({
 	//	flex    : '2 0 0',
 	//	selector: $('<flex-view>').text('C'),
 	//	plugins : {resizable: true}
 	//}))
-	layout3.getViewAt(2).replaceWith(new SimpleView({
-		flex    : '2 0 0',
-		selector: $('<flex-view>').text('C'),
-		plugins : {resizable: true}
-	}))
+	$('body').append(p)
 	$('body').append(layout3.$dom())
 
 

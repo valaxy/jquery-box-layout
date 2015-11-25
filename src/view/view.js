@@ -1,7 +1,5 @@
 define(function (require) {
-	var $               = require('jquery'),
-	    ResizablePlugin = require('../plugin/resizeable/index')
-
+	var $ = require('jquery')
 
 	/** Base class of SimpleView & LinearLayout
 	 ** Do not instance from this Class
