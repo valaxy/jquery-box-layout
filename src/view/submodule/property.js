@@ -34,17 +34,7 @@ define(function (require) {
 
 		}
 
-		/** Set plugin options todo 改成可以操纵插件的API, 改成merge形式
-		 ** name: plugin name
-		 ** options: new plugin options
-		 */
-		View.prototype.plugin = function (name, options) {
-			if (true === options) {
-				this._options.plugins[name] = {} // no params
-			} else if (typeof options != 'object') {
-				delete this._options.plugins[name] // todo, 可以在遍历的时候删除吗
-			}
-		}
+
 
 		/** Whether is isolate */
 		SimpleView.prototype.isIsolate = function () {

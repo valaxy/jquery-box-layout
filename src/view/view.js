@@ -16,16 +16,7 @@ define(function (require) {
 
 		// className
 		this._$dom.addClass(options.className)
-
-		// plugins
-		for (var pluginName in this._options.plugins) {
-			var plugin = this._options.plugins[pluginName]
-			if (true === plugin) {
-				this._options.plugins[pluginName] = {} // no params
-			} else if (typeof plugin != 'object') {
-				delete this._options.plugins[pluginName] // todo, 可以在遍历的时候删除吗
-			}
-		}
+		this._initPlugins(options.plugins)
 	}
 
 	//Object.Assign(View.prototype, EventEmitter.prototype)
@@ -96,6 +87,7 @@ define(function (require) {
 	require('./submodule/property')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/enumeration')(View, View.SimpleView, View.LinearLayout)
 	require('./submodule/search')(View, View.SimpleView, View.LinearLayout)
+	require('./submodule/plugin')(View, View.SimpleView, View.LinearLayout)
 
 	return View
 })

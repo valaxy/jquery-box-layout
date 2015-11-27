@@ -54,6 +54,10 @@ define(function (require) {
 				resizable.on()
 				linearLayout._resizeables.splice(prevIndex, 0, resizable)
 			}
+		},
+
+		onChange: function() {
+
 		}
 	}
 })

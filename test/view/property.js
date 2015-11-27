@@ -9,7 +9,6 @@ define(function (require) {
 		}
 	})
 
-
 	QUnit.test('toJSON()', function (assert) {
 		var s = new SimpleView({
 			selector: '.xx'

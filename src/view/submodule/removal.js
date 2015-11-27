@@ -1,5 +1,5 @@
 define(function (require) {
-	var pluginCollection = require('../../plugin/plugin-collection')
+	var pluginManager = require('../../plugin/plugin-manager').default()
 
 	return function (View, SimpleView, LinearLayout) {
 
@@ -84,7 +84,7 @@ define(function (require) {
 		LinearLayout.prototype._onRemoveView = function (index, view) {
 			for (var pluginName in view._options.plugins) {
 				var pluginOptions = view._options.plugins[pluginName]
-				var plugin = pluginCollection.get(pluginName)
+				var plugin = pluginManager.get(pluginName)
 				plugin.onRemove && plugin.onRemove.call(view, pluginOptions, this, index, view)
 			}
 		}
