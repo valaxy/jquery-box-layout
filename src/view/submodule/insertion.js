@@ -1,5 +1,4 @@
 define(function (require) {
-	var pluginManager = require('../../plugin/plugin-manager').default()
 
 	return function (View, SimpleView, LinearLayout) {
 
@@ -18,15 +17,6 @@ define(function (require) {
 			this.addViewAt(0, view)
 		}
 
-
-		// hook when add view
-		LinearLayout.prototype._onAddView = function (index, view) {
-			for (var pluginName in view._options.plugins) {
-				var pluginOptions = view._options.plugins[pluginName]
-				var plugin = pluginManager.get(pluginName)
-				plugin.onAdd && plugin.onAdd.call(view, pluginOptions, this, index, view)
-			}
-		}
 
 		/** Add view at specify position
 		 **     index: position number
@@ -55,7 +45,7 @@ define(function (require) {
 			this._views.splice(index, 0, view)
 
 			// plugin process
-			this._onAddView(index, view)
+			view._callPlugins('onAdd', this, index, view)
 		}
 
 

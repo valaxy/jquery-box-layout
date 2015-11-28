@@ -1,5 +1,4 @@
 define(function (require) {
-	var pluginManager = require('../../plugin/plugin-manager').default()
 
 	return function (View, SimpleView, LinearLayout) {
 
@@ -81,15 +80,6 @@ define(function (require) {
 		}
 
 
-		LinearLayout.prototype._onRemoveView = function (index, view) {
-			for (var pluginName in view._options.plugins) {
-				var pluginOptions = view._options.plugins[pluginName]
-				var plugin = pluginManager.get(pluginName)
-				plugin.onRemove && plugin.onRemove.call(view, pluginOptions, this, index, view)
-			}
-		}
-
-
 		/** Remove view At position `index`
 		 ** index: the position
 		 ** return: the removed view
@@ -103,7 +93,7 @@ define(function (require) {
 			view._$dom.detach()
 			view._parent = null
 
-			this._onRemoveView(index, view)
+			view._callPlugins('onRemove', this, index, view)
 			return view
 		}
 

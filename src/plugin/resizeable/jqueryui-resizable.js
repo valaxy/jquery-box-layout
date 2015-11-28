@@ -27,23 +27,31 @@ define(function (require) {
 		    direction = this._currentPosition
 		var flex1 = getFlex($dom1)
 		var flex2 = getFlex($dom2)
-		var sizeProperty = direction == 'row' ? 'width' : 'height'
-		var maxSizeProperty = direction == 'row' ? 'maxWidth' : 'maxHeight'
-		var handles = direction == 'row' ? 'e' : 's'
 		var size1
 		var size2
+		if (direction == 'row') {
+			var sizeProperty = 'width'
+			var maxSizeProperty = 'maxWidth'
+			var minSizeProperty = 'minWidth'
+			var handles = 'e'
+		} else {
+			sizeProperty = 'height'
+			maxSizeProperty = 'maxHeight'
+			minSizeProperty = 'minHeight'
+			handles = direction == 's'
+		}
+
 
 		$dom1.resizable({
-			handles  : handles,
-			animate  : false,
-			minWidth : 40, // todo, 还需要锁定下一个窗格的大小
-			minHeight: 40,
-			start    : function () {
+			handles: handles,
+			animate: false,
+			start  : function () {
 				size1 = $dom1[sizeProperty]()
 				size2 = $dom2[sizeProperty]()
 				flex1 = Number($dom1.css('flex-grow'))
 				flex2 = Number($dom2.css('flex-grow'))
-				$dom1.resizable('option', maxSizeProperty, size1 + size2)
+				$dom1.resizable('option', maxSizeProperty, size1 + size2 - 40)
+				$dom1.resizable('option', minSizeProperty, 40)
 			}
 		})
 		if (typeof flex1 == 'number') {
@@ -101,7 +109,7 @@ define(function (require) {
 
 	Resizable.prototype.off = function () {
 		if (this._on) {
-			// log: This is a bug about jquery-ui.resizable, but I don't report, because the bug system of jquery-ui is really annoying
+			// @log: This is a bug about jquery-ui.resizable, but I don't report, because the bug system of jquery-ui is really annoying
 			// below is a temporary fix
 			var oldFind = $.prototype.find
 			$.prototype.find = function (selector) {

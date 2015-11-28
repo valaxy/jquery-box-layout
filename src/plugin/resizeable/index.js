@@ -1,9 +1,9 @@
 define(function (require) {
-	var Resizeable = require('./resizable')
+	var Resizeable = require('./jqueryui-resizable')
 
 	/** Used in SimpleView */
 
-	// @日志, 旧版本的jquery-ui 1.10.5有bug, 一定要升级到最新版!!!!
+	// @log, 旧版本的jquery-ui 1.10.5有bug, 一定要升级到最新版!!!!
 
 	return {
 		onAdd: function (options, linearLayout, index, view) {
@@ -19,9 +19,9 @@ define(function (require) {
 
 			// apply resizeable on prevView between simpleView
 			if (prevView) {
-				var resizeable = new Resizeable(prevView.$dom(), view.$dom(), linearLayout.direction())
-				resizeable.on() // todo, if (prevView.hasPlugin('resizable'))
-				linearLayout._resizeables.splice(prevIndex, 0, resizeable)
+				var resizable = new Resizeable(prevView.$dom(), view.$dom(), linearLayout.direction())
+				resizable.on() // todo, if (prevView.hasPlugin('resizable'))
+				linearLayout._resizeables.splice(prevIndex, 0, resizable)
 			}
 
 			// apply resizeable on view between nextView
@@ -43,7 +43,7 @@ define(function (require) {
 			}
 
 			// remove resizable between prev and view
-			if (prevView) {
+			if (index < linearLayout.length() - 1) { // todo, 这里为什么不能用 if (prevView)
 				var resizable = linearLayout._resizeables.splice(prevIndex, 1)[0]
 				resizable.off()
 			}
@@ -56,7 +56,7 @@ define(function (require) {
 			}
 		},
 
-		onChange: function() {
+		onChange: function () {
 
 		}
 	}
