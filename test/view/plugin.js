@@ -6,22 +6,22 @@ define(function (require) {
 
 	QUnit.module('submodule: plugin')
 
-	QUnit.test('plugin()', function (assert) {
+	QUnit.test('pluginOption()', function (assert) {
 		var s = new SimpleView({selector: $('<div>')})
-		assert.equal(s.plugin('resizable'), undefined)
+		assert.equal(s.pluginOption('resizable'), undefined)
 
-		s.plugin('resizable', true)
-		assert.deepEqual(s.plugin('resizable'), {})
+		s.pluginOption('resizable', true)
+		assert.deepEqual(s.pluginOption('resizable'), {})
 
-		s.plugin('resizable', {a: 1})
-		assert.deepEqual(s.plugin('resizable'), {a: 1})
+		s.pluginOption('resizable', {a: 1})
+		assert.deepEqual(s.pluginOption('resizable'), {a: 1})
 
-		s.plugin('resizable', {b: 2})
-		assert.deepEqual(s.plugin('resizable'), {a: 1, b: 2})
+		s.pluginOption('resizable', {b: 2})
+		assert.deepEqual(s.pluginOption('resizable'), {a: 1, b: 2})
 	})
 
 
-	QUnit.test('onChange', function (assert) {
+	QUnit.test('onChange handler', function (assert) {
 		var s = new SimpleView({selector: $('<div>')})
 		var oldOptions = []
 		var newOptions = []
@@ -30,14 +30,15 @@ define(function (require) {
 			},
 			onRemove: function () {
 			},
-			onChange: function (oldOption, newOption) {
+			onChange: function (view, oldOption, newOption) {
+				assert.equal(s, view)
 				oldOptions.push(oldOption)
 				newOptions.push(newOption)
 			}
 		})
 
-		s.plugin('test', {a: 1})
-		s.plugin('test', {a: 1, b: 2})
+		s.pluginOption('test', {a: 1})
+		s.pluginOption('test', {a: 1, b: 2})
 
 		assert.deepEqual(oldOptions, [
 			undefined,
@@ -50,4 +51,28 @@ define(function (require) {
 
 		pluginManager.remove('test')
 	})
+
+
+	QUnit.test('_callPlugin()', function (assert) {
+		var s = new SimpleView({selector: $('<div>')})
+		pluginManager.add('test', {
+			onAdd   : function () {
+			},
+			onRemove: function () {
+			},
+			onChange: function (view, oldOption, newOption) {
+			},
+			onTest  : function (options, str1, str2) {
+				assert.deepEqual(options, {x: 1})
+				assert.equal(str1, 'aaa')
+				assert.equal(str2, 'bbb')
+			}
+		})
+
+		s.pluginOption('test', {x: 1})
+		s._callPlugins('onTest', 'aaa', 'bbb')
+		pluginManager.remove('test')
+	})
+
+
 })

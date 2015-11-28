@@ -20,6 +20,7 @@ define(function (require) {
 			if (!plugin.onAdd) throw new Error('plugin must has onRemove function')
 			if (!plugin.onAdd) throw new Error('plugin must has onChange function')
 			this._plugins[name] = plugin
+			return plugin
 		},
 
 		remove: function (name) {
@@ -28,6 +29,13 @@ define(function (require) {
 
 		has: function (name) {
 			return name in this._plugins
+		},
+
+		forEach: function (cb) {
+			for (var name in this._plugins) {
+				var plugin = this._plugins[name]
+				cb(name, plugin)
+			}
 		}
 	})
 
