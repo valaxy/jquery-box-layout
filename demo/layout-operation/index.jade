@@ -1,49 +1,51 @@
-doctype html
-html
-    head
-        meta(charset="utf-8")
-        title Hello box-layout
-        link(rel="stylesheet" href="index.css")
-        link(rel="stylesheet" href="../../node_modules/jquery-ui/themes/sunny/jquery-ui.min.css")
-    body
-        //- 使用JS API的方式构建一个视图系统
-        div.everything
-            div.button-list
-                button.remove 单击移除第2个视图
-                fieldset
-                    legend split
-                    button.splitAtTop split at top
-                    button.splitAtBottom split at bottom
-                    button.splitAtLeft split at left
-                    button.splitAtRight split at right
-                fieldset
-                    legend addViewAtEdge
-                    button.addViewAtTop add view at top
-                    button.addViewAtRight add view at right
-                    button.addViewAtBottom add view at bottom
-                    button.addViewAtLeft add view at left
-                fieldset
-                    legend replaceWith
-                    button.replaceWithRoot replace with root
-                    button.replaceWithFirst replace with first
-                fieldset
-                    legent wrap
-                    button.wrapCurrentWithRow wrap current with row
-                    button.wrapCurrentWithColumn wrap current with column
-                    button.wrapRoot wrap root
-                fieldset
-                    legent remove
-                    button.removeCurrent remove current
-                fieldset.info
-                    div.current
-                        label
-                        span
-            div.main
+extends ../base/template
 
-        // startup
-        script(src="../../node_modules/requirejs/require.js")
-        script(src="../../demo/base/config.js")
-        script.
-            require(['demo/layout-operation/index'], function (index) {
-                index.init()
-            })
+block script
+    script(src="../../node_modules/requirejs/require.js")
+    script(src="../../demo/base/config.js")
+    script.
+        require(['demo/layout-operation/index'])
+
+block style
+    link(rel="stylesheet" href="index.css")
+
+
+block title
+    title Hello Layout Operations
+
+
+block body
+    //- 使用JS API的方式构建一个视图系统
+    div.everything
+        div.button-list
+            button.remove 单击移除第2个视图
+            fieldset
+                legend split
+                button.splitAtTop split at top
+                button.splitAtBottom split at bottom
+                button.splitAtLeft split at left
+                button.splitAtRight split at right
+            fieldset
+                legend addViewAtEdge
+                button.addViewAtTop add view at top
+                button.addViewAtRight add view at right
+                button.addViewAtBottom add view at bottom
+                button.addViewAtLeft add view at left
+            fieldset
+                legend replaceWith
+                button.replaceWithRoot replace with root
+                button.replaceWithFirst replace with first
+            fieldset
+                legent wrap
+                button.wrapCurrentWithRow wrap current with row
+                button.wrapCurrentWithColumn wrap current with column
+                button.wrapRoot wrap root
+            fieldset
+                legent remove
+                button.removeCurrent remove current
+            fieldset.info
+                div.current
+                    label
+                    span
+        div.main
+

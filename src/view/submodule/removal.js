@@ -1,4 +1,4 @@
-define(function (require) {
+define(function () {
 
 	return function (View, SimpleView, LinearLayout) {
 
@@ -6,10 +6,7 @@ define(function (require) {
 		 ** return: this
 		 */
 		View.prototype.remove = function () {
-			if (!this.parent()) {
-				throw new Error('Can not remove root, because root has no parent')
-			}
-
+			if (this.isRoot()) throw new Error('Can not remove root view')
 			this.parent().removeView(this)
 			return this
 		}

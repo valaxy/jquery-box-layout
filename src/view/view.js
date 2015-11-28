@@ -62,10 +62,9 @@ define(function (require) {
 	View.SimpleView = extend(SimpleView)
 	View.LinearLayout = extend(LinearLayout)
 
-	require('./submodule/private')(View, SimpleView, LinearLayout)
 	require('./submodule/removal')(View, SimpleView, LinearLayout)
 	require('./submodule/insertion')(View, SimpleView, LinearLayout)
-	require('./submodule/insertion-around')(SimpleView, LinearLayout)
+	require('./submodule/insertion-around')(View, SimpleView, LinearLayout)
 	require('./submodule/css')(View, SimpleView, LinearLayout)
 	require('./submodule/property')(View, SimpleView, LinearLayout)
 	require('./submodule/enumeration')(View, SimpleView, LinearLayout)

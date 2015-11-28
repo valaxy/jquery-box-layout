@@ -1,15 +1,16 @@
-define(function () {
+define(function (require) {
+	var $ = require('jquery')
 
 	return function (View, SimpleView, LinearLayout) {
 		/** Create a parent layout replacing `this` and append both of `this` and `adder`, the `adder` will at `position` of parent
-		 ** adder:        the new added view
-		 ** position:     'top' | 'bottom' | 'left' | 'right'
-		 ** adderOptions: new options of adder
-		 ** thisOptions:  new options of this
+		 ** adder:       the new added view
+		 ** position:    'top' | 'bottom' | 'left' | 'right'
+		 ** wrapOptions: options of wrap view
 		 ** return: this
 		 */
-		View.prototype.split = function (adder, position, adderOptions, thisOptions) {
-			if (adder.parent()) {
+		View.prototype.split = function (adder, position, wrapOptions) {
+			if (this.isRoot()) throw new Error('Can not split root view')
+			if (adder.parent()) { // todo, 添加守护函数
 				adder.remove()
 			}
 
@@ -18,85 +19,50 @@ define(function () {
 			var isVertical = type == 'vertical'
 			position = position || (isVertical ? 'bottom' : 'right')
 
+			var wrap = new LinearLayout($.extend(wrapOptions, {
+				direction: isVertical ? 'column' : 'row'
+			}))
 
 			// split it
-			if (!this.parent()) { // root element
-				var wrap = new View.LinearLayout({
-					direction       : isVertical ? 'column' : 'row',
-					resizeableAfter : true,  // todo
-					resizeableBefore: true
-				})
-				var $parent = this._$dom.parent()
-				this._$dom.detach()
+			var parent = this.parent()
+			var index = parent.indexOfView(this)
+			this.remove()
 
-				// root element no need to remove from layout
-				adder.config(adderOptions)
-				this.config(thisOptions)
-				if (position == 'top' || position == 'left') {
-					wrap.appendView(adder)
-					wrap.appendView(this)
-				} else {
-					wrap.appendView(this)
-					wrap.appendView(adder)
-				}
-				$parent.append(wrap._$dom)
+			if (position == 'top' || position == 'left') {
+				wrap.appendView(adder)
+				wrap.appendView(this)
 			} else {
-				var parent = this.parent()
-				var index = parent.indexOfView(this)
-				var oldOptions = this.config()
-				this.remove()
-				var wrap = new LinearLayout({
-					direction       : isVertical ? 'column' : 'row',
-					resizeableAfter : true, // todo
-					resizeableBefore: true
-				})
-
-				adder.config(adderOptions)
-				this.config(thisOptions)
-				if (position == 'top' || position == 'left') {
-					wrap.appendView(adder)
-					wrap.appendView(this)
-				} else {
-					wrap.appendView(this)
-					wrap.appendView(adder)
-				}
-
-				wrap.config(oldOptions)
-				parent.addViewAt(index, wrap)
+				wrap.appendView(this)
+				wrap.appendView(adder)
 			}
+
+			parent.addViewAt(index, wrap)
 			return this
 		}
 
 
 		/** Wrap by `wrapper`
-		 ** options: options of this as child of wrapper
 		 ** return: this
 		 */
-		View.prototype.wrap = function (wrapper, options) {
-			if (!(wrapper instanceof View.LinearLayout) || !(wrapper.isIsolate())) {
+		View.prototype.wrap = function (wrapper) {
+			if (!(wrapper instanceof LinearLayout) || !(wrapper.isIsolate())) {
 				throw new Error('wrapper should be LinearLayout and empty and no parent')
 			}
 
 			if (this.parent()) {
-				var thisParent = this.parent()
-				var index = thisParent.indexOfView(this)
-				var originalOptions = this.config()
-				thisParent.removeViewAt(index)
-				wrapper.config(originalOptions)
-				thisParent.addViewAt(index, wrapper)
-			} else {
+				this.replaceWith(wrapper)
+			} else { // todo, need review
 				var $root = this.$dom().parent() // $root is not in any SimpleView/LinearLayout
 				this.$dom().detach()
 				$root.append(wrapper.$dom())
 			}
 
-			this.config(options)
 			wrapper.appendView(this)
 			return this
 		}
 
 
-		/** Replace this with another `view` which uses options of this
+		/** Replace this with another `view`
 		 ** return: this
 		 **/
 		View.prototype.replaceWith = function (view) {
@@ -104,7 +70,6 @@ define(function () {
 				var parent = this.parent()
 				var index = parent.indexOfView(this)
 				parent.removeViewAt(index)
-				view.config(this.config())
 				parent.addViewAt(index, view)
 			} else { // root
 				this._$dom.replaceWith(view._$dom)
@@ -114,3 +79,20 @@ define(function () {
 
 	}
 })
+
+
+//// split it
+//if (!this.parent()) { // root element
+//	var $parent = this._$dom.parent()
+//	this._$dom.detach()
+//
+//	// root element no need to remove from layout
+//	if (position == 'top' || position == 'left') {
+//		wrap.appendView(adder)
+//		wrap.appendView(this)
+//	} else {
+//		wrap.appendView(this)
+//		wrap.appendView(adder)
+//	}
+//	$parent.append(wrap._$dom)
+//}

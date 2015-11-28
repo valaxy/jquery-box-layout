@@ -23,7 +23,7 @@ define(function (require) {
 			// apply resizeable on prevView between simpleView
 			if (prevView) {
 				var resizable = new Resizeable(prevView.$dom(), view.$dom(), linearLayout.direction())
-				resizable.on() // todo, if (prevView.hasPlugin('resizable'))
+				resizable.on()
 				linearLayout._resizeables.splice(prevIndex, 0, resizable)
 			}
 
@@ -33,20 +33,23 @@ define(function (require) {
 				resizeable.on()
 				linearLayout._resizeables.splice(index, 0, resizeable)
 			}
+
+			//console.log('onAdd index: %s, length: %s, rlength: %s', index, linearLayout.length(), linearLayout._resizeables.length)
 		},
 
 		onRemove: function (options, linearLayout, index, view) {
 			var prevIndex = index - 1
 			var prevView = linearLayout.getViewAt(prevIndex)
 			var nextView = linearLayout.getViewAt(index)
+			//console.log('onRemove begin index: %s, length: %s, rlength: %s', index, linearLayout.length(), linearLayout._resizeables.length)
 
 			// remove resizable between view and next
-			if (nextView) {
+			if (nextView) { // index < linearLayout.length() - 1
 				linearLayout._resizeables.splice(index, 1)[0].off()
 			}
 
 			// remove resizable between prev and view
-			if (index < linearLayout.length() - 1) { // todo, 这里为什么不能用 if (prevView)
+			if (prevView) {
 				var resizable = linearLayout._resizeables.splice(prevIndex, 1)[0]
 				resizable.off()
 			}
@@ -57,6 +60,8 @@ define(function (require) {
 				resizable.on()
 				linearLayout._resizeables.splice(prevIndex, 0, resizable)
 			}
+
+			//console.log('onRemove end index: %s, length: %s, rlength: %s', index, linearLayout.length(), linearLayout._resizeables.length)
 		},
 
 		onChange: function () {
