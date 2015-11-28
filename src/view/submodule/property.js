@@ -1,7 +1,6 @@
 define(function (require) {
 	var OrderedNode = require('cjs!algorithm-data-structure/tree/ordered/array-ordered-node')
 	var help = require('../../help/help')
-	var _ = require('underscore')
 
 	return function (View, SimpleView, LinearLayout) {
 
@@ -15,25 +14,6 @@ define(function (require) {
 		View.prototype.parent = function () {
 			return this._parent
 		}
-
-
-		/** Get the original config, if it removed from LinearLayout, it will be saved
-		 ** Or Set config
-		 */
-		View.prototype.config = function (options) {
-			if (options) {
-				if (options.flex !== undefined) {
-					this.flex(options.flex)
-				}
-			} else {
-				return {
-					flex   : this.flex(), // todo, 移除flex
-					plugins: this._options.plugins
-				}
-			}
-
-		}
-
 
 
 		/** Whether is isolate */
@@ -74,26 +54,37 @@ define(function (require) {
 		}
 
 
+		// flex
+		View.prototype._config = function (options) {
+			if (options.flex !== undefined) {
+				this.flex(options.flex)
+			}
+		}
+
 		/** Return json data */
 		SimpleView.prototype.toJSON = function () {
-			return help.removeUndefinedProperties($.extend({
-				_schema  : this._options._schema,
-				selector : this._options.selector,
-				className: this._options.className
-			}, this.config()))
+			return help.removeUndefinedProperties({
+				_schema  : this._schema,
+				className: this._className,
+				flex     : this.flex(),
+				selector : this._selector,
+				plugins  : this._pluginOptions
+			})
 		}
 
 
 		/** Return json data */
 		LinearLayout.prototype.toJSON = function () {
-			return help.removeUndefinedProperties($.extend({
-				_schema  : this._options._schema,
+			return help.removeUndefinedProperties({
+				_schema  : this._schema,
+				className: this._className,
+				flex     : this.flex(),
 				direction: this.direction(),
-				className: this._options.className,
-				views    : _.map(this._views, function (view) {
+				plugins  : this._pluginOptions,
+				views    : this._views.map(function (view) {
 					return view.toJSON()
 				})
-			}, this.config()))
+			})
 		}
 
 

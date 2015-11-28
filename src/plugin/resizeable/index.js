@@ -1,11 +1,14 @@
 define(function (require) {
 	var Resizeable = require('./jqueryui-resizable')
-
 	/** Used in SimpleView */
 
 	// @log, 旧版本的jquery-ui 1.10.5有bug, 一定要升级到最新版!!!!
 
 	return {
+		onInit: function() {
+			this._resizeables = []
+		},
+
 		onAdd: function (options, linearLayout, index, view) {
 			var prevIndex = index - 1
 			var nextIndex = index + 1

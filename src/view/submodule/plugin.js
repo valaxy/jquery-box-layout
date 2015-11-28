@@ -5,6 +5,7 @@ define(function (require) {
 
 		View.prototype._initPlugins = function (pluginOptions) {
 			this._pluginOptions = pluginOptions || {}
+			this._callPlugins('onInit')
 		}
 
 
