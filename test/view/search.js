@@ -3,11 +3,7 @@ define(function (require) {
 	var SimpleView = require('src/view/simple-view')
 	var $ = require('jquery')
 
-	QUnit.module('search', {
-		beforeEach: function () {
-
-		}
-	})
+	QUnit.module('submodule: search')
 
 
 	QUnit.test('LinearLayout#findViewByDom()', function (assert) {

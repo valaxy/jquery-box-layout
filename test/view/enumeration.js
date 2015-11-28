@@ -3,29 +3,31 @@ define(function (require) {
 	var SimpleView = require('src/view/simple-view')
 	var $ = require('jquery')
 
-	QUnit.module('enumeration', {
-		beforeEach: function () {
 
-		}
-	})
+	var getEnumArray = function (linear) {
+		var ary = []
+		linear.eachSimpleView(function (view) {
+			ary.push(view)
+		})
+		return ary
+	}
+
+	var getEnumArray2 = function (linear) {
+		var ary = []
+		linear.eachView(function (view) {
+			ary.push(view)
+		})
+		return ary
+	}
+
+	var createSimpleView = function () {
+		return new SimpleView({selector: $('<div>')})
+	}
+
+	QUnit.module('submodule: enumeration')
 
 	QUnit.test('eachSimpleView()', function (assert) {
-		var l = new LinearLayout({
-			direction: 'row',
-			flex     : ''
-		})
-
-		var getEnumArray = function (linear) {
-			var ary = []
-			linear.eachSimpleView(function (view) {
-				ary.push(view)
-			})
-			return ary
-		}
-
-		var createSimpleView = function () {
-			return new SimpleView({selector: $('<div>')})
-		}
+		var l = new LinearLayout({direction: 'row'})
 
 		// empty
 		assert.deepEqual(getEnumArray(l), [])
@@ -34,5 +36,17 @@ define(function (require) {
 		var s1 = createSimpleView()
 		l.appendView(s1)
 		assert.deepEqual(getEnumArray(l), [s1])
+	})
+
+	QUnit.test('eachView()', function (assert) {
+		var l = new LinearLayout({direction: 'row'})
+
+		// empty
+		assert.deepEqual(getEnumArray2(l), [l])
+
+		// add one
+		var s1 = createSimpleView()
+		l.appendView(s1)
+		assert.deepEqual(getEnumArray2(l), [s1, l])
 	})
 })

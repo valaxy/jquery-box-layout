@@ -11,5 +11,13 @@ define(function () {
 				}
 			})
 		}
+
+		/** Enum all View, include itself */
+		LinearLayout.prototype.eachView = function (fn) {
+			this.toTreeNode().postorderWalk(function (node) {
+				var view = node.value
+				fn(view)
+			})
+		}
 	}
 })

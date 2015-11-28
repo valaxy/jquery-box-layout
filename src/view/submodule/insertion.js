@@ -1,5 +1,4 @@
-define(function (require) {
-
+define(function () {
 	return function (View, SimpleView, LinearLayout) {
 
 		/** Add view at last
@@ -21,11 +20,8 @@ define(function (require) {
 		/** Add view at specify position
 		 **     index: position number
 		 **     view: LinearLayout or SimpleView
-		 **     options:
-		 **         silent: Boolean, default is false
 		 */
-		LinearLayout.prototype.addViewAt = function (index, view, options) {
-			options = options || {}
+		LinearLayout.prototype.addViewAt = function (index, view) {
 			view._parent = this
 			var prevIndex = index - 1
 			var nextIndex = index
@@ -55,8 +51,9 @@ define(function (require) {
 
 		/** Add view at edge
 		 ** position: 'left' | 'right' | 'top' | 'bottom'
+		 ** options: flex, only use when reorder
 		 */
-		LinearLayout.prototype.addViewAtEdge = function (view, position) {
+		LinearLayout.prototype.addViewAtEdge = function (view, position, options) {
 			var positionConfig = {
 				bottom: 'row',
 				top   : 'row',
@@ -68,10 +65,9 @@ define(function (require) {
 			var shouldAppend = position == 'bottom' || position == 'right'
 			if (this.direction() == direction) { // if direction not match then reorder
 				var views = this.empty()
-				var wrap = new View.LinearLayout({
-					direction: direction,
-					flex     : '1 1 0'// todo, 这里的flex是多少?, 这里要调整算法
-				})
+				var wrap = new LinearLayout($.extend(options, {
+					direction: direction
+				}))
 				for (var i = 0; i < views.length; i++) {
 					wrap.appendView(views[i]) // add original views as children
 				}
@@ -79,14 +75,8 @@ define(function (require) {
 				this.appendView(wrap)
 			}
 			shouldAppend ? this.appendView(view) : this.prependView(view)
+			return this
 		}
 
 	}
 })
-
-
-//options = $.extend({
-//	resizeableBefore: true, // todo, 有时这些选项不会生效, 因为依赖项还没被加到view里来
-//	resizeableAfter : true
-//}, options)
-//view._$dom.css({flex: options.flex})

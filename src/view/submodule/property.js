@@ -56,6 +56,7 @@ define(function (require) {
 
 		// flex
 		View.prototype._config = function (options) {
+			options = options || {}
 			if (options.flex !== undefined) {
 				this.flex(options.flex)
 			}

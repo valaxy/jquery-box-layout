@@ -44,7 +44,8 @@ define(function (require) {
 	 */
 	var SimpleView = function (options) {
 		options = options || {}
-		if (!$(options.selector).length) throw new Error('dom of selector must be exist in SimpleView')
+		if ($(options.selector).length < 1) throw new Error('dom of selector must be exist of SimpleView')
+		if ($(options.selector).length > 1) throw new Error('dom of selector must only exist one of SimpleView')
 
 		this._schema = 'simple'
 		this._selector = options.selector
@@ -52,7 +53,6 @@ define(function (require) {
 
 		initView.call(this, options)
 	}
-
 
 	var extend = function (Class) {
 		Class.prototype = new View()
