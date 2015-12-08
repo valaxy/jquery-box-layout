@@ -38,7 +38,7 @@ define(function (require) {
 			sizeProperty = 'height'
 			maxSizeProperty = 'maxHeight'
 			minSizeProperty = 'minHeight'
-			handles = direction == 's'
+			handles = 's'
 		}
 
 
