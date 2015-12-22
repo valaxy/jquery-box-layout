@@ -2,13 +2,6 @@
   "name": "jquery-flex-layout",
   "version": "0.1.0-dev",
   "description": "See github",
-  "main": [
-    "src/view/simple-view",
-    "src/view/linear-layout",
-    "src/plugin/resizable",
-    "src/plugin/drag-and-drop",
-    "src/dock-layout"
-  ],
   "directories": {
     "doc": "doc",
     "test": "test"
